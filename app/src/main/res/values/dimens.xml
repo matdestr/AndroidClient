@@ -7,5 +7,9 @@
     <dimen name="material_margin_right">16dp</dimen>
     <dimen name="material_list_item_height">48dp</dimen>
 
+    <!-- LOGIN PAGE -->
+    <dimen name="padding_login_left">24dp</dimen>
+    <dimen name="padding_login_right">24dp</dimen>
+
     <dimen name="navheader_height">222dp</dimen>
 </resources>

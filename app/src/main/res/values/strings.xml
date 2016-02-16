@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Kandoe</string>
+
+    <!-- SIGN PAGE -->
+    <string name="sign_in_email_hint">Email</string>
+    <string name="sign_in_password_hint">Password</string>
+    <string name="sign_in_button">Login</string>
+    <string name="sign_in_sign_up_now">Sign up now!</string>
 </resources>
