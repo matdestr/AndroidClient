@@ -9,47 +9,85 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        android:paddingTop="56dp">
+        android:paddingLeft="@dimen/padding_signin_left"
+        android:paddingRight="@dimen/padding_signin_right"
+        android:paddingTop="@dimen/padding_signin_top">
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="72dp"
+            android:layout_height="@dimen/signin_layout_heigt"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="@dimen/signin_margin_bottom_imageview"
             android:src="@drawable/cando_logo" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="@dimen/signin_margin_textinputlayout"
+            android:layout_marginTop="@dimen/signin_margin_textinputlayout"
             android:theme="@style/TextInputLayout">
 
             <EditText
-                android:id="@+id/input_name"
+                android:id="@+id/signup_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorTextLight"
                 android:textColorHint="@color/colorTextLight"
-                android:hint="@string/sign_up_name_hint"
+                android:textSize="@dimen/signin_text_size"
+                android:hint="@string/sign_up_username_hint"
                 android:inputType="textCapWords" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="@dimen/signin_margin_textinputlayout"
+            android:layout_marginTop="@dimen/signin_margin_textinputlayout"
             android:theme="@style/TextInputLayout">
 
             <EditText
-                android:id="@+id/input_email"
+                android:id="@+id/signup_first_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorTextLight"
                 android:textColorHint="@color/colorTextLight"
+                android:textSize="@dimen/signin_text_size"
+                android:hint="@string/sign_up_firstname_hint"
+                android:inputType="textCapWords" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/signin_margin_textinputlayout"
+            android:layout_marginTop="@dimen/signin_margin_textinputlayout"
+            android:theme="@style/TextInputLayout">
+
+            <EditText
+                android:id="@+id/signup_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTextLight"
+                android:textColorHint="@color/colorTextLight"
+                android:textSize="@dimen/signin_text_size"
+                android:hint="@string/sign_up_lastname_hint"
+                android:inputType="textCapWords" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/signin_margin_textinputlayout"
+            android:layout_marginTop="@dimen/signin_margin_textinputlayout"
+            android:theme="@style/TextInputLayout">
+
+            <EditText
+                android:id="@+id/signup_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTextLight"
+                android:textColorHint="@color/colorTextLight"
+                android:textSize="@dimen/signin_text_size"
                 android:hint="@string/sign_up_email_hint"
                 android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
@@ -57,17 +95,36 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="@dimen/signin_margin_textinputlayout"
+            android:layout_marginTop="@dimen/signin_margin_textinputlayout"
             android:theme="@style/TextInputLayout">
 
             <EditText
-                android:id="@+id/input_password"
+                android:id="@+id/signup_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/colorTextLight"
                 android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/signin_text_size"
                 android:hint="@string/sign_up_password_hint"
+                android:inputType="textPassword" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/signin_margin_textinputlayout"
+            android:layout_marginTop="@dimen/signin_margin_textinputlayout"
+            android:theme="@style/TextInputLayout">
+
+            <EditText
+                android:id="@+id/signup_verifypassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/colorTextLight"
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/signin_text_size"
+                android:hint="@string/sign_up_verify_password_hint"
                 android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
@@ -75,22 +132,23 @@
             android:id="@+id/btn_sign_up"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="24dp"
-            android:padding="12dp"
-            android:background="@color/colorTextLight"
-            android:textColor="@color/colorTextDark"
+            android:layout_marginBottom="@dimen/signin_margin_button"
+            android:layout_marginTop="@dimen/signin_margin_button"
+            android:padding="@dimen/signin_padding_button"
+            android:backgroundTint="@color/colorTextLight"
+            android:textSize="@dimen/signin_text_size"
+            android:textColor="@color/colorPrimary"
             android:text="@string/sign_up_button" />
 
         <TextView
             android:id="@+id/link_sign_in"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="@dimen/signin_margin_bottom_imageview"
             android:gravity="center"
             android:text="@string/sign_up_already_member"
             android:textColor="@color/colorTextLight"
-            android:textSize="16dip" />
+            android:textSize="@dimen/signin_text_size_small" />
 
     </LinearLayout>
 

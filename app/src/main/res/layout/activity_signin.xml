@@ -6,77 +6,79 @@
     android:fitsSystemWindows="true">
 
 
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/padding_login_left"
-        android:paddingRight="@dimen/padding_login_right">
+        android:paddingLeft="@dimen/padding_signin_left"
+        android:paddingRight="@dimen/padding_signin_right">
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="72dp"
+            android:layout_height="@dimen/signin_layout_heigt"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="@dimen/signin_margin_bottom_imageview"
             android:src="@drawable/cando_logo" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="@dimen/signin_margin_textinputlayout"
+            android:layout_marginTop="@dimen/signin_margin_textinputlayout"
             android:theme="@style/TextInputLayout">
 
             <EditText
-                android:id="@+id/signin_email"
+                android:id="@+id/signin_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/sign_in_email_hint"
+                android:hint="@string/sign_in_username_hint"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/colorTextLight"
-                android:textColorHint="@color/colorTextLight" />
+                android:textColorHint="@color/colorTextLight"
+                android:textSize="@dimen/signin_text_size" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="@dimen/signin_margin_textinputlayout"
+            android:layout_marginTop="@dimen/signin_margin_textinputlayout"
             android:theme="@style/TextInputLayout">
 
 
-        <EditText
+            <EditText
                 android:id="@+id/signin_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/sign_in_password_hint"
                 android:inputType="textPassword"
                 android:textColor="@color/colorTextLight"
-                android:textColorHint="@color/colorTextLight" />
+                android:textColorHint="@color/colorTextLight"
+                android:textSize="@dimen/signin_text_size" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_sign_in"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="24dp"
-            android:padding="12dp"
+            android:layout_marginBottom="@dimen/signin_margin_button"
+            android:layout_marginTop="@dimen/signin_margin_button"
+            android:padding="@dimen/signin_padding_button"
             android:text="@string/sign_in_button"
-            android:background="@color/colorTextLight"
-            android:textColor="@color/colorTextDark"/>
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/signin_text_size"
+            android:backgroundTint="@color/colorTextLight"/>
 
         <TextView
             android:id="@+id/link_sign_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="@dimen/signin_margin_bottom_imageview"
             android:gravity="center"
-            android:textColor="@color/colorTextLight"
             android:text="@string/sign_in_sign_up_now"
-            android:textSize="16dip" />
+            android:textColor="@color/colorTextLight"
+            android:textSize="@dimen/signin_text_size_small" />
 
     </LinearLayout>
 </ScrollView>
