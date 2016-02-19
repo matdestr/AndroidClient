@@ -10,11 +10,15 @@ import be.kdg.teame.kandoe.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ * Created by Mathisse on 19/02/2016.
+ */
+public class SignUpActivity extends BaseActivity {
 
-public class SignInActivity extends BaseActivity {
-
-    @Bind(R.id.btn_sign_in) Button mBtnSignIn;
-    @Bind(R.id.link_sign_up) TextView mTextSignUpHere;
+    @Bind(R.id.btn_sign_up)
+    Button mBtnSignUp;
+    @Bind(R.id.link_sign_in)
+    TextView mTextSignIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,35 +29,34 @@ public class SignInActivity extends BaseActivity {
     }
 
     private void initialiseListeners() {
-        mBtnSignIn.setOnClickListener(new View.OnClickListener() {
+        mBtnSignUp.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                signIn();
+                signUp();
             }
         });
-        mTextSignUpHere.setOnClickListener(new View.OnClickListener() {
+        mTextSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToSignUp();
+                goToSignIn();
             }
         });
     }
 
-    private void goToSignUp() {
-        Intent intent = new Intent(getApplicationContext(),SignUpActivity.class);
+    private void goToSignIn() {
+        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
         startActivity(intent);
     }
 
-    private void signIn() {
+    private void signUp() {
         //testing
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
-
     }
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.activity_signin;
+        return R.layout.activity_signup;
     }
 }

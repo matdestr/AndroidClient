@@ -2,18 +2,16 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:fitsSystemWindows="true">
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
 
-
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/padding_login_left"
-        android:paddingRight="@dimen/padding_login_right">
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="56dp">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -30,13 +28,13 @@
             android:theme="@style/TextInputLayout">
 
             <EditText
-                android:id="@+id/signin_email"
+                android:id="@+id/input_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/sign_in_email_hint"
-                android:inputType="textEmailAddress"
                 android:textColor="@color/colorTextLight"
-                android:textColorHint="@color/colorTextLight" />
+                android:textColorHint="@color/colorTextLight"
+                android:hint="@string/sign_up_name_hint"
+                android:inputType="textCapWords" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -46,37 +44,55 @@
             android:layout_marginTop="8dp"
             android:theme="@style/TextInputLayout">
 
-
-        <EditText
-                android:id="@+id/signin_password"
+            <EditText
+                android:id="@+id/input_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/sign_in_password_hint"
-                android:inputType="textPassword"
                 android:textColor="@color/colorTextLight"
-                android:textColorHint="@color/colorTextLight" />
+                android:textColorHint="@color/colorTextLight"
+                android:hint="@string/sign_up_email_hint"
+                android:inputType="textEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:theme="@style/TextInputLayout">
+
+            <EditText
+                android:id="@+id/input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/colorTextLight"
+                android:textColor="@color/colorTextLight"
+                android:hint="@string/sign_up_password_hint"
+                android:inputType="textPassword" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_sign_in"
-            android:layout_width="match_parent"
+            android:id="@+id/btn_sign_up"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:layout_marginTop="24dp"
             android:padding="12dp"
-            android:text="@string/sign_in_button"
             android:background="@color/colorTextLight"
-            android:textColor="@color/colorTextDark"/>
+            android:textColor="@color/colorTextDark"
+            android:text="@string/sign_up_button" />
 
         <TextView
-            android:id="@+id/link_sign_up"
-            android:layout_width="match_parent"
+            android:id="@+id/link_sign_in"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:gravity="center"
+            android:text="@string/sign_up_already_member"
             android:textColor="@color/colorTextLight"
-            android:text="@string/sign_in_sign_up_now"
             android:textSize="16dip" />
 
     </LinearLayout>
+
+
 </ScrollView>

@@ -1,9 +1,16 @@
 <resources>
     <string name="app_name">Kandoe</string>
 
-    <!-- SIGN PAGE -->
+    <!-- SIGN IN PAGE -->
     <string name="sign_in_email_hint">Email</string>
     <string name="sign_in_password_hint">Password</string>
-    <string name="sign_in_button">Login</string>
+    <string name="sign_in_button">Sign in</string>
     <string name="sign_in_sign_up_now">Sign up now!</string>
+
+    <!-- SIGN UP PAGE -->
+    <string name="sign_up_email_hint">Email</string>
+    <string name="sign_up_password_hint">Password</string>
+    <string name="sign_up_name_hint">Name</string>
+    <string name="sign_up_button">Sign Up</string>
+    <string name="sign_up_already_member">Already a member? Sign in</string>
 </resources>
