@@ -9,18 +9,22 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import be.kdg.teame.kandoe.R;
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
 
-    private DrawerLayout mDrawerLayout;
-    private NavigationView mNavigationViewMain, mNavigationViewFooter;
-    private Toolbar mToolbar;
+    @Bind(R.id.drawer) DrawerLayout mDrawerLayout;
+    @Bind(R.id.nav_view_main) NavigationView mNavigationViewMain;
+    @Bind(R.id.nav_view_footer) NavigationView mNavigationViewFooter;
+    @Bind(R.id.toolbar) Toolbar mToolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        InitializeComponents();
+        ButterKnife.bind(this);
 
         ConfigureToolbar();
 
@@ -45,14 +49,6 @@ public class MainActivity extends BaseActivity {
 
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void InitializeComponents() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        mNavigationViewMain = (NavigationView) findViewById(R.id.nav_view_main);
-        mNavigationViewFooter = (NavigationView) findViewById(R.id.nav_view_footer);
-
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
     }
 
     private void ConfigureToolbar() {
