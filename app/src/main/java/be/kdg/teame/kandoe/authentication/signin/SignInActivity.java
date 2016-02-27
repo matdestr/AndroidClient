@@ -62,7 +62,7 @@ public class SignInActivity extends BaseActivity implements SignInContract.View 
 
     @Override
     public void showErrorWrongCredentials() {
-        DialogGenerator.showErrorDialog(this, R.string.sign_in_error_wrong_credentials);
+        DialogGenerator.showErrorDialog(this, R.string.sign_in_error_title, R.string.sign_in_error_wrong_credentials);
     }
 
     @Override

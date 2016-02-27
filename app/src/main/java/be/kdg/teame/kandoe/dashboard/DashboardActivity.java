@@ -31,7 +31,7 @@ public class DashboardActivity extends BaseDrawerActivity {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.activity_main;
+        return R.layout.activity_dashboard;
     }
 
     @Override

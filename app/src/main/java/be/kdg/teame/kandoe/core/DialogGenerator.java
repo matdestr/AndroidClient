@@ -10,13 +10,17 @@ import be.kdg.teame.kandoe.R;
 
 public class DialogGenerator {
 
-    public static void showErrorDialog(Context context, @StringRes int messageId){
-        showErrorDialog(context, context.getString(messageId));
+    public static void showErrorDialog(Context context, @StringRes int titleId, @StringRes int messageId){
+        showErrorDialog(context, context.getString(titleId), context.getString(messageId));
     }
 
-    public static void showErrorDialog(Context context, CharSequence message) {
+    public static void showErrorDialog(Context context, @StringRes int messageId){
+        showErrorDialog(context, context.getString(R.string.dialog_error_title_default), context.getString(messageId));
+    }
+
+    public static void showErrorDialog(Context context, CharSequence title, CharSequence message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(R.string.dialog_error_title_default)
+        builder.setTitle(title)
                 .setMessage(message)
                 .setCancelable(false)
                 .setPositiveButton(R.string.dialog_ok, null);

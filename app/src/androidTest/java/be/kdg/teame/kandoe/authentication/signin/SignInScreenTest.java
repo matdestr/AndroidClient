@@ -51,7 +51,7 @@ public class SignInScreenTest {
 
         screen.signIn("user", "wrong-pass");
 
-        onView(withText(R.string.dialog_error_title_default)).check(matches(isDisplayed()));
+        onView(withText(R.string.sign_in_error_title)).check(matches(isDisplayed()));
     }
 
     @Test

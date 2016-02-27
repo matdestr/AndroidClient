@@ -5,27 +5,30 @@
     android:background="@color/colorPrimary"
     android:fitsSystemWindows="true">
 
-
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
+        android:paddingEnd="@dimen/padding_signin_right"
         android:paddingLeft="@dimen/padding_signin_left"
-        android:paddingRight="@dimen/padding_signin_right">
+        android:paddingRight="@dimen/padding_signin_right"
+        android:paddingStart="@dimen/padding_signin_left">
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/signin_layout_heigt"
+            android:layout_height="@dimen/signin_logo_height"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/signin_margin_bottom_imageview"
+            android:layout_marginBottom="@dimen/signin_logo_margin_vertical"
+            android:layout_marginTop="@dimen/signin_logo_margin_vertical"
+            android:contentDescription="@string/app_name"
             android:src="@drawable/cando_logo" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/signin_margin_textinputlayout"
-            android:layout_marginTop="@dimen/signin_margin_textinputlayout"
+            android:layout_marginBottom="@dimen/material_content_space"
+            android:layout_marginTop="@dimen/material_content_space"
             android:theme="@style/TextInputLayout">
 
             <EditText
@@ -42,8 +45,8 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/signin_margin_textinputlayout"
-            android:layout_marginTop="@dimen/signin_margin_textinputlayout"
+            android:layout_marginBottom="@dimen/material_margin_default"
+            android:layout_marginTop="@dimen/material_content_space"
             android:theme="@style/TextInputLayout">
 
 
@@ -58,27 +61,27 @@
                 android:textSize="@dimen/signin_text_size" />
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.v7.widget.AppCompatButton
+        <Button
+            style="@style/Material.Button.Raised"
             android:id="@+id/btn_sign_in"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/signin_margin_button"
-            android:layout_marginTop="@dimen/signin_margin_button"
-            android:padding="@dimen/signin_padding_button"
+            android:layout_marginBottom="@dimen/material_margin_default"
+            android:layout_marginTop="@dimen/material_margin_default"
             android:text="@string/sign_in_button"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/signin_text_size"
-            android:backgroundTint="@color/colorTextLight"/>
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/link_sign_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/signin_margin_bottom_imageview"
+            android:layout_marginTop="@dimen/material_margin_default"
+            android:layout_marginBottom="@dimen/material_margin_default"
             android:gravity="center"
             android:text="@string/sign_in_sign_up_now"
             android:textColor="@color/colorTextLight"
             android:textSize="@dimen/signin_text_size_small" />
 
     </LinearLayout>
+
 </ScrollView>

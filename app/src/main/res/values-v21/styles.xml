@@ -3,5 +3,12 @@
     <style name="AppTheme" parent="AppTheme.Base">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:alertDialogTheme">@style/Dialog</item>
+    </style>
+
+
+    <style name="Dialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColorPrimary">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
 </resources>

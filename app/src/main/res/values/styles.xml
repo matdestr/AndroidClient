@@ -18,4 +18,29 @@
         <item name="colorControlActivated">@color/colorTextLight</item>
     </style>
 
+    <style name="Material" />
+
+    <style name="Material.Button" parent="Material">
+        <item name="android:paddingLeft">@dimen/material_content_space</item>
+        <item name="android:paddingRight">@dimen/material_content_space</item>
+        <item name="android:layout_marginLeft">@dimen/material_content_space</item>
+        <item name="android:layout_marginRight">@dimen/material_content_space</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="Material.Button.Raised" parent="Material.Button">
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorTextLight</item>
+    </style>
+
+    <style name="Material.Button.Raised.White" parent="Material.Button.Raised">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Material.Button.Flat" parent="Material.Button">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
 </resources>
