@@ -5,7 +5,7 @@
     <string name="sign_in_username_hint">Username</string>
     <string name="sign_in_password_hint">Password</string>
     <string name="sign_in_button">Sign in</string>
-    <string name="sign_in_sign_up_now">Sign up now!</string>
+    <string name="sign_in_sign_up_now"><u>Sign up now!</u></string>
 
     <!-- SIGN UP PAGE -->
     <string name="sign_up_email_hint">Email</string>
@@ -16,4 +16,13 @@
     <string name="sign_up_lastname_hint">Last name</string>
     <string name="sign_up_button">Sign Up</string>
     <string name="sign_up_already_member">Already a member? Sign in</string>
+    <string name="sign_in_progress_message">Signing in …</string>
+
+
+    <string name="sign_in_error_wrong_credentials">Could not sign in. Please make sure your credentials are correct and try again.</string>
+    <string name="sign_in_error_connection_failure">Could not connect to the server. Please try again later.</string>
+
+    <!-- DIALOG -->
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_error_title_default">Error</string>
 </resources>

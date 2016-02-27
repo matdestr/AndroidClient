@@ -1,23 +1,22 @@
-package be.kdg.teame.kandoe.ui.activities;
+package be.kdg.teame.kandoe.dashboard;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
 import be.kdg.teame.kandoe.R;
+import be.kdg.teame.kandoe.core.activities.BaseDrawerActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity {
+public class DashboardActivity extends BaseDrawerActivity {
 
     @Bind(R.id.drawer) DrawerLayout mDrawerLayout;
     @Bind(R.id.nav_view_main) NavigationView mNavigationViewMain;
     @Bind(R.id.nav_view_footer) NavigationView mNavigationViewFooter;
-    @Bind(R.id.toolbar) Toolbar mToolbar;
 
 
     @Override
@@ -25,8 +24,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         ButterKnife.bind(this);
-
-        ConfigureToolbar();
 
         InitializeEvents();
 
@@ -48,12 +45,6 @@ public class MainActivity extends BaseActivity {
 
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void ConfigureToolbar() {
-        setSupportActionBar(mToolbar);
-        if (getSupportActionBar() == null) return;
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void InitializeEvents() {

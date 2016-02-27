@@ -1,4 +1,4 @@
-package be.kdg.teame.kandoe.ui.activities;
+package be.kdg.teame.kandoe.authentication.signup;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -13,16 +13,21 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import be.kdg.teame.kandoe.R;
+import be.kdg.teame.kandoe.authentication.signin.SignInActivity;
+import be.kdg.teame.kandoe.core.activities.BaseActivity;
+import be.kdg.teame.kandoe.dashboard.DashboardActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ * Created by Mathisse on 19/02/2016.
+ */
+public class SignUpActivity extends BaseActivity {
 
-public class SignInActivity extends BaseActivity {
-
-    @Bind(R.id.btn_sign_in)
-    Button mBtnSignIn;
-    @Bind(R.id.link_sign_up)
-    TextView mTextSignUpHere;
+    @Bind(R.id.btn_sign_up)
+    Button mBtnSignUp;
+    @Bind(R.id.link_sign_in)
+    TextView mTextSignIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,36 +38,35 @@ public class SignInActivity extends BaseActivity {
     }
 
     private void initialiseListeners() {
-        mBtnSignIn.setOnClickListener(new View.OnClickListener() {
+        mBtnSignUp.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                signIn();
+                signUp();
             }
         });
-        mTextSignUpHere.setOnClickListener(new View.OnClickListener() {
+        mTextSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToSignUp();
+                goToSignIn();
             }
         });
     }
 
-    private void goToSignUp() {
-        Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+    private void goToSignIn() {
+        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
         startActivity(intent);
     }
 
-    private void signIn() {
+    private void signUp() {
         //testing
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
         startActivity(intent);
-
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setStatusBarColor() {
-        Activity activity = SignInActivity.this;
+        Activity activity = SignUpActivity.this;
         Window window = activity.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -72,6 +76,6 @@ public class SignInActivity extends BaseActivity {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.activity_signin;
+        return R.layout.activity_signup;
     }
 }
