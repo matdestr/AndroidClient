@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
+    <!--TODO : remove test menu-items-->
+    <group android:id="@+id/menu_group_drawer_main" android:checkableBehavior="single">
         <item
             android:tint="@color/colorAccent"
-            android:title="One" />
+            android:title="One"
+            android:checked="true"/>
         <item
             android:tint="@color/colorAccent"
             android:title="Two" />
         <item
             android:tint="@color/colorAccent"
             android:title="Three" />
- <!--       <item
+ <!--
+        <item
             android:tint="@color/colorAccent"
             android:title="Four" />
         <item
@@ -35,4 +38,24 @@
             android:tint="@color/colorAccent"
             android:title="Eleven" />-->
     </group>
+    <group android:id="@+id/menu_group_drawer_footer" android:checkableBehavior="none">
+        <item
+            android:id="@+id/action_settings"
+            android:title="settings" />
+        <item
+            android:id="@+id/action_sign_out"
+            android:title="sign out" />
+    </group>
+    <item
+        android:id="@+id/navigation_subheader"
+        android:title="Test header">
+        <menu>
+            <item
+                android:id="@+id/navigation_sub_item_1"
+                android:title="test 1"/>
+            <item
+                android:id="@+id/navigation_sub_item_2"
+                android:title="test 2"/>
+        </menu>
+    </item>
 </menu>

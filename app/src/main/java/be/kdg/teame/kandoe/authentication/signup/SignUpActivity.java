@@ -47,7 +47,6 @@ public class SignUpActivity extends BaseActivity implements SignUpContract.View 
         super.onCreate(savedInstanceState);
 
         this.mSignUpPresenter.setView(this);
-        ButterKnife.bind(this);
         this.progressDialog = DialogGenerator.createProgressDialog(this, R.string.sign_up_progress_message);
     }
 

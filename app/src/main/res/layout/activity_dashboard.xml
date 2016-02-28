@@ -41,30 +41,12 @@
 
 
     <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view_container"
+        android:id="@+id/drawer_nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start">
-
-        <android.support.design.widget.NavigationView
-            android:id="@+id/nav_view_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            app:headerLayout="@layout/navheader"
-            app:menu="@menu/menu_navigation_main" />
-
-        <android.support.design.widget.NavigationView
-            android:id="@+id/nav_view_footer"
-            android:layout_width="wrap_content"
-            android:layout_height="96dp"
-            android:layout_gravity="bottom"
-            app:menu="@menu/menu_navigation_footer" />
-
-
-
-    </android.support.design.widget.NavigationView>
-
-
+        android:layout_gravity="start"
+        app:headerLayout="@layout/navheader"
+        app:menu="@menu/menu_drawer_navigation"
+        app:itemTextColor="@color/drawer_item_state"/>
 
 </android.support.v4.widget.DrawerLayout>

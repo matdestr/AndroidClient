@@ -5,6 +5,7 @@
     <string name="sign_in_username_hint">Username</string>
     <string name="sign_in_password_hint">Password</string>
     <string name="sign_in_button">Sign in</string>
+   
     <string name="sign_in_sign_up_now"><u>Sign up now!</u></string>
 
     <!-- SIGN UP PAGE -->
@@ -15,14 +16,20 @@
     <string name="sign_up_firstname_hint">First name</string>
     <string name="sign_up_lastname_hint">Last name</string>
     <string name="sign_up_button">Sign Up</string>
+   
     <string name="sign_up_already_member"><u>Already a member? Sign in</u></string>
-    <string name="sign_in_progress_message">Signing in …</string>
+    
+    <string name="sign_up_error_title">Failed to create account</string>
     <string name="sign_up_progress_message">Creating an account …</string>
 
     <string name="sign_in_error_title">Failed to sign in</string>
+    <string name="sign_in_progress_message">Signing in …</string>
     <string name="sign_in_error_wrong_credentials">Could not sign in. Please make sure your credentials are correct and try again.</string>
 
-    <string name="sign_up_error_title">Failed to create account</string>
+    <!-- NAVIGATION DRAWER -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 
     <!-- DIALOG -->
     <string name="dialog_ok">OK</string>

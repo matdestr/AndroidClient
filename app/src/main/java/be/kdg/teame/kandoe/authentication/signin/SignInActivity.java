@@ -3,7 +3,14 @@ package be.kdg.teame.kandoe.authentication.signin;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPropertyAnimatorCompat;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import javax.inject.Inject;
 
@@ -29,16 +36,13 @@ public class SignInActivity extends BaseActivity implements SignInContract.View 
     @Inject
     SignInContract.UserActionsListener mSignInPresenter;
 
-    /*@Inject
-    SharedPreferences preferences;*/
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSignInPresenter.setView(this);
-        ButterKnife.bind(this);
         progressDialog = DialogGenerator.createProgressDialog(this, R.string.sign_in_progress_message);
     }
+
 
     @Override
     protected int getLayoutResource() {
@@ -81,13 +85,13 @@ public class SignInActivity extends BaseActivity implements SignInContract.View 
     }
 
     @OnClick(R.id.btn_sign_in)
-    protected void signInClickHandler(){
+    protected void signInClickHandler() {
         mSignInPresenter.signIn(mUsername.getText().toString(), mPassword.getText().toString());
 
     }
 
     @OnClick(R.id.link_sign_up)
-    protected void signUpClickHandler(){
+    protected void signUpClickHandler() {
         startActivity(new Intent(this, SignUpActivity.class));
     }
 }
