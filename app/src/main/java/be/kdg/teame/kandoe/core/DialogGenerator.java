@@ -37,6 +37,9 @@ public class DialogGenerator {
     }
 
     public static ProgressDialog createProgressDialog(Context context){
-        return new ProgressDialog(context);
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+
+        return progressDialog;
     }
 }

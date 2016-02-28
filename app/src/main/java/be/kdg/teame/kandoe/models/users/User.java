@@ -1,20 +1,16 @@
 package be.kdg.teame.kandoe.models.users;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
-    @Getter
     private int userId;
-
-    @Getter
     private String username;
-
-    @Getter
     private String firstName;
-
-    @Getter
     private String lastName;
-
-    @Getter
     private String email;
 }

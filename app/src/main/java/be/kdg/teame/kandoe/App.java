@@ -21,4 +21,8 @@ public final class App extends Application {
     public AppComponent component() {
         return mComponent;
     }
+
+    public void setAppComponent(AppComponent appComponent) {
+        this.mComponent = appComponent;
+    }
 }

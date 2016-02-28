@@ -17,9 +17,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
 public class SignInActivity extends BaseActivity implements SignInContract.View {
-
     private ProgressDialog progressDialog;
 
     @Bind(R.id.signin_username)
@@ -67,7 +65,7 @@ public class SignInActivity extends BaseActivity implements SignInContract.View 
 
     @Override
     public void showErrorConnectionFailure() {
-        DialogGenerator.showErrorDialog(this, R.string.sign_in_error_connection_failure);
+        DialogGenerator.showErrorDialog(this, R.string.error_connection_failure);
     }
 
     @Override

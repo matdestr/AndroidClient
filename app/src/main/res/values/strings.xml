@@ -17,12 +17,15 @@
     <string name="sign_up_button">Sign Up</string>
     <string name="sign_up_already_member"><u>Already a member? Sign in</u></string>
     <string name="sign_in_progress_message">Signing in …</string>
+    <string name="sign_up_progress_message">Creating an account …</string>
 
     <string name="sign_in_error_title">Failed to sign in</string>
     <string name="sign_in_error_wrong_credentials">Could not sign in. Please make sure your credentials are correct and try again.</string>
-    <string name="sign_in_error_connection_failure">Could not connect to the server. Please try again later.</string>
+
+    <string name="sign_up_error_title">Failed to create account</string>
 
     <!-- DIALOG -->
     <string name="dialog_ok">OK</string>
     <string name="dialog_error_title_default">Error</string>
+    <string name="error_connection_failure">Could not connect to the server. Please try again later.</string>
 </resources>

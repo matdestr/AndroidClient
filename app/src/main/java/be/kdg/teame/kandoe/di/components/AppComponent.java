@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import be.kdg.teame.kandoe.App;
 import be.kdg.teame.kandoe.authentication.signin.SignInActivity;
+import be.kdg.teame.kandoe.authentication.signup.SignUpActivity;
 import be.kdg.teame.kandoe.core.activities.BaseActivity;
 import be.kdg.teame.kandoe.di.modules.AppModule;
 import be.kdg.teame.kandoe.di.modules.AuthenticationModule;
@@ -20,4 +21,6 @@ public interface AppComponent {
     void inject(BaseActivity baseActivity);
 
     void inject(SignInActivity signInActivity);
+
+    void inject(SignUpActivity signUpActivity);
 }

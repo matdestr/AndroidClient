@@ -7,6 +7,11 @@ public interface HttpStatus {
     int CREATED = 201;
 
     // section 4xx
+    int BAD_REQUEST = 400;
     int UNAUTHORIZED = 401;
     int FORBIDDEN = 403;
+    int UNPROCESSABLE_ENTITY = 422;
+
+    // section 5xx
+    int INTERNAL_SERVER_ERROR = 500;
 }
