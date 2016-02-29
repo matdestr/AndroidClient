@@ -21,6 +21,8 @@ public interface SignUpContract {
 
         void showErrorServerMessage(String reason);
 
+        void showErrorInvalidToken();
+
         void showDashboard();
     }
 

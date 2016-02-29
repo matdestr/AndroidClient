@@ -24,7 +24,7 @@
 
     <string name="sign_in_error_title">Failed to sign in</string>
     <string name="sign_in_progress_message">Signing in …</string>
-    <string name="sign_in_error_wrong_credentials">Could not sign in. Please make sure your credentials are correct and try again.</string>
+    <string name="sign_in_error_wrong_credentials">Please make sure your credentials are correct and try again.</string>
 
     <!-- NAVIGATION DRAWER -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -34,5 +34,10 @@
     <!-- DIALOG -->
     <string name="dialog_ok">OK</string>
     <string name="dialog_error_title_default">Error</string>
+    <string name="dialog_error_message_default">Oops, something went wrong. Please try again later.</string>
+    <string name="dialog_error_user_creation">Oops, we could not create a user account for you. Please try again later.</string>
     <string name="error_connection_failure">Could not connect to the server. Please try again later.</string>
+    <string name="error_invalid_email">e-mail is invalid. (e.g. user@cando.com)</string>
+    <string name="error_field_required">field is required</string>
+    <string name="error_verify">value is not the same</string>
 </resources>

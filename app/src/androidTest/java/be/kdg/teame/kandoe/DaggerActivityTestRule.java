@@ -10,7 +10,14 @@ import android.support.test.rule.ActivityTestRule;
  * Custom Activity test rule which can be used for test dependency injection using Dagger
  * */
 public class DaggerActivityTestRule<T extends Activity> extends ActivityTestRule<T> {
-    private final OnBeforeActivityLaunchedListener<T> mListener;
+    private OnBeforeActivityLaunchedListener<T> mListener;
+    private AfterActivityLaunchedListener<T> afterActivityLaunchedListener;
+
+    public DaggerActivityTestRule(Class<T> activityClass, boolean initialTouchMode, boolean launchActivity,
+                                  @NonNull AfterActivityLaunchedListener<T> listener) {
+        super(activityClass, initialTouchMode, launchActivity);
+        this.afterActivityLaunchedListener = listener;
+    }
 
     public DaggerActivityTestRule(Class<T> activityClass, @NonNull OnBeforeActivityLaunchedListener<T> listener) {
         this(activityClass, false, listener);
@@ -31,12 +38,30 @@ public class DaggerActivityTestRule<T extends Activity> extends ActivityTestRule
     protected void beforeActivityLaunched() {
         super.beforeActivityLaunched();
 
-        mListener.beforeActivityLaunched(
+        if (mListener != null)
+            mListener.beforeActivityLaunched(
+                    (Application) InstrumentationRegistry.getInstrumentation().getTargetContext().getApplicationContext(),
+                    getActivity());
+    }
+
+    @Override
+    protected void afterActivityLaunched() {
+        super.afterActivityLaunched();
+
+        if (afterActivityLaunchedListener == null)
+            return;
+
+        afterActivityLaunchedListener.afterActivityLaunched(
                 (Application) InstrumentationRegistry.getInstrumentation().getTargetContext().getApplicationContext(),
-                getActivity());
+                getActivity()
+        );
     }
 
     public interface OnBeforeActivityLaunchedListener<T> {
         void beforeActivityLaunched(@NonNull Application application, @NonNull T activity);
+    }
+
+    public interface AfterActivityLaunchedListener<T> {
+        void afterActivityLaunched(@NonNull Application application, @NonNull T activity);
     }
 }

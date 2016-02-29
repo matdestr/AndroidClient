@@ -2,7 +2,10 @@ package be.kdg.teame.kandoe.authentication.signup;
 
 import android.support.annotation.NonNull;
 
-import org.json.JSONException;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -11,11 +14,12 @@ import be.kdg.teame.kandoe.data.retrofit.services.SignInService;
 import be.kdg.teame.kandoe.data.retrofit.services.SignUpService;
 import be.kdg.teame.kandoe.models.dto.CreateUserDTO;
 import be.kdg.teame.kandoe.models.users.User;
+import be.kdg.teame.kandoe.util.exceptions.TokenException;
 import be.kdg.teame.kandoe.util.http.ErrorResponse;
-import be.kdg.teame.kandoe.util.http.ErrorResponseParser;
 import be.kdg.teame.kandoe.util.http.HttpStatus;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import be.kdg.teame.kandoe.util.validators.DTOValidator;
+import be.kdg.teame.kandoe.util.validators.forms.FormField;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -34,7 +38,7 @@ public class SignUpPresenter implements SignUpContract.UserActionsListener {
     }
 
     @Override
-    public void setView(SignUpContract.View view) {
+    public void setView(@NonNull SignUpContract.View view) {
         this.mSingUpView = view;
     }
 
@@ -44,6 +48,7 @@ public class SignUpPresenter implements SignUpContract.UserActionsListener {
 
     @Override
     public void signUp(@NonNull final CreateUserDTO createUserDTO) {
+
         if (!DTOValidator.isValid(createUserDTO)) {
             mSingUpView.showErrorIncompleteDetails();
             return;
@@ -68,16 +73,15 @@ public class SignUpPresenter implements SignUpContract.UserActionsListener {
 
                 if (error != null && error.getResponse() != null) {
                     if (error.getResponse().getStatus() == HttpStatus.UNPROCESSABLE_ENTITY) {
-                        String httpBodyString = (String) error.getBodyAs(String.class);
 
-                        try {
-                            ErrorResponse errorResponse = ErrorResponseParser.parseErrorResponseJson(httpBodyString);
-                            String firstError = errorResponse.getFieldErrors().get(0).getMessage();
+                        ErrorResponse errorResponse = (ErrorResponse) error.getBodyAs(ErrorResponse.class);
+                        String firstError = errorResponse.getFieldErrors().get(0).getMessage();
 
-                            mSingUpView.showErrorServerMessage(firstError);
-                        } catch (JSONException e) {
-                            mSingUpView.showErrorUserCreation();
-                        }
+                        mSingUpView.showErrorServerMessage(firstError);
+
+                    } else if (error.getResponse().getStatus() == HttpStatus.BAD_REQUEST) {
+                        ErrorResponse.FieldError fieldError = (ErrorResponse.FieldError) error.getBodyAs(ErrorResponse.FieldError.class);
+                        mSingUpView.showErrorServerMessage(fieldError.getMessage());
                     } else {
                         mSingUpView.showErrorUserCreation();
                     }
@@ -92,9 +96,17 @@ public class SignUpPresenter implements SignUpContract.UserActionsListener {
         mSignInService.signIn(SignInService.GRANT_TYPE_PASSWORD, username, password, new Callback<AccessToken>() {
             @Override
             public void success(AccessToken accessToken, Response response) {
-                prefManager.saveAccessToken(accessToken);
-                mSingUpView.showProgressIndicator(false);
-                mSingUpView.showDashboard();
+                accessToken.setDateAcquired(new Date());
+
+                try {
+                    prefManager.saveAccessToken(accessToken);
+
+                    mSingUpView.showProgressIndicator(false);
+                    mSingUpView.showDashboard();
+                } catch (TokenException e) {
+                    mSingUpView.showProgressIndicator(false);
+                    mSingUpView.showErrorInvalidToken();
+                }
             }
 
             @Override

@@ -16,7 +16,7 @@
     <dimen name="navheader_height">222dp</dimen>
     <dimen name="padding_signin_top">56dp</dimen>
     <dimen name="signin_logo_margin_vertical">24dp</dimen>
-    <dimen name="signin_text_size">15sp</dimen>
+    <dimen name="form_text_size">15sp</dimen>
     <dimen name="signin_margin_button">24dp</dimen>
     <dimen name="signin_padding_button">12dp</dimen>
     <dimen name="signin_text_size_small">13sp</dimen>

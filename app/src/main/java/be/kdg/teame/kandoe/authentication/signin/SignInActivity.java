@@ -3,14 +3,8 @@ package be.kdg.teame.kandoe.authentication.signin;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPropertyAnimatorCompat;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.Button;
+import android.support.design.widget.TextInputLayout;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import javax.inject.Inject;
 
@@ -20,29 +14,40 @@ import be.kdg.teame.kandoe.core.DialogGenerator;
 import be.kdg.teame.kandoe.core.activities.BaseActivity;
 import be.kdg.teame.kandoe.dashboard.DashboardActivity;
 import be.kdg.teame.kandoe.di.components.AppComponent;
+import be.kdg.teame.kandoe.util.validators.forms.Form;
+import be.kdg.teame.kandoe.util.validators.forms.FormField;
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SignInActivity extends BaseActivity implements SignInContract.View {
     private ProgressDialog progressDialog;
 
     @Bind(R.id.signin_username)
-    EditText mUsername;
+    EditText mEditTextUsername;
 
     @Bind(R.id.signin_password)
-    EditText mPassword;
+    EditText mEditTextPassword;
 
     @Inject
     SignInContract.UserActionsListener mSignInPresenter;
+
+    private Form mForm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSignInPresenter.setView(this);
         progressDialog = DialogGenerator.createProgressDialog(this, R.string.sign_in_progress_message);
-    }
 
+        TextInputLayout tilUsername = (TextInputLayout) mEditTextUsername.getParent();
+        TextInputLayout tilPassword = (TextInputLayout) mEditTextPassword.getParent();
+
+        mForm = new Form();
+
+        mForm.add(new FormField(tilUsername, mEditTextUsername, FormField.Type.USER_NAME, true));
+        mForm.add(new FormField(tilPassword, mEditTextPassword, FormField.Type.PASSWORD, true));
+
+    }
 
     @Override
     protected int getLayoutResource() {
@@ -73,6 +78,11 @@ public class SignInActivity extends BaseActivity implements SignInContract.View 
     }
 
     @Override
+    public void showErrorInvalidToken() {
+        DialogGenerator.showErrorDialog(this, R.string.sign_in_error_title, R.string.dialog_error_message_default);
+    }
+
+    @Override
     public void showDashboard() {
         Intent intent = new Intent(this, DashboardActivity.class);
         startActivity(intent, true);
@@ -86,7 +96,8 @@ public class SignInActivity extends BaseActivity implements SignInContract.View 
 
     @OnClick(R.id.btn_sign_in)
     protected void signInClickHandler() {
-        mSignInPresenter.signIn(mUsername.getText().toString(), mPassword.getText().toString());
+        if (mForm.validate())
+            mSignInPresenter.signIn(mEditTextUsername.getText().toString(), mEditTextPassword.getText().toString());
 
     }
 

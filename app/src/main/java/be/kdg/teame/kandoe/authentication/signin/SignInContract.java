@@ -13,6 +13,8 @@ public interface SignInContract {
 
         void showErrorConnectionFailure();
 
+        void showErrorInvalidToken();
+
         void showDashboard();
 
         void showSignUp();

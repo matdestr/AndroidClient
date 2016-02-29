@@ -8,8 +8,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Date;
+
 import be.kdg.teame.kandoe.data.retrofit.AccessToken;
 import be.kdg.teame.kandoe.data.retrofit.services.SignInService;
+import be.kdg.teame.kandoe.util.exceptions.TokenException;
 import be.kdg.teame.kandoe.util.http.MockResponseFactory;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import retrofit.Callback;
@@ -40,7 +43,7 @@ public class SignInPresenterTest {
     }
 
     @Test
-    public void successfulSignIn() {
+    public void successfulSignIn() throws TokenException {
 
         String username = "user";
         String password = "pass";
@@ -53,7 +56,7 @@ public class SignInPresenterTest {
                         Mockito.eq(username), Mockito.eq(password),
                         mAccessTokenCallbackCaptor.capture());
 
-        AccessToken accessToken = new AccessToken("dummy accessToken", "dummy tokenType", "dummy refreshToken", -1);
+        AccessToken accessToken = new AccessToken("dummy accessToken", "dummy tokenType", "dummy refreshToken", -1, new Date());
 
         mAccessTokenCallbackCaptor.getValue().success(accessToken, null);
 

@@ -2,6 +2,8 @@ package be.kdg.teame.kandoe.authentication.signup;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.json.JSONException;
 import org.junit.Before;
@@ -12,11 +14,16 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import be.kdg.teame.kandoe.data.retrofit.AccessToken;
 import be.kdg.teame.kandoe.data.retrofit.services.SignInService;
 import be.kdg.teame.kandoe.data.retrofit.services.SignUpService;
 import be.kdg.teame.kandoe.models.dto.CreateUserDTO;
 import be.kdg.teame.kandoe.models.users.User;
+import be.kdg.teame.kandoe.util.exceptions.TokenException;
+import be.kdg.teame.kandoe.util.http.ErrorResponse;
 import be.kdg.teame.kandoe.util.http.HttpStatus;
 import be.kdg.teame.kandoe.util.http.MockResponseFactory;
 import be.kdg.teame.kandoe.util.http.MockTokenFactory;
@@ -24,6 +31,7 @@ import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.converter.GsonConverter;
+import retrofit.mime.TypedInput;
 import retrofit.mime.TypedString;
 
 public class SignUpPresenterTest {
@@ -75,7 +83,7 @@ public class SignUpPresenterTest {
     }
 
     @Test
-    public void successfulSignUp() {
+    public void successfulSignUp() throws TokenException {
         AccessToken accessToken = MockTokenFactory.getMockAccessToken();
 
         mSignUpPresenter.signUp(createUserDTODefault);
@@ -161,12 +169,6 @@ public class SignUpPresenterTest {
 
     @Test
     public void signUpWithExistingUsername() throws JSONException {
-        String jsonErrorResponse = "{\"fieldErrors\":[" +
-                "{\"message\":\"Username already in use\", \"field\":\"username\"}" +
-                "]}";
-
-        String gson = new Gson().toJson(jsonErrorResponse, String.class);
-
         mSignUpPresenter.signUp(createUserDTODefault);
 
         Mockito.verify(mSignUpService)
@@ -174,11 +176,20 @@ public class SignUpPresenterTest {
 
         Mockito.verify(mSignUpView).showProgressIndicator(Mockito.eq(true));
 
-        mUserCallbackCaptor.getValue().failure(
+        RetrofitError retrofitError =
                 RetrofitError.httpError(null,
-                        MockResponseFactory.getMockResponse(HttpStatus.UNPROCESSABLE_ENTITY, "", new TypedString(gson)),
-                        new GsonConverter(new GsonBuilder().create()), null)
+                        MockResponseFactory.getMockResponse(HttpStatus.UNPROCESSABLE_ENTITY, "", null),
+                        new GsonConverter(new GsonBuilder().create()), null);
+
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.getFieldErrors().add(
+                errorResponse.new FieldError("Username already in use", "username")
         );
+
+        retrofitError = Mockito.spy(retrofitError);
+        Mockito.when(retrofitError.getBodyAs(ErrorResponse.class)).thenReturn(errorResponse);
+
+        mUserCallbackCaptor.getValue().failure(retrofitError);
 
         Mockito.verify(mSignUpView).showProgressIndicator(Mockito.eq(false));
         Mockito.verify(mSignUpView).showErrorServerMessage(Mockito.matches("Username already in use"));

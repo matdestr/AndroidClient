@@ -1,9 +1,14 @@
 package be.kdg.teame.kandoe.authentication.signin;
 
+import android.support.annotation.NonNull;
+
+import java.util.Date;
+
 import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.data.retrofit.AccessToken;
 import be.kdg.teame.kandoe.data.retrofit.services.SignInService;
+import be.kdg.teame.kandoe.util.exceptions.TokenException;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -13,11 +18,6 @@ public class SignInPresenter implements SignInContract.UserActionsListener {
     private SignInContract.View mSignInView;
     private final SignInService signInService;
     private final PrefManager prefManager;
-    /*@Inject
-    public SignInPresenter(SignInContract.View mSignInView, SignInService signInService) {
-        this.mSignInView = mSignInView;
-        this.signInService = signInService;
-    }*/
 
     @Inject
     public SignInPresenter(SignInService signInService, PrefManager prefManager) {
@@ -26,12 +26,8 @@ public class SignInPresenter implements SignInContract.UserActionsListener {
     }
 
     @Override
-    public void setView(SignInContract.View view) {
+    public void setView(@NonNull SignInContract.View view) {
         this.mSignInView = view;
-    }
-
-    public void setSignInView(SignInContract.View mSignInView) {
-        this.mSignInView = mSignInView;
     }
 
     @Override
@@ -41,10 +37,17 @@ public class SignInPresenter implements SignInContract.UserActionsListener {
         this.signInService.signIn(SignInService.GRANT_TYPE_PASSWORD, username, password, new Callback<AccessToken>() {
             @Override
             public void success(AccessToken accessToken, Response response) {
-                prefManager.saveAccessToken(accessToken);
+                accessToken.setDateAcquired(new Date());
 
-                mSignInView.showProgressIndicator(false);
-                mSignInView.showDashboard();
+                try {
+                    prefManager.saveAccessToken(accessToken);
+
+                    mSignInView.showProgressIndicator(false);
+                    mSignInView.showDashboard();
+                } catch (TokenException e) {
+                    mSignInView.showErrorInvalidToken();
+                }
+
             }
 
             @Override

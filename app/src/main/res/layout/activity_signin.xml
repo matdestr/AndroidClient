@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
@@ -9,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:orientation="vertical"
         android:paddingEnd="@dimen/padding_signin_right"
         android:paddingLeft="@dimen/padding_signin_left"
@@ -25,11 +28,10 @@
             android:src="@drawable/logo_cando" />
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/material_content_space"
+            style="@style/Material.TextInputLayout"
             android:layout_marginTop="@dimen/material_content_space"
-            android:theme="@style/TextInputLayout">
+            app:errorTextAppearance="@style/Material.TextInputLayout.Error"
+            app:hintTextAppearance="@style/Material.TextInputLayout.Hint">
 
             <EditText
                 android:id="@+id/signin_username"
@@ -39,16 +41,14 @@
                 android:inputType="textEmailAddress"
                 android:textColor="@color/colorTextLight"
                 android:textColorHint="@color/colorTextLight"
-                android:textSize="@dimen/signin_text_size" />
+                android:textSize="@dimen/form_text_size" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/material_margin_default"
+            style="@style/Material.TextInputLayout"
             android:layout_marginTop="@dimen/material_content_space"
-            android:theme="@style/TextInputLayout">
-
+            app:errorTextAppearance="@style/Material.TextInputLayout.Error"
+            app:hintTextAppearance="@style/Material.TextInputLayout.Hint">
 
             <EditText
                 android:id="@+id/signin_password"
@@ -58,12 +58,12 @@
                 android:inputType="textPassword"
                 android:textColor="@color/colorTextLight"
                 android:textColorHint="@color/colorTextLight"
-                android:textSize="@dimen/signin_text_size" />
+                android:textSize="@dimen/form_text_size" />
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            style="@style/Material.Button.Raised"
             android:id="@+id/btn_sign_in"
+            style="@style/Material.Button.Raised"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/material_margin_default"
@@ -75,8 +75,8 @@
             android:id="@+id/link_sign_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/material_margin_default"
             android:layout_marginBottom="@dimen/material_margin_default"
+            android:layout_marginTop="@dimen/material_margin_default"
             android:gravity="center"
             android:text="@string/sign_in_sign_up_now"
             android:textColor="@color/colorTextLight"

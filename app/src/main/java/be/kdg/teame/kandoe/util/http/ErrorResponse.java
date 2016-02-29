@@ -3,6 +3,8 @@ package be.kdg.teame.kandoe.util.http;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Value;
+
 public class ErrorResponse {
     private List<FieldError> fieldErrors;
 
@@ -18,21 +20,9 @@ public class ErrorResponse {
         this.fieldErrors = fieldErrors;
     }
 
+    @Value
     public class FieldError {
-        private final String message;
-        private final String field;
-
-        public FieldError(String message, String field) {
-            this.message = message;
-            this.field = field;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public String getField() {
-            return field;
-        }
+        private String message;
+        private String field;
     }
 }

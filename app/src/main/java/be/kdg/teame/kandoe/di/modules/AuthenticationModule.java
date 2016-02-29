@@ -32,7 +32,7 @@ public class AuthenticationModule {
     @Provides
     @Singleton
     public static ProfileService provideProfileService(PrefManager prefManager) {
-        return ServiceGenerator.createAuthorizedService(ProfileService.class, prefManager);
+        return ServiceGenerator.createAuthenticatedService(ProfileService.class, prefManager);
     }*/
 
     /*@Provides

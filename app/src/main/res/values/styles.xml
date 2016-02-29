@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppTheme"/>
+    <style name="AppTheme" />
 
     <!-- Base application theme. -->
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
@@ -9,14 +9,38 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!-- TextInputLayout -->
-    <style name="TextInputLayout" parent="TextAppearance.AppCompat">
+    <style name="AppTheme.Base.Dark" parent="AppTheme.Base">
         <item name="android:textColorHint">@color/colorTextLight</item>
-        <item name="android:textSize">20sp</item>
-        <item name="colorAccent">@color/colorTextLight</item>
         <item name="colorControlNormal">@color/colorTextLight</item>
         <item name="colorControlActivated">@color/colorTextLight</item>
+        <item name="colorControlHighlight">@color/colorTextLight</item>
     </style>
+
+    <!-- TextInputLayout -->
+    <style name="Material.TextInputLayout" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorTextLight</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginBottom">@dimen/material_content_space</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Material.TextInputLayout.Hint" parent="Material.TextInputLayout">
+        <item name="android:textColorHint">@color/colorTextLight</item>
+    </style>
+
+    <style name="Material.TextInputLayout.Error" parent="Material.TextInputLayout">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Material.TextInputLayout.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorTextLight</item>
+        <item name="android:textColorHint">@color/colorTextLight</item>
+        <item name="android:textSize">@dimen/form_text_size</item>
+    </style>
+
 
     <style name="Material" />
 
@@ -42,5 +66,6 @@
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
+
 
 </resources>

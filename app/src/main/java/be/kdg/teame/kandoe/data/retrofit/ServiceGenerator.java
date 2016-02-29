@@ -116,7 +116,7 @@ public class ServiceGenerator {
      * @param <T>          the class of the service
      * @return a service to the API
      */
-    public static <T> T createAuthorizedService(Class<T> serviceClass, PrefManager prefManager) throws AuthenticationException {
+    public static <T> T createAuthenticatedService(Class<T> serviceClass, PrefManager prefManager) throws AuthenticationException {
         OkHttpClient httpClient = getOkHttpClient();
         httpClient.setAuthenticator(new TokenAuthenticator(prefManager));
 

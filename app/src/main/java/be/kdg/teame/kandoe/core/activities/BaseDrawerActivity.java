@@ -1,9 +1,7 @@
 package be.kdg.teame.kandoe.core.activities;
 
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -25,9 +23,9 @@ public abstract class BaseDrawerActivity extends BaseToolbarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getSupportActionBar() != null) {
+        if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+
 
         if (savedInstanceState != null)
             mFromSavedInstanceState = true;
@@ -52,7 +50,7 @@ public abstract class BaseDrawerActivity extends BaseToolbarActivity {
 
                 if (!mUserLearnedDrawer) {
                     mUserLearnedDrawer = true;
-                    preferences.edit().putBoolean(Preferences.PREF_USER_LEARNED_DRAWER, true).apply();
+                    prefManager.savePreference(Preferences.USER_LEARNED_DRAWER, true);
                 }
 
                 supportInvalidateOptionsMenu(); // calls onPrepareOptionsMenu()

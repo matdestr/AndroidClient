@@ -6,6 +6,13 @@
         <item name="android:alertDialogTheme">@style/Dialog</item>
     </style>
 
+    <style name="AppTheme.Base.Dark" parent="AppTheme">
+        <item name="android:textColorHint">@color/colorTextLight</item>
+        <item name="colorControlNormal">@color/colorTextLight</item>
+        <item name="colorControlActivated">@color/colorTextLight</item>
+        <item name="colorControlHighlight">@color/colorTextLight</item>
+    </style>
+
 
     <style name="Dialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:textColorPrimary">@color/colorAccent</item>

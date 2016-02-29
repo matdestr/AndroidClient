@@ -12,33 +12,32 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class MockedAuthenticationModule extends AuthenticationModule {
+public class MockedAuthenticationModule /*extends AuthenticationModule*/ {
     private SignInPresenter signInPresenter;
     private SignUpPresenter signUpPresenter;
 
     private SignUpService signUpService;
 
     @Provides
-    public SignInContract.UserActionsListener provideSignInPresenter(SignInService signInService, PrefManager prefManager) {
-        if (signInPresenter == null)
-            return new SignInPresenter(signInService, prefManager);
+    public SignInContract.UserActionsListener provideSignInPresenter() {
+        /*if (signInPresenter == null)
+            return new SignInPresenter(signInService, prefManager);*/
 
         return signInPresenter;
     }
 
     @Provides
-    public SignUpContract.UserActionsListener provideSignUpPresenter(SignUpService signUpService, SignInService signInService, PrefManager prefManager) {
-        if (signUpPresenter == null)
-            return new SignUpPresenter(signUpService, signInService, prefManager);
+    public SignUpContract.UserActionsListener provideSignUpPresenter() {
+        /*if (signUpPresenter == null)
+            return new SignUpPresenter(signUpService, signInService, prefManager);*/
 
         return signUpPresenter;
     }
 
     @Provides
-    @Override
     public SignUpService provideSignUpService() {
-        if (signUpService == null)
-            return super.provideSignUpService();
+        /*if (signUpService == null)
+            return super.provideSignUpService();*/
 
         return signUpService;
     }

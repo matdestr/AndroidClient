@@ -39,24 +39,25 @@ dependencies {
 
     // Dependencies for local unit tests
     testCompile "junit:junit:$rootProject.junitVersion"
-    testCompile "org.mockito:mockito-all:$rootProject.mockitoVersion"
+    testCompile "org.mockito:mockito-core:$rootProject.mockitoVersion"
     testCompile "org.hamcrest:hamcrest-all:$rootProject.hamcrestVersion"
-    testCompile 'org.json:json:20140107' // needed to unit test JSON parsing
+    testCompile "org.json:json:20140107" // needed to unit test JSON parsing
 
     // Android Testing Support Library's runner and rules
     //androidTestCompile "org.mockito:mockito-all:$rootProject.mockitoVersion"
     androidTestCompile "com.android.support.test.espresso:espresso-core:2.2.1"
     androidTestCompile "com.android.support.test:runner:0.4.1"
     androidTestCompile "com.android.support:support-annotations:$rootProject.supportLibraryVersion"
-
-    // Espresso UI Testing dependencies.
+    androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
+    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
 
     // Others
     provided "org.projectlombok:lombok:1.14.0"
     apt "com.google.dagger:dagger-compiler:2.0.2"
+    androidTestApt "com.google.dagger:dagger-compiler:2.0.2"
 
     // Needed for @Generated annotation (missing in Java <= 1.6; therefore, Android)
-    compile 'javax.annotation:jsr250-api:1.0'
+    compile "javax.annotation:jsr250-api:1.0"
 
 }
 
