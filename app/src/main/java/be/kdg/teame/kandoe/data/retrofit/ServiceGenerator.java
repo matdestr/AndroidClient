@@ -6,7 +6,6 @@ import com.squareup.okhttp.OkHttpClient;
 import java.util.concurrent.TimeUnit;
 
 import be.kdg.teame.kandoe.di.Injector;
-import be.kdg.teame.kandoe.util.exceptions.AuthenticationException;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
@@ -18,7 +17,7 @@ import retrofit.converter.GsonConverter;
  * Serves as a factory for Retrofit services.
  */
 public class ServiceGenerator {
-    public static final String API_BASE_URL = "https://wildfly-teameip2kdgbe.rhcloud.com";
+    private static final String API_BASE_URL = Injector.getApiBaseUrl();
 
     private static RestAdapter.Builder builder = new RestAdapter.Builder().setEndpoint(API_BASE_URL);
 
@@ -116,16 +115,13 @@ public class ServiceGenerator {
      * @param <T>          the class of the service
      * @return a service to the API
      */
-    public static <T> T createAuthenticatedService(Class<T> serviceClass, PrefManager prefManager) throws AuthenticationException {
+    public static <T> T createAuthenticatedService(Class<T> serviceClass, PrefManager prefManager) {
         OkHttpClient httpClient = getOkHttpClient();
         httpClient.setAuthenticator(new TokenAuthenticator(prefManager));
 
         builder.setClient(new OkClient(httpClient));
 
         final AccessToken accessToken = prefManager.retrieveAccessToken();
-
-        if (accessToken.getAccessToken() == null || accessToken.getTokenType() == null)
-            throw new AuthenticationException("Unable to authenticate user");
 
         builder.setRequestInterceptor(new RequestInterceptor() {
             @Override

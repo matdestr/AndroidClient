@@ -17,7 +17,7 @@
     <string name="sign_up_lastname_hint">Last name</string>
     <string name="sign_up_button">Sign Up</string>
    
-    <string name="sign_up_already_member"><u>Already a member? Sign in</u></string>
+    <string name="sign_up_already_member">Already a member? <u>Sign in</u></string>
     
     <string name="sign_up_error_title">Failed to create account</string>
     <string name="sign_up_progress_message">Creating an account …</string>
@@ -40,4 +40,12 @@
     <string name="error_invalid_email">e-mail is invalid. (e.g. user@cando.com)</string>
     <string name="error_field_required">field is required</string>
     <string name="error_verify">value is not the same</string>
+    <string name="dialog_error_title_unauthenticated">Session expired</string>
+    <string name="dialog_error_message_unauthenticated">Your session has expired. You will be redirected to the sign in page.</string>
+    <string name="action_sign_out">sign out</string>
+    <string name="profile_header_title_email">Email</string>
+    <string name="profile_header_title_firstname">Firstname</string>
+    <string name="profile_header_title_lastname">Lastname</string>
+    <string name="profile_header_title_username">Username</string>
+    <string name="retrieving_data">retrieving data …</string>
 </resources>

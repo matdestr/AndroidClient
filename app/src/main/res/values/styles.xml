@@ -7,6 +7,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorTextNeutral</item>
     </style>
 
     <style name="AppTheme.Base.Dark" parent="AppTheme.Base">
@@ -16,30 +17,9 @@
         <item name="colorControlHighlight">@color/colorTextLight</item>
     </style>
 
-    <!-- TextInputLayout -->
-    <style name="Material.TextInputLayout" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/colorTextLight</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:layout_marginBottom">@dimen/material_content_space</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
+    <style name="AppTheme.Base.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Material.TextInputLayout.Hint" parent="Material.TextInputLayout">
-        <item name="android:textColorHint">@color/colorTextLight</item>
-    </style>
-
-    <style name="Material.TextInputLayout.Error" parent="Material.TextInputLayout">
-        <item name="android:textSize">12sp</item>
-    </style>
-
-    <style name="Material.TextInputLayout.EditText">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/colorTextLight</item>
-        <item name="android:textColorHint">@color/colorTextLight</item>
-        <item name="android:textSize">@dimen/form_text_size</item>
-    </style>
+    <style name="AppTheme.Base.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
     <style name="Material" />
@@ -67,5 +47,83 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
+    <style name="Material.TextInputLayout" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorTextLight</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginBottom">@dimen/material_content_space</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Material.TextInputLayout.Hint" parent="Material.TextInputLayout">
+        <item name="android:textColorHint">@color/colorTextLight</item>
+    </style>
+
+    <style name="Material.TextInputLayout.Error" parent="Material.TextInputLayout">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Material.TextInputLayout.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorTextLight</item>
+        <item name="android:textColorHint">@color/colorTextLight</item>
+        <item name="android:textSize">@dimen/form_text_size</item>
+    </style>
+
+    <style name="Material.Drawer" />
+
+    <style name="Material.Drawer.Header" parent="Material.Drawer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:paddingLeft">@dimen/material_margin_default</item>
+        <item name="android:paddingRight">@dimen/material_margin_default</item>
+        <item name="android:paddingTop">@dimen/status_bar_height</item>
+    </style>
+
+    <style name="Material.Drawer.Header.Subtitle" parent="Material.Drawer">
+        <item name="android:paddingTop">@dimen/material_content_space</item>
+        <item name="android:paddingBottom">@dimen/material_content_space</item>
+    </style>
+
+    <style name="Material.Drawer.Header.Subtitle.Text" parent="Material.Drawer">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorTextLight</item>
+    </style>
+
+    <style name="Material.Drawer.Header.Subtitle.PrimaryText" parent="Material.Drawer.Header.Subtitle.Text">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="Material.Drawer.Header.Subtitle.SecondaryText" parent="Material.Drawer.Header.Subtitle.Text">
+        <item name="android:fontFamily">sans-serif-regular</item>
+    </style>
+
+    <style name="Cando" />
+
+
+    <style name="Cando.Content.Data" parent="Cando">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-regular</item>
+        <item name="android:gravity">right|center_vertical</item>
+    </style>
+
+    <style name="Cando.Header">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/material_list_item_height</item>
+    </style>
+
+    <style name="Cando.Header.Title" parent="Cando.Header">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:gravity">left|center_vertical</item>
+    </style>
+
+    <style name="Cando.Header.Icon" parent="Cando.Header">
+        <item name="android:tint">@color/colorPrimaryDark</item>
+        <item name="android:padding">@dimen/material_content_space</item>
+    </style>
 
 </resources>

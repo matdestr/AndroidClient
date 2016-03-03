@@ -31,7 +31,7 @@ public class TokenInterceptor implements Interceptor {
         if (response.code() == HttpStatus.UNAUTHORIZED){
 
             Request tokenRequest = new Request.Builder()
-                    .url(ServiceGenerator.API_BASE_URL)
+                    .url(Injector.getApiBaseUrl())
                     .addHeader("Authorization", Injector.getClientDetailsHeader())
                     .post(RequestBody.create(MediaType.parse("x-www-form-urlencoded"), ""))
                     .build();

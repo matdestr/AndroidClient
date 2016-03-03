@@ -10,6 +10,10 @@ public final class Injector {
     @Getter
     private static String clientDetailsHeader = "Basic YW5kcm9pZDpzZWNyZXQ=";
 
-/*    @Getter
-    private static String refreshTokenTemplate = "grant_type=refresh_token%n"*/
+    /*    @Getter
+        private static String refreshTokenTemplate = "grant_type=refresh_token%n"*/
+
+    @Getter
+    private static final String apiBaseUrl = "https://wildfly-teameip2kdgbe.rhcloud.com";
+
 }

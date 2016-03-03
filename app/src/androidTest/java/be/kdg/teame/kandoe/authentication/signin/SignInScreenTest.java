@@ -1,10 +1,14 @@
 package be.kdg.teame.kandoe.authentication.signin;
 
 import android.content.Context;
+import android.content.Intent;
+import android.preference.PreferenceManager;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -13,7 +17,9 @@ import org.junit.runner.RunWith;
 import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.dashboard.DashboardActivity;
 import be.kdg.teame.kandoe.util.AssertionHelper;
+import be.kdg.teame.kandoe.util.PreferenceHelper;
 
+import static android.support.test.InstrumentationRegistry.*;
 import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -40,11 +46,6 @@ public class SignInScreenTest {
     @Rule
     public ActivityTestRule<SignInActivity> mActivityRule = new ActivityTestRule<>(SignInActivity.class);
 
-    @Before
-    public void setUp() {
-        mActivityRule.getActivity().getPreferences(Context.MODE_PRIVATE).edit().clear().apply();
-    }
-
     @Test
     public void testSignInWrongCredentials() throws Exception {
         SignInScreen screen = new SignInScreen();
@@ -67,5 +68,10 @@ public class SignInScreenTest {
     public void testSignUpScreenDisplays() {
         onView(withId(R.id.link_sign_up)).perform(click());
         onView(withId(R.id.signup_username)).check(matches(isDisplayed()));
+    }
+
+    @After
+    public void tearDown() {
+        PreferenceHelper.clearAllSharedPreferences(getTargetContext());
     }
 }

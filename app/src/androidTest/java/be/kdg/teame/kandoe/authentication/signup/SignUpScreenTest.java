@@ -24,6 +24,7 @@ import be.kdg.teame.kandoe.authentication.signin.SignInActivity;
 import be.kdg.teame.kandoe.dashboard.DashboardActivity;
 import be.kdg.teame.kandoe.data.retrofit.services.SignInService;
 import be.kdg.teame.kandoe.data.retrofit.services.SignUpService;
+import be.kdg.teame.kandoe.di.BaseMockSignUpPresenter;
 import be.kdg.teame.kandoe.di.components.DaggerAppComponent;
 import be.kdg.teame.kandoe.di.modules.AppModule;
 import be.kdg.teame.kandoe.di.modules.AuthenticationModule;
@@ -52,7 +53,7 @@ public class SignUpScreenTest {
             Espresso.onView(ViewMatchers.withId(R.id.btn_sign_up)).perform(ViewActions.scrollTo(), ViewActions.click());
         }
 
-        private void clearAllFields(){
+        private void clearAllFields() {
             Espresso.onView(ViewMatchers.withId(R.id.signup_username))
                     .perform(ViewActions.scrollTo(), ViewActions.clearText());
             Espresso.onView(ViewMatchers.withId(R.id.signup_first_name))
@@ -108,8 +109,6 @@ public class SignUpScreenTest {
     @Before
     public void setup() {
         signUpScreen = new SignUpScreen();
-        // todo remove this
-        // mockedAuthenticationModule = Mockito.spy(new AuthenticationModule());
     }
 
     @Test
@@ -131,7 +130,7 @@ public class SignUpScreenTest {
         signUpScreen.signUp(username, firstName, lastName, email, pass, pass);
         Mockito.verify(mockedPresenter).signUp(createUserDTO);
         mActivityRule.getActivity().showDashboard();
-        Thread.sleep(500); // make sure the activity is launched before continuing checking
+        Thread.sleep(100); // make sure the activity is launched before continuing checking
 
         AssertionHelper.assertCurrentActivityIsInstanceOf(DashboardActivity.class);
     }

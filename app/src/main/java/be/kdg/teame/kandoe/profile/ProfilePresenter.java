@@ -1,0 +1,66 @@
+package be.kdg.teame.kandoe.profile;
+
+import android.support.annotation.NonNull;
+
+import javax.inject.Inject;
+
+import be.kdg.teame.kandoe.core.AuthenticationHelper;
+import be.kdg.teame.kandoe.core.contracts.AuthenticatedContract;
+import be.kdg.teame.kandoe.data.retrofit.services.UserService;
+import be.kdg.teame.kandoe.di.Injector;
+import be.kdg.teame.kandoe.models.users.User;
+import be.kdg.teame.kandoe.util.preferences.PrefManager;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
+public class ProfilePresenter implements ProfileContract.UserActionsListener {
+
+    private ProfileContract.View mProfileView;
+    private final UserService mUserService;
+    private final PrefManager mPrefManager;
+
+    @Inject
+    public ProfilePresenter(UserService userService, PrefManager prefManager) {
+        mUserService = userService;
+        mPrefManager = prefManager;
+    }
+
+    @Override
+    public void setView(@NonNull AuthenticatedContract.View view) {
+        mProfileView = (ProfileContract.View) view;
+    }
+
+    @Override
+    public void retrieveUserdata() {
+        mProfileView.showRetrievingDataStatus();
+
+        mUserService.getUser(mPrefManager.retrieveUsername(), new Callback<User>() {
+            @Override
+            public void success(User user, Response response) {
+                if (user.getProfilePictureUrl() != null)
+                    user.setProfilePictureUrl(Injector.getApiBaseUrl().concat("/").concat(user.getProfilePictureUrl()));
+
+                mProfileView.loadUserData(user);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (error != null && error.getResponse() != null) {
+                    if (error.getResponse().getStatus() == 400 || error.getResponse().getStatus() == 401) {
+                        mProfileView.launchUnauthenticatedRedirectActivity();
+                    } else {
+                        mProfileView.showErrorConnectionFailure();
+                    }
+                } else {
+                    mProfileView.showErrorConnectionFailure();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void checkUserIsAuthenticated() {
+        AuthenticationHelper.checkUserIsAuthenticated(mPrefManager, mProfileView);
+    }
+}

@@ -39,6 +39,10 @@ public class PrefManager {
         return preferences.getString(key, defaultValue);
     }
 
+    public boolean retrievePreference(String key, boolean defaultValue) {
+        return preferences.getBoolean(key, defaultValue);
+    }
+
     public int retrievePreference(String key, int defaultValue) {
         return preferences.getInt(key, defaultValue);
     }
@@ -47,11 +51,23 @@ public class PrefManager {
         return preferences.getLong(key, defaultValue);
     }
 
+    public String retrieveUsername(){
+        return retrievePreference(Preferences.User.USERNAME, null);
+    }
+
+    public void saveUsername(String username){
+        savePreference(Preferences.User.USERNAME, username);
+    }
+
+    public void clearUsername(){
+        preferences.edit().remove(Preferences.User.USERNAME).apply();
+    }
+
     public AccessToken retrieveAccessToken() {
         String accessToken = retrievePreference(Preferences.Authorization.ACCESS_TOKEN, null);
         String tokenType = retrievePreference(Preferences.Authorization.TOKEN_TYPE, null);
         String refreshToken = retrievePreference(Preferences.Authorization.REFRESH_TOKEN, null);
-        int expiresIn = retrievePreference(Preferences.Authorization.EXPIRES_IN, -1);
+        long expiresIn = retrievePreference(Preferences.Authorization.EXPIRES_IN, -1l);
         long dateAcquired = retrievePreference(Preferences.Authorization.DATE_ACQUIRED, -1l);
 
         return new AccessToken(accessToken, tokenType, refreshToken, expiresIn, new Date(dateAcquired));
@@ -76,5 +92,7 @@ public class PrefManager {
                 .remove(Preferences.Authorization.EXPIRES_IN)
                 .remove(Preferences.Authorization.DATE_ACQUIRED)
                 .apply();
+
+        clearUsername();
     }
 }

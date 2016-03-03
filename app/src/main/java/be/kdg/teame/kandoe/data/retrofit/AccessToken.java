@@ -39,7 +39,17 @@ public class AccessToken {
     private Date dateAcquired;
 
     public String getAuthorizationHeader() {
-        return tokenType + " " + accessToken;
+        StringBuilder builder = new StringBuilder();
+
+        if (tokenType != null)
+            builder.append(tokenType);
+
+        builder.append(" ");
+
+        if (accessToken != null)
+            builder.append(accessToken);
+
+        return builder.toString();
     }
 
     public boolean isValid() {

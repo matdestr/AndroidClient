@@ -91,7 +91,7 @@ public class SignUpPresenterTest {
         Mockito.verify(mSignUpService)
                 .signUp(Mockito.eq(createUserDTODefault), mUserCallbackCaptor.capture());
 
-        User user = new User(1, username, firstName, lastName, email);
+        User user = new User(1, username, firstName, lastName, email, null);
 
         mUserCallbackCaptor.getValue().success(user, null);
 
@@ -148,7 +148,7 @@ public class SignUpPresenterTest {
         Mockito.verify(mSignUpService)
                 .signUp(Mockito.eq(createUserDTODefault), mUserCallbackCaptor.capture());
 
-        User user = new User(1, username, firstName, lastName, email);
+        User user = new User(1, username, firstName, lastName, email, null);
 
         mUserCallbackCaptor.getValue().success(user, null);
 

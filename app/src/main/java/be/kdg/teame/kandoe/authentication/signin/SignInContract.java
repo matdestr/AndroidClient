@@ -2,16 +2,15 @@ package be.kdg.teame.kandoe.authentication.signin;
 
 
 import be.kdg.teame.kandoe.core.contracts.InjectableUserActionsListener;
+import be.kdg.teame.kandoe.core.contracts.WebDataView;
 
 public interface SignInContract {
 
-    interface View {
+    interface View extends WebDataView {
 
         void showProgressIndicator(boolean active);
 
         void showErrorWrongCredentials();
-
-        void showErrorConnectionFailure();
 
         void showErrorInvalidToken();
 

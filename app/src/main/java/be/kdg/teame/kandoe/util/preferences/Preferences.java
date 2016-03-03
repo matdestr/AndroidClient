@@ -9,6 +9,10 @@ public interface Preferences {
         String DATE_ACQUIRED ="PREF_DATE_ACQUIRED";
     }
 
+    interface User {
+        String USERNAME = "PREF_USER_USERNAME";
+    }
+
     /**
      * Shared preference which tracks whether or not
      * the user has learned to use the drawer manually.

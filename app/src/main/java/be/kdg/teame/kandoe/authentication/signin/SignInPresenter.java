@@ -31,7 +31,7 @@ public class SignInPresenter implements SignInContract.UserActionsListener {
     }
 
     @Override
-    public void signIn(String username, String password) {
+    public void signIn(final String username, String password) {
         mSignInView.showProgressIndicator(true);
 
         this.signInService.signIn(SignInService.GRANT_TYPE_PASSWORD, username, password, new Callback<AccessToken>() {
@@ -41,6 +41,7 @@ public class SignInPresenter implements SignInContract.UserActionsListener {
 
                 try {
                     prefManager.saveAccessToken(accessToken);
+                    prefManager.saveUsername(username);
 
                     mSignInView.showProgressIndicator(false);
                     mSignInView.showDashboard();

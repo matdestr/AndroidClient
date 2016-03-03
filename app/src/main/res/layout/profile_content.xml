@@ -1,0 +1,147 @@
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/material_margin_default"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_profile">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/material_margin_default"
+        android:layout_marginTop="@dimen/material_margin_default"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/material_margin_default">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/material_margin_default"
+            android:layout_marginTop="@dimen/material_content_space"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/ic_profile_username"
+                style="@style/Cando.Header.Icon"
+                android:src="@drawable/ic_sentiment_very_satisfied" />
+
+            <TextView
+                android:id="@+id/title_profile_username"
+                style="@style/Cando.Header.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/material_list_item_height"
+                android:layout_toRightOf="@id/ic_profile_username"
+                android:text="@string/profile_header_title_username" />
+
+            <TextView
+                android:id="@+id/data_profile_username"
+                style="@style/Cando.Content.Data"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@id/title_profile_username"
+                android:layout_marginTop="@dimen/material_content_space"
+                android:layout_toRightOf="@id/ic_profile_username"
+                tools:text="CandoUser" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/material_margin_default"
+            android:layout_marginTop="@dimen/material_content_space"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/ic_profile_email"
+                style="@style/Cando.Header.Icon"
+                android:src="@drawable/ic_email" />
+
+            <TextView
+                android:id="@+id/title_profile_email"
+                style="@style/Cando.Header.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/material_list_item_height"
+                android:layout_toRightOf="@id/ic_profile_email"
+                android:text="@string/profile_header_title_email" />
+
+            <TextView
+                android:id="@+id/data_profile_email"
+                style="@style/Cando.Content.Data"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@id/title_profile_email"
+                android:layout_marginTop="@dimen/material_content_space"
+                android:layout_toRightOf="@id/ic_profile_email"
+                tools:text="cando@user.com" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/material_margin_default"
+            android:layout_marginTop="@dimen/material_content_space"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/ic_profile_firstname"
+                style="@style/Cando.Header.Icon"
+                android:src="@drawable/ic_layers" />
+
+            <TextView
+                android:id="@+id/title_profile_firstname"
+                style="@style/Cando.Header.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/material_list_item_height"
+                android:layout_toRightOf="@id/ic_profile_firstname"
+                android:text="@string/profile_header_title_firstname" />
+
+            <TextView
+                android:id="@+id/data_profile_firstname"
+                style="@style/Cando.Content.Data"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@id/title_profile_firstname"
+                android:layout_marginTop="@dimen/material_content_space"
+                android:layout_toRightOf="@id/ic_profile_firstname"
+                tools:text="John" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/material_margin_default"
+            android:layout_marginTop="@dimen/material_content_space"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/ic_profile_lastname"
+                style="@style/Cando.Header.Icon"
+                android:src="@drawable/ic_layers" />
+
+            <TextView
+                android:id="@+id/title_profile_lastname"
+                style="@style/Cando.Header.Title"
+                android:layout_width="wrap_content"
+                android:layout_toRightOf="@id/ic_profile_lastname"
+                android:text="@string/profile_header_title_lastname" />
+
+            <TextView
+                android:id="@+id/data_profile_lastname"
+                style="@style/Cando.Content.Data"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@id/title_profile_lastname"
+                android:layout_marginTop="@dimen/material_content_space"
+                android:layout_toRightOf="@id/ic_profile_lastname"
+                tools:text="John" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

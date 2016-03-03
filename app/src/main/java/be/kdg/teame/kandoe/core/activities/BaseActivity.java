@@ -1,21 +1,22 @@
 package be.kdg.teame.kandoe.core.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 
 import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.App;
-import be.kdg.teame.kandoe.core.contracts.AuthenticatedView;
+import be.kdg.teame.kandoe.R;
+import be.kdg.teame.kandoe.core.DialogGenerator;
+import be.kdg.teame.kandoe.core.contracts.AuthenticatedContract;
 import be.kdg.teame.kandoe.di.Injector;
 import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import butterknife.ButterKnife;
 
-public abstract class BaseActivity extends AppCompatActivity implements AuthenticatedView {
+public abstract class BaseActivity extends AppCompatActivity implements AuthenticatedContract.View {
     @Inject
     protected PrefManager prefManager;
 
@@ -32,16 +33,25 @@ public abstract class BaseActivity extends AppCompatActivity implements Authenti
     protected abstract int getLayoutResource();
 
     @Override
-    public void launchUnauthorizedRedirectActivity() {
-        Intent intent = new Intent(this, Injector.getUnauthenticatedRedirectActivity());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+    public void launchUnauthenticatedRedirectActivity() {
+        Intent intent = new Intent(BaseActivity.this, Injector.getUnauthenticatedRedirectActivity());
+        startActivity(intent, true);
+    }
+
+    @Override
+    public void launchUnauthenticatedRedirectActivity(String reason) {
+        DialogGenerator.showErrorDialog(this, R.string.dialog_error_title_unauthenticated, R.string.dialog_error_message_unauthenticated, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                launchUnauthenticatedRedirectActivity();
+            }
+        });
     }
 
     public void startActivity(Intent intent, boolean clearStack) {
         if (clearStack)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        
+
         startActivity(intent);
     }
 

@@ -27,19 +27,6 @@ public class AuthenticationModule {
         return ServiceGenerator.createService(SignUpService.class);
     }
 
-    /*
-    // TODO : Serves as an example in case we forget ...
-    @Provides
-    @Singleton
-    public static ProfileService provideProfileService(PrefManager prefManager) {
-        return ServiceGenerator.createAuthenticatedService(ProfileService.class, prefManager);
-    }*/
-
-    /*@Provides
-    public SignInContract.UserActionsListener provideSignInPresenter(SignInContract.View signInView) {
-        return new SignInPresenter(signInView, provideSignInService());
-    }*/
-
     @Provides
     public SignInContract.UserActionsListener provideSignInPresenter(SignInService signInService, PrefManager prefManager) {
         return new SignInPresenter(signInService, prefManager);

@@ -23,6 +23,8 @@ public abstract class BaseDrawerActivity extends BaseToolbarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mUserLearnedDrawer = prefManager.retrievePreference(Preferences.USER_LEARNED_DRAWER, false);
+
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

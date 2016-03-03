@@ -2,11 +2,13 @@ package be.kdg.teame.kandoe.authentication.signin;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Date;
 
@@ -18,6 +20,7 @@ import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 
+@RunWith(MockitoJUnitRunner.class)
 public class SignInPresenterTest {
 
     @Mock
@@ -36,8 +39,6 @@ public class SignInPresenterTest {
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
-
         mSignInPresenter = new SignInPresenter(signInService, prefManager);
         mSignInPresenter.setView(mSignInView);
     }

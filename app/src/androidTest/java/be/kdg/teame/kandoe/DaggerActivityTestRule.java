@@ -34,6 +34,7 @@ public class DaggerActivityTestRule<T extends Activity> extends ActivityTestRule
         this.mListener = listener;
     }
 
+
     @Override
     protected void beforeActivityLaunched() {
         super.beforeActivityLaunched();
