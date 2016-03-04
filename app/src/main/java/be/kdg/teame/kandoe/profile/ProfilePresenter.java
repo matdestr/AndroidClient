@@ -19,6 +19,7 @@ public class ProfilePresenter implements ProfileContract.UserActionsListener {
     private ProfileContract.View mProfileView;
     private final UserService mUserService;
     private final PrefManager mPrefManager;
+    private User mUser;
 
     @Inject
     public ProfilePresenter(UserService userService, PrefManager prefManager) {
@@ -27,8 +28,8 @@ public class ProfilePresenter implements ProfileContract.UserActionsListener {
     }
 
     @Override
-    public void setView(@NonNull AuthenticatedContract.View view) {
-        mProfileView = (ProfileContract.View) view;
+    public void setView(@NonNull ProfileContract.View view) {
+        mProfileView = view;
     }
 
     @Override
@@ -41,7 +42,9 @@ public class ProfilePresenter implements ProfileContract.UserActionsListener {
                 if (user.getProfilePictureUrl() != null)
                     user.setProfilePictureUrl(Injector.getApiBaseUrl().concat("/").concat(user.getProfilePictureUrl()));
 
-                mProfileView.loadUserData(user);
+                mUser = user;
+
+                mProfileView.loadUserData(mUser);
             }
 
             @Override
@@ -57,6 +60,16 @@ public class ProfilePresenter implements ProfileContract.UserActionsListener {
                 }
             }
         });
+    }
+
+    @Override
+    public void openEditMode() {
+        if (mUser != null)
+            mProfileView.showEdit(mUser);
+        else {
+            retrieveUserdata();
+        }
+
     }
 
     @Override

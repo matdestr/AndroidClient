@@ -2,6 +2,7 @@ package be.kdg.teame.kandoe.core.activities;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.RelativeLayout;
 
 import be.kdg.teame.kandoe.R;
 import butterknife.Bind;
@@ -15,6 +16,8 @@ public abstract class BaseToolbarActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     public Toolbar getToolbar() {

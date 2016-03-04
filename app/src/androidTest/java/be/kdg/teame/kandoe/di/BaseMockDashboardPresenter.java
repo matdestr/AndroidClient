@@ -11,23 +11,16 @@ import be.kdg.teame.kandoe.util.preferences.PrefManager;
 
 public class BaseMockDashboardPresenter extends DashboardPresenter {
     public DashboardContract.View mDashboardView;
-    private PrefManager mPrefManager;
     private User mUser;
 
     public BaseMockDashboardPresenter(UserService userService, PrefManager prefManager, User user) {
         super(userService, prefManager);
-        mPrefManager = prefManager;
         mUser = user;
     }
 
     @Override
     public void retrieveUserdata() {
         this.mDashboardView.loadUserData(mUser);
-    }
-
-    @Override
-    public void checkUserIsAuthenticated() {
-        AuthenticationHelper.checkUserIsAuthenticated(mPrefManager, this.mDashboardView);
     }
 
     @Override

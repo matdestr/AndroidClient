@@ -16,7 +16,6 @@ import java.util.Date;
 
 import be.kdg.teame.kandoe.data.retrofit.AccessToken;
 import be.kdg.teame.kandoe.data.retrofit.services.UserService;
-import be.kdg.teame.kandoe.di.Injector;
 import be.kdg.teame.kandoe.models.users.User;
 import be.kdg.teame.kandoe.util.http.ErrorResponse;
 import be.kdg.teame.kandoe.util.http.HttpStatus;
@@ -80,7 +79,7 @@ public class ProfilePresenterTest {
         Mockito.verify(mUserService)
                 .getUser(Mockito.eq("username"), mUserCallbackCaptor.capture());
 
-        User user = new User(0, "user", "firstname", "lastname", "user@cando.com", "");
+        User user = new User(0, "username", "firstname", "lastname", "user@cando.com", "");
 
         mUserCallbackCaptor.getValue().success(user, null);
 
@@ -114,5 +113,14 @@ public class ProfilePresenterTest {
         mUserCallbackCaptor.getValue().failure(retrofitError);
 
         Mockito.verify(mProfileView).launchUnauthenticatedRedirectActivity();
+    }
+
+    //todo check better way
+    //@Test
+    public void editProfile(){
+        mProfilePresenter.openEditMode();
+
+        Mockito.verify(mProfileView).showEdit(null);
+
     }
 }

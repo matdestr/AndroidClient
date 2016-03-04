@@ -22,22 +22,22 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 public class SignUpActivity extends BaseActivity implements SignUpContract.View {
-    @Bind(R.id.signup_username)
+    @Bind(R.id.form_username)
     EditText mEditTextUsername;
 
-    @Bind(R.id.signup_first_name)
+    @Bind(R.id.form_first_name)
     EditText mEditTextFirstName;
 
-    @Bind(R.id.signup_last_name)
+    @Bind(R.id.form_last_name)
     EditText mEditTextLastName;
 
-    @Bind(R.id.signup_email)
+    @Bind(R.id.form_email)
     EditText mEditTextEmail;
 
-    @Bind(R.id.signup_password)
+    @Bind(R.id.form_password)
     EditText mEditTextPassword;
 
-    @Bind(R.id.signup_verifypassword)
+    @Bind(R.id.form_verifypassword)
     EditText mEditTextVerifyPassword;
 
 

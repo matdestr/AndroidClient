@@ -35,10 +35,10 @@
             app:hintTextAppearance="@style/Material.TextInputLayout.Hint">
 
             <EditText
-                android:id="@+id/signin_username"
+                android:id="@+id/form_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/sign_in_username_hint"
+                android:hint="@string/form_username_hint"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/colorTextLight"
                 android:textColorHint="@color/colorTextLight"
@@ -52,10 +52,10 @@
             app:hintTextAppearance="@style/Material.TextInputLayout.Hint">
 
             <EditText
-                android:id="@+id/signin_password"
+                android:id="@+id/form_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/sign_in_password_hint"
+                android:hint="@string/form_password_hint"
                 android:inputType="textPassword"
                 android:textColor="@color/colorTextLight"
                 android:textColorHint="@color/colorTextLight"

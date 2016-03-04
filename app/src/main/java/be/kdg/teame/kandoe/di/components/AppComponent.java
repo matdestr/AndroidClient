@@ -13,6 +13,7 @@ import be.kdg.teame.kandoe.di.modules.AuthenticationModule;
 import be.kdg.teame.kandoe.di.modules.DashboardModule;
 import be.kdg.teame.kandoe.di.modules.UserModule;
 import be.kdg.teame.kandoe.profile.ProfileActivity;
+import be.kdg.teame.kandoe.profile.edit.ProfileEditActivity;
 import dagger.Component;
 
 /**
@@ -32,4 +33,7 @@ public interface AppComponent {
     void inject(DashboardActivity dashboardActivity);
 
     void inject(ProfileActivity profileActivity);
+
+    void inject(ProfileEditActivity profileEditActivity);
+
 }

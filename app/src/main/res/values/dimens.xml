@@ -1,6 +1,7 @@
 <resources>
     <dimen name="status_bar_height">24dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_elevation">4dp</dimen>
 
 
     <!-- MATERIAL DESIGN DEFAULTS -->
@@ -25,6 +26,9 @@
     <dimen name="signin_padding_button">12dp</dimen>
     <dimen name="signin_text_size_small">13sp</dimen>
 
-    <dimen name="content_width">176dp</dimen>
+    <dimen name="profile_content_height">32dp</dimen>
+    <dimen name="profile_icon_padding">4dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
 
 </resources>

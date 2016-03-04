@@ -1,4 +1,4 @@
-package be.kdg.teame.kandoe.di;
+package be.kdg.teame.kandoe.di.authentication;
 
 import android.support.annotation.NonNull;
 

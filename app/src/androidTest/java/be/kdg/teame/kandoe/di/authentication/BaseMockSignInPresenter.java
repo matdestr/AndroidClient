@@ -1,4 +1,4 @@
-package be.kdg.teame.kandoe.di;
+package be.kdg.teame.kandoe.di.authentication;
 
 import android.support.annotation.NonNull;
 
@@ -13,6 +13,7 @@ public class BaseMockSignInPresenter extends SignInPresenter {
     public BaseMockSignInPresenter(SignInService mSignInService, PrefManager prefManager) {
         super(mSignInService, prefManager);
     }
+
 
     @Override
     public void setView(@NonNull SignInContract.View view) {

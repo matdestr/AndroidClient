@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginRight="@dimen/material_margin_default"
-        android:layout_marginTop="@dimen/material_margin_default"
         android:orientation="vertical"
         android:paddingTop="@dimen/material_margin_default">
 
@@ -30,8 +29,6 @@
             <TextView
                 android:id="@+id/title_profile_username"
                 style="@style/Cando.Header.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/material_list_item_height"
                 android:layout_toRightOf="@id/ic_profile_username"
                 android:text="@string/profile_header_title_username" />
 
@@ -62,8 +59,6 @@
             <TextView
                 android:id="@+id/title_profile_email"
                 style="@style/Cando.Header.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/material_list_item_height"
                 android:layout_toRightOf="@id/ic_profile_email"
                 android:text="@string/profile_header_title_email" />
 
@@ -94,8 +89,6 @@
             <TextView
                 android:id="@+id/title_profile_firstname"
                 style="@style/Cando.Header.Title"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/material_list_item_height"
                 android:layout_toRightOf="@id/ic_profile_firstname"
                 android:text="@string/profile_header_title_firstname" />
 
@@ -126,7 +119,6 @@
             <TextView
                 android:id="@+id/title_profile_lastname"
                 style="@style/Cando.Header.Title"
-                android:layout_width="wrap_content"
                 android:layout_toRightOf="@id/ic_profile_lastname"
                 android:text="@string/profile_header_title_lastname" />
 

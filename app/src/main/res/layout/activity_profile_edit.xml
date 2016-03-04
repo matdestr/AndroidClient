@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@id/coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/material_margin_default">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_input_layout_username"
+                style="@style/Material.TextInputLayout"
+                android:layout_marginTop="@dimen/material_content_space"
+                app:errorTextAppearance="@style/Material.TextInputLayout.Error"
+                app:hintTextAppearance="@style/Material.TextInputLayout.Hint">
+
+                <EditText
+                    android:id="@+id/form_username"
+                    style="@style/Material.TextInputLayout.EditText"
+                    android:hint="@string/form_username_hint"
+                    android:inputType="textCapWords" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_input_layout_first_name"
+                style="@style/Material.TextInputLayout"
+                android:layout_marginTop="@dimen/material_content_space"
+                app:errorTextAppearance="@style/Material.TextInputLayout.Error"
+                app:hintTextAppearance="@style/Material.TextInputLayout.Hint">
+
+                <EditText
+                    android:id="@+id/form_first_name"
+                    style="@style/Material.TextInputLayout.EditText"
+                    android:hint="@string/form_firstname_hint"
+                    android:inputType="textCapWords" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_input_layout_last_name"
+                style="@style/Material.TextInputLayout"
+                android:layout_marginTop="@dimen/material_content_space"
+                app:errorTextAppearance="@style/Material.TextInputLayout.Error"
+                app:hintTextAppearance="@style/Material.TextInputLayout.Hint">
+
+                <EditText
+                    android:id="@+id/form_last_name"
+                    style="@style/Material.TextInputLayout.EditText"
+                    android:hint="@string/form_lastname_hint"
+                    android:inputType="textCapWords" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_input_layout_email"
+                style="@style/Material.TextInputLayout"
+                android:layout_marginTop="@dimen/material_content_space"
+                app:errorTextAppearance="@style/Material.TextInputLayout.Error"
+                app:hintTextAppearance="@style/Material.TextInputLayout.Hint">
+
+                <EditText
+                    android:id="@+id/form_email"
+                    style="@style/Material.TextInputLayout.EditText"
+                    android:hint="@string/form_email_hint"
+                    android:inputType="textEmailAddress" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_input_layout_verifypassword"
+                style="@style/Material.TextInputLayout"
+                android:layout_marginTop="@dimen/material_content_space"
+                app:errorTextAppearance="@style/Material.TextInputLayout.Error"
+                app:hintTextAppearance="@style/Material.TextInputLayout.Hint">
+
+                <EditText
+                    android:id="@+id/form_verifypassword"
+                    style="@style/Material.TextInputLayout.EditText"
+                    android:hint="@string/form_verify_password_hint"
+                    android:inputType="textPassword" />
+
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_action_accept"
+            app:backgroundTint="@color/colorPrimary"
+            app:rippleColor="@color/colorPrimaryLight" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <include
+        android:id="@id/toolbar"
+        layout="@layout/toolbar" />
+
+</RelativeLayout>

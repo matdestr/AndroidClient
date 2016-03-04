@@ -2,19 +2,16 @@
     <string name="app_name">CanDo</string>
 
     <!-- SIGN IN PAGE -->
-    <string name="sign_in_username_hint">Username</string>
-    <string name="sign_in_password_hint">Password</string>
     <string name="sign_in_button">Sign in</string>
    
     <string name="sign_in_sign_up_now"><u>Sign up now!</u></string>
 
-    <!-- SIGN UP PAGE -->
-    <string name="sign_up_email_hint">Email</string>
-    <string name="sign_up_password_hint">Password</string>
-    <string name="sign_up_verify_password_hint">Verify password</string>
-    <string name="sign_up_username_hint">Username</string>
-    <string name="sign_up_firstname_hint">First name</string>
-    <string name="sign_up_lastname_hint">Last name</string>
+    <string name="form_email_hint">Email</string>
+    <string name="form_password_hint">Password</string>
+    <string name="form_verify_password_hint">Verify password</string>
+    <string name="form_username_hint">Username</string>
+    <string name="form_firstname_hint">First name</string>
+    <string name="form_lastname_hint">Last name</string>
     <string name="sign_up_button">Sign Up</string>
    
     <string name="sign_up_already_member">Already a member? <u>Sign in</u></string>

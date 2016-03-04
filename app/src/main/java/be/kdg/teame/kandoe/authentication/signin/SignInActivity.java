@@ -22,10 +22,10 @@ import butterknife.OnClick;
 public class SignInActivity extends BaseActivity implements SignInContract.View {
     private ProgressDialog progressDialog;
 
-    @Bind(R.id.signin_username)
+    @Bind(R.id.form_username)
     EditText mEditTextUsername;
 
-    @Bind(R.id.signin_password)
+    @Bind(R.id.form_password)
     EditText mEditTextPassword;
 
     @Inject

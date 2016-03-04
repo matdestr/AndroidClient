@@ -12,9 +12,13 @@ public interface ProfileContract {
 
         void loadUserData(User user);
 
+        void showEdit(User user);
+
     }
 
-    interface UserActionsListener extends InjectableUserActionsListener<AuthenticatedContract.View>, AuthenticatedContract.UserActionsListener {
+    interface UserActionsListener extends InjectableUserActionsListener<ProfileContract.View>, AuthenticatedContract.UserActionsListener {
         void retrieveUserdata();
+
+        void openEditMode();
     }
 }

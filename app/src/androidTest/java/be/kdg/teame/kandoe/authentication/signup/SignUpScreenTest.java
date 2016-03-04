@@ -24,7 +24,7 @@ import be.kdg.teame.kandoe.authentication.signin.SignInActivity;
 import be.kdg.teame.kandoe.dashboard.DashboardActivity;
 import be.kdg.teame.kandoe.data.retrofit.services.SignInService;
 import be.kdg.teame.kandoe.data.retrofit.services.SignUpService;
-import be.kdg.teame.kandoe.di.BaseMockSignUpPresenter;
+import be.kdg.teame.kandoe.di.authentication.BaseMockSignUpPresenter;
 import be.kdg.teame.kandoe.di.components.DaggerAppComponent;
 import be.kdg.teame.kandoe.di.modules.AppModule;
 import be.kdg.teame.kandoe.di.modules.AuthenticationModule;
@@ -38,33 +38,33 @@ public class SignUpScreenTest {
     private class SignUpScreen {
         private void signUp(String username, String firstName, String lastName,
                             String email, String password, String verifyPassword) {
-            Espresso.onView(ViewMatchers.withId(R.id.signup_username))
+            Espresso.onView(ViewMatchers.withId(R.id.form_username))
                     .perform(ViewActions.scrollTo(), ViewActions.typeText(username), ViewActions.closeSoftKeyboard());
-            Espresso.onView(ViewMatchers.withId(R.id.signup_first_name))
+            Espresso.onView(ViewMatchers.withId(R.id.form_first_name))
                     .perform(ViewActions.scrollTo(), ViewActions.typeText(firstName), ViewActions.closeSoftKeyboard());
-            Espresso.onView(ViewMatchers.withId(R.id.signup_last_name))
+            Espresso.onView(ViewMatchers.withId(R.id.form_last_name))
                     .perform(ViewActions.scrollTo(), ViewActions.typeText(lastName), ViewActions.closeSoftKeyboard());
-            Espresso.onView(ViewMatchers.withId(R.id.signup_email))
+            Espresso.onView(ViewMatchers.withId(R.id.form_email))
                     .perform(ViewActions.scrollTo(), ViewActions.typeText(email), ViewActions.closeSoftKeyboard());
-            Espresso.onView(ViewMatchers.withId(R.id.signup_password))
+            Espresso.onView(ViewMatchers.withId(R.id.form_password))
                     .perform(ViewActions.scrollTo(), ViewActions.typeText(password), ViewActions.closeSoftKeyboard());
-            Espresso.onView(ViewMatchers.withId(R.id.signup_verifypassword))
+            Espresso.onView(ViewMatchers.withId(R.id.form_verifypassword))
                     .perform(ViewActions.scrollTo(), ViewActions.typeText(verifyPassword), ViewActions.closeSoftKeyboard());
             Espresso.onView(ViewMatchers.withId(R.id.btn_sign_up)).perform(ViewActions.scrollTo(), ViewActions.click());
         }
 
         private void clearAllFields() {
-            Espresso.onView(ViewMatchers.withId(R.id.signup_username))
+            Espresso.onView(ViewMatchers.withId(R.id.form_username))
                     .perform(ViewActions.scrollTo(), ViewActions.clearText());
-            Espresso.onView(ViewMatchers.withId(R.id.signup_first_name))
+            Espresso.onView(ViewMatchers.withId(R.id.form_first_name))
                     .perform(ViewActions.scrollTo(), ViewActions.clearText());
-            Espresso.onView(ViewMatchers.withId(R.id.signup_last_name))
+            Espresso.onView(ViewMatchers.withId(R.id.form_last_name))
                     .perform(ViewActions.scrollTo(), ViewActions.clearText());
-            Espresso.onView(ViewMatchers.withId(R.id.signup_email))
+            Espresso.onView(ViewMatchers.withId(R.id.form_email))
                     .perform(ViewActions.scrollTo(), ViewActions.clearText());
-            Espresso.onView(ViewMatchers.withId(R.id.signup_password))
+            Espresso.onView(ViewMatchers.withId(R.id.form_password))
                     .perform(ViewActions.scrollTo(), ViewActions.clearText());
-            Espresso.onView(ViewMatchers.withId(R.id.signup_verifypassword))
+            Espresso.onView(ViewMatchers.withId(R.id.form_verifypassword))
                     .perform(ViewActions.scrollTo(), ViewActions.clearText());
         }
     }
@@ -75,7 +75,7 @@ public class SignUpScreenTest {
     @Rule
     public ActivityTestRule<SignUpActivity> mActivityRule =
             new DaggerActivityTestRule<SignUpActivity>(
-                    SignUpActivity.class, new DaggerActivityTestRule.OnBeforeActivityLaunchedListener<SignUpActivity>() {
+                    SignUpActivity.class, true, false, new DaggerActivityTestRule.OnBeforeActivityLaunchedListener<SignUpActivity>() {
                 @Override
                 public void beforeActivityLaunched(@NonNull Application application, @NonNull SignUpActivity activity) {
                     if (mockedAuthenticationModule == null)

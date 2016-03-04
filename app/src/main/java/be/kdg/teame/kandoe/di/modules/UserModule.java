@@ -8,6 +8,8 @@ import be.kdg.teame.kandoe.data.retrofit.ServiceGenerator;
 import be.kdg.teame.kandoe.data.retrofit.services.UserService;
 import be.kdg.teame.kandoe.profile.ProfileContract;
 import be.kdg.teame.kandoe.profile.ProfilePresenter;
+import be.kdg.teame.kandoe.profile.edit.ProfileEditContract;
+import be.kdg.teame.kandoe.profile.edit.ProfileEditPresenter;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import dagger.Module;
 import dagger.Provides;
@@ -23,6 +25,11 @@ public class UserModule {
     @Provides
     public ProfileContract.UserActionsListener provideProfilePresenter(UserService userService, PrefManager prefManager) {
         return new ProfilePresenter(userService, prefManager);
+    }
+
+    @Provides
+    public ProfileEditContract.UserActionsListener provideProfileEditPresenter(UserService userService, PrefManager prefManager) {
+        return new ProfileEditPresenter(userService, prefManager);
     }
 
 }

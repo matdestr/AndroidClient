@@ -3,4 +3,5 @@
     <item name="drawer" type="id"/>
     <item name="appbar" type="id"/>
     <item name="toolbar" type="id"/>
+    <item name="coordinator_layout" type="id"/>
 </resources>

@@ -22,17 +22,31 @@
 
         <activity
             android:name=".authentication.signin.SignInActivity"
-            android:theme="@style/AppTheme.Base.Dark">
-        </activity>
+            android:theme="@style/AppTheme.Base.Dark"/>
 
         <activity
             android:name=".authentication.signup.SignUpActivity"
             android:theme="@style/AppTheme.Base.Dark"
             android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".profile.ProfileActivity">
+        <activity android:name=".profile.ProfileActivity"
+            android:parentActivityName=".dashboard.DashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".profile.ProfileActivity" />
 
         </activity>
+
+        <activity
+            android:name=".profile.edit.ProfileEditActivity"
+            android:parentActivityName=".profile.ProfileActivity"
+            android:theme="@style/AppTheme.Base.Black">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".profile.ProfileActivity" />
+
+        </activity>
+
 
     </application>
 
