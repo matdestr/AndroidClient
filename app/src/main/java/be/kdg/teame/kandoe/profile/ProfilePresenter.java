@@ -9,6 +9,7 @@ import be.kdg.teame.kandoe.core.contracts.AuthenticatedContract;
 import be.kdg.teame.kandoe.data.retrofit.services.UserService;
 import be.kdg.teame.kandoe.di.Injector;
 import be.kdg.teame.kandoe.models.users.User;
+import be.kdg.teame.kandoe.util.http.HttpStatus;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -53,10 +54,10 @@ public class ProfilePresenter implements ProfileContract.UserActionsListener {
                     if (error.getResponse().getStatus() == 400 || error.getResponse().getStatus() == 401) {
                         mProfileView.launchUnauthenticatedRedirectActivity();
                     } else {
-                        mProfileView.showErrorConnectionFailure();
+                        mProfileView.showErrorConnectionFailure("Unable to retrieve profile information for " + mPrefManager.retrieveUsername());
                     }
                 } else {
-                    mProfileView.showErrorConnectionFailure();
+                    mProfileView.showErrorConnectionFailure(null);
                 }
             }
         });

@@ -73,8 +73,11 @@ public class SignInActivity extends BaseActivity implements SignInContract.View 
     }
 
     @Override
-    public void showErrorConnectionFailure() {
-        DialogGenerator.showErrorDialog(this, R.string.error_connection_failure);
+    public void showErrorConnectionFailure(String errorMessage) {
+        if (errorMessage != null)
+            DialogGenerator.showErrorDialog(this, errorMessage);
+        else
+            DialogGenerator.showErrorDialog(this, R.string.error_connection_failure);
     }
 
     @Override

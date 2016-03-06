@@ -30,8 +30,8 @@ public class ServiceGenerator {
     private static OkHttpClient getOkHttpClient() {
         OkHttpClient httpClient;
         httpClient = new OkHttpClient();
-        httpClient.setConnectTimeout(10, TimeUnit.SECONDS);
-        httpClient.setReadTimeout(10, TimeUnit.SECONDS);
+        httpClient.setConnectTimeout(5, TimeUnit.SECONDS);
+        httpClient.setReadTimeout(5, TimeUnit.SECONDS);
 
         return httpClient;
     }

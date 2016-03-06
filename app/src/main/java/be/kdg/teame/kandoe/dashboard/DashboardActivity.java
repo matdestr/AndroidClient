@@ -16,6 +16,7 @@ import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.authentication.signin.SignInActivity;
+import be.kdg.teame.kandoe.core.DialogGenerator;
 import be.kdg.teame.kandoe.core.activities.BaseDrawerActivity;
 import be.kdg.teame.kandoe.data.retrofit.ServiceGenerator;
 import be.kdg.teame.kandoe.di.Injector;
@@ -134,8 +135,11 @@ public class DashboardActivity extends BaseDrawerActivity implements DashboardCo
     }
 
     @Override
-    public void showErrorConnectionFailure() {
-
+    public void showErrorConnectionFailure(String errorMessage) {
+        if (errorMessage != null)
+            DialogGenerator.showErrorDialog(this, errorMessage);
+        else
+            DialogGenerator.showErrorDialog(this, R.string.error_connection_failure);
     }
 
     private View.OnClickListener onProfileClick() {

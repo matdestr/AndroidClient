@@ -3,6 +3,8 @@ package be.kdg.teame.kandoe.profile.edit;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +23,7 @@ import com.google.gson.Gson;
 import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.R;
+import be.kdg.teame.kandoe.core.DialogGenerator;
 import be.kdg.teame.kandoe.core.activities.BaseTransparentToolbarActivity;
 import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.models.dto.CreateUserDTO;
@@ -36,7 +39,6 @@ public class ProfileEditActivity extends BaseTransparentToolbarActivity implemen
     private Transition.TransitionListener mEnterTransitionListener;
     private User mUser;
     private Form mFrom;
-
 
     @Bind(R.id.form_username)
     EditText mEditTextFormUsername;
@@ -128,8 +130,11 @@ public class ProfileEditActivity extends BaseTransparentToolbarActivity implemen
     }
 
     @Override
-    public void showErrorConnectionFailure() {
-
+    public void showErrorConnectionFailure(String errorMessage) {
+        if (errorMessage != null)
+            DialogGenerator.showErrorDialog(this, errorMessage);
+        else
+            DialogGenerator.showErrorDialog(this, R.string.error_connection_failure);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

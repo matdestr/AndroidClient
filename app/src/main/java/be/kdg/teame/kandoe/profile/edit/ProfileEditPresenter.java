@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.core.AuthenticationHelper;
-import be.kdg.teame.kandoe.core.contracts.AuthenticatedContract;
 import be.kdg.teame.kandoe.data.retrofit.services.UserService;
 import be.kdg.teame.kandoe.models.dto.UpdateUserDTO;
 import be.kdg.teame.kandoe.models.users.User;
@@ -47,7 +46,7 @@ public class ProfileEditPresenter implements ProfileEditContract.UserActionsList
 
             @Override
             public void failure(RetrofitError error) {
-
+                mProfileEditView.showErrorConnectionFailure("Couldn't update user information.");
             }
         });
     }

@@ -17,12 +17,12 @@ import retrofit.client.Response;
 public class SignInPresenter implements SignInContract.UserActionsListener {
     private SignInContract.View mSignInView;
     private final SignInService signInService;
-    private final PrefManager prefManager;
+    private final PrefManager mPrefManager;
 
     @Inject
-    public SignInPresenter(SignInService signInService, PrefManager prefManager) {
+    public SignInPresenter(SignInService signInService, PrefManager mPrefManager) {
         this.signInService = signInService;
-        this.prefManager = prefManager;
+        this.mPrefManager = mPrefManager;
     }
 
     @Override
@@ -40,8 +40,8 @@ public class SignInPresenter implements SignInContract.UserActionsListener {
                 accessToken.setDateAcquired(new Date());
 
                 try {
-                    prefManager.saveAccessToken(accessToken);
-                    prefManager.saveUsername(username);
+                    mPrefManager.saveAccessToken(accessToken);
+                    mPrefManager.saveUsername(username);
 
                     mSignInView.showProgressIndicator(false);
                     mSignInView.showDashboard();
@@ -60,10 +60,10 @@ public class SignInPresenter implements SignInContract.UserActionsListener {
                         mSignInView.showErrorWrongCredentials();
 
                     } else {
-                        mSignInView.showErrorConnectionFailure();
+                        mSignInView.showErrorConnectionFailure("Unable to retrieve profile information for " + mPrefManager.retrieveUsername());
                     }
                 } else {
-                    mSignInView.showErrorConnectionFailure();
+                    mSignInView.showErrorConnectionFailure(null);
                 }
             }
         });

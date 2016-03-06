@@ -48,10 +48,10 @@ public class DashboardPresenter implements DashboardContract.UserActionsListener
                     if (error.getResponse().getStatus() == HttpStatus.UNAUTHORIZED) {
                         mDashboardView.launchUnauthenticatedRedirectActivity();
                     } else {
-                        mDashboardView.showErrorConnectionFailure();
+                        mDashboardView.showErrorConnectionFailure("Unable to retrieve profile information for " + mPrefManager.retrieveUsername());
                     }
                 } else {
-                    mDashboardView.showErrorConnectionFailure();
+                    mDashboardView.showErrorConnectionFailure(null);
                 }
             }
 

@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.R;
+import be.kdg.teame.kandoe.core.DialogGenerator;
 import be.kdg.teame.kandoe.core.activities.BaseToolbarActivity;
 import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.models.users.User;
@@ -130,8 +131,11 @@ public class ProfileActivity extends BaseToolbarActivity implements ProfileContr
     }
 
     @Override
-    public void showErrorConnectionFailure() {
-
+    public void showErrorConnectionFailure(String errorMessage) {
+        if (errorMessage != null)
+            DialogGenerator.showErrorDialog(this, errorMessage);
+        else
+            DialogGenerator.showErrorDialog(this, R.string.error_connection_failure);
     }
 
     private void setTextRetrievingData(int stringId) {
