@@ -32,35 +32,45 @@ public class DashboardPresenter implements DashboardContract.UserActionsListener
     }
 
     @Override
-    public void retrieveUserdata() {
+    public void loadUserdata() {
         mUserService.getUser(mPrefManager.retrieveUsername(), new Callback<User>() {
             @Override
             public void success(User user, Response response) {
                 if (user.getProfilePictureUrl() != null)
                     user.setProfilePictureUrl(Injector.getApiBaseUrl().concat("/").concat(user.getProfilePictureUrl()));
 
-                mDashboardView.loadUserData(user);
+                mDashboardView.showUserdata(user);
             }
 
             @Override
             public void failure(RetrofitError error) {
                 if (error != null && error.getResponse() != null) {
-                    if (error.getResponse().getStatus() == HttpStatus.UNAUTHORIZED) {
+
+                    if (error.getResponse().getStatus() == HttpStatus.UNAUTHORIZED)
                         mDashboardView.launchUnauthenticatedRedirectActivity();
-                    } else {
+                    else
                         mDashboardView.showErrorConnectionFailure("Unable to retrieve profile information for " + mPrefManager.retrieveUsername());
-                    }
+
                 } else {
                     mDashboardView.showErrorConnectionFailure(null);
                 }
             }
-
         });
     }
 
     @Override
     public void openProfile() {
         mDashboardView.showProfile();
+    }
+
+    @Override
+    public void openOrganizations() {
+        mDashboardView.showOrganizations();
+    }
+
+    @Override
+    public void openSessions() {
+        mDashboardView.showSessions();
     }
 
     @Override

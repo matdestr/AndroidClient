@@ -1,6 +1,6 @@
 package be.kdg.teame.kandoe.util.validators;
 
-import be.kdg.teame.kandoe.models.dto.CreateUserDTO;
+import be.kdg.teame.kandoe.models.users.dto.CreateUserDTO;
 
 // TODO : Use library
 public class DTOValidator {

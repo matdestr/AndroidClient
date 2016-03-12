@@ -3,6 +3,8 @@ package be.kdg.teame.kandoe.dashboard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.util.Log;
 import android.view.MenuItem;
@@ -18,8 +20,9 @@ import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.authentication.signin.SignInActivity;
 import be.kdg.teame.kandoe.core.DialogGenerator;
 import be.kdg.teame.kandoe.core.activities.BaseDrawerActivity;
-import be.kdg.teame.kandoe.data.retrofit.ServiceGenerator;
-import be.kdg.teame.kandoe.di.Injector;
+import be.kdg.teame.kandoe.core.fragments.BaseFragment;
+import be.kdg.teame.kandoe.dashboard.organizationlist.OrganizationListFragment;
+import be.kdg.teame.kandoe.dashboard.sessionlist.SessionListFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.models.users.User;
 import be.kdg.teame.kandoe.profile.ProfileActivity;
@@ -28,6 +31,8 @@ import butterknife.ButterKnife;
 
 
 public class DashboardActivity extends BaseDrawerActivity implements DashboardContract.View {
+
+    private BaseFragment mCurrentFragment;
 
     @Bind(R.id.drawer_nav_view)
     NavigationView mNavigationView;
@@ -51,7 +56,8 @@ public class DashboardActivity extends BaseDrawerActivity implements DashboardCo
     protected void onResume() {
         super.onResume();
         mDashboardPresenter.checkUserIsAuthenticated();
-        mDashboardPresenter.retrieveUserdata();
+        mDashboardPresenter.loadUserdata();
+        mDashboardPresenter.openOrganizations();
     }
 
     private void initializeComponents() {
@@ -60,6 +66,40 @@ public class DashboardActivity extends BaseDrawerActivity implements DashboardCo
         mImageViewProfilePic = ButterKnife.findById(navheader, R.id.navheader_profile_pic);
         mTextViewProfileName = ButterKnife.findById(navheader, R.id.navheader_profile_name);
         mTextViewProfileEmail = ButterKnife.findById(navheader, R.id.navheader_profile_email);
+    }
+
+    private void InitializeEvents() {
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.action_sign_out:
+                        mDashboardPresenter.signOut();
+                        break;
+
+                    case R.id.action_my_organizations:
+                        mDashboardPresenter.openOrganizations();
+                        break;
+
+                    case R.id.action_active_sessions:
+                        mDashboardPresenter.openSessions();
+                        break;
+
+                    default:
+                        Log.d("click-event", "main navigation view menu-item clicked");
+                }
+
+                menuItem.setChecked(true);
+
+                getDrawerLayout().closeDrawers();
+
+                return true;
+            }
+        });
+
+        mImageViewProfilePic.setOnClickListener(onProfileClick());
+        mTextViewProfileName.setOnClickListener(onProfileClick());
+        mTextViewProfileEmail.setOnClickListener(onProfileClick());
     }
 
     @Override
@@ -84,36 +124,8 @@ public class DashboardActivity extends BaseDrawerActivity implements DashboardCo
         return super.onOptionsItemSelected(item);
     }
 
-    private void InitializeEvents() {
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.action_sign_out:
-                        mDashboardPresenter.signOut();
-                        break;
-
-                    default:
-                        Log.d("click-event", "main navigation view menu-item clicked");
-                }
-
-                menuItem.setChecked(true);
-
-                getDrawerLayout().closeDrawers();
-
-                return true;
-            }
-        });
-
-        mImageViewProfilePic.setOnClickListener(onProfileClick());
-        mTextViewProfileName.setOnClickListener(onProfileClick());
-        mTextViewProfileEmail.setOnClickListener(onProfileClick());
-
-
-    }
-
     @Override
-    public void loadUserData(User user) {
+    public void showUserdata(User user) {
         mTextViewProfileName.setText(user.getUsername());
         mTextViewProfileEmail.setText(user.getEmail());
         Picasso.with(this)
@@ -135,6 +147,18 @@ public class DashboardActivity extends BaseDrawerActivity implements DashboardCo
     }
 
     @Override
+    public void showOrganizations() {
+        getToolbar().setTitle(R.string.organizations_label);
+        switchFragment(new OrganizationListFragment());
+    }
+
+    @Override
+    public void showSessions() {
+        getToolbar().setTitle(R.string.sessions_label);
+        switchFragment(new SessionListFragment());
+    }
+
+    @Override
     public void showErrorConnectionFailure(String errorMessage) {
         if (errorMessage != null)
             DialogGenerator.showErrorDialog(this, errorMessage);
@@ -151,6 +175,20 @@ public class DashboardActivity extends BaseDrawerActivity implements DashboardCo
         };
 
         return profileClickListener;
+    }
+
+    private void switchFragment(BaseFragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        if (mCurrentFragment == null)
+            transaction.add(R.id.fragment_container, fragment);
+        else
+            transaction.replace(R.id.fragment_container, fragment);
+
+        transaction.commit();
+
+        mCurrentFragment = fragment;
     }
 
 }

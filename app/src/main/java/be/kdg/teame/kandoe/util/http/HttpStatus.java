@@ -10,6 +10,7 @@ public interface HttpStatus {
     int BAD_REQUEST = 400;
     int UNAUTHORIZED = 401;
     int FORBIDDEN = 403;
+    int NOT_FOUND = 404;
     int UNPROCESSABLE_ENTITY = 422;
 
     // section 5xx

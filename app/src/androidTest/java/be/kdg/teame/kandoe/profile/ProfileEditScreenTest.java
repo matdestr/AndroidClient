@@ -80,7 +80,7 @@ public class ProfileEditScreenTest {
             if (mockedUserModule == null)
                 mockedUserModule = new UserModule();
 
-            ((App) application).setAppComponent(
+            ((App) application).setComponent(
                     DaggerAppComponent.builder()
                             .appModule(new AppModule(application))
                             .userModule(mockedUserModule)
@@ -94,7 +94,7 @@ public class ProfileEditScreenTest {
         Gson gson = new Gson();
         String json = gson.toJson(dummyUser);
         Intent intent = new Intent();
-        intent.putExtra("user", json);
+        intent.putExtra(ProfileEditActivity.USER, json);
         mActivityRule.launchActivity(intent);
     }
 

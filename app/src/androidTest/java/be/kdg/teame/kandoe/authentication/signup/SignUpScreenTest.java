@@ -28,7 +28,7 @@ import be.kdg.teame.kandoe.di.authentication.BaseMockSignUpPresenter;
 import be.kdg.teame.kandoe.di.components.DaggerAppComponent;
 import be.kdg.teame.kandoe.di.modules.AppModule;
 import be.kdg.teame.kandoe.di.modules.AuthenticationModule;
-import be.kdg.teame.kandoe.models.dto.CreateUserDTO;
+import be.kdg.teame.kandoe.models.users.dto.CreateUserDTO;
 import be.kdg.teame.kandoe.util.AssertionHelper;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 
@@ -81,7 +81,7 @@ public class SignUpScreenTest {
                     if (mockedAuthenticationModule == null)
                         mockedAuthenticationModule = new AuthenticationModule();
 
-                    ((App) application).setAppComponent(
+                    ((App) application).setComponent(
                             DaggerAppComponent.builder()
                                     .appModule(new AppModule(application))
                                     .authenticationModule(mockedAuthenticationModule)

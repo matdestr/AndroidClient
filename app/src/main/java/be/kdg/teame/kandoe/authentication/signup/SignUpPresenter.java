@@ -2,24 +2,20 @@ package be.kdg.teame.kandoe.authentication.signup;
 
 import android.support.annotation.NonNull;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.data.retrofit.AccessToken;
 import be.kdg.teame.kandoe.data.retrofit.services.SignInService;
 import be.kdg.teame.kandoe.data.retrofit.services.SignUpService;
-import be.kdg.teame.kandoe.models.dto.CreateUserDTO;
+import be.kdg.teame.kandoe.models.users.dto.CreateUserDTO;
 import be.kdg.teame.kandoe.models.users.User;
 import be.kdg.teame.kandoe.util.exceptions.TokenException;
 import be.kdg.teame.kandoe.util.http.ErrorResponse;
 import be.kdg.teame.kandoe.util.http.HttpStatus;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import be.kdg.teame.kandoe.util.validators.DTOValidator;
-import be.kdg.teame.kandoe.util.validators.forms.FormField;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;

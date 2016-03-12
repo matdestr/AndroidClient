@@ -15,7 +15,7 @@ import be.kdg.teame.kandoe.core.DialogGenerator;
 import be.kdg.teame.kandoe.core.activities.BaseActivity;
 import be.kdg.teame.kandoe.dashboard.DashboardActivity;
 import be.kdg.teame.kandoe.di.components.AppComponent;
-import be.kdg.teame.kandoe.models.dto.CreateUserDTO;
+import be.kdg.teame.kandoe.models.users.dto.CreateUserDTO;
 import be.kdg.teame.kandoe.util.validators.forms.Form;
 import be.kdg.teame.kandoe.util.validators.forms.FormField;
 import butterknife.Bind;

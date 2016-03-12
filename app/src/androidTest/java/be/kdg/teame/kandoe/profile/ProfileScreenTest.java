@@ -58,7 +58,7 @@ public class ProfileScreenTest {
             if (mockedUserModule == null)
                 mockedUserModule = new UserModule();
 
-            ((App) application).setAppComponent(
+            ((App) application).setComponent(
                     DaggerAppComponent.builder()
                             .appModule(new AppModule(application))
                             .userModule(mockedUserModule)

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="96dp"
+    android:layout_margin="@dimen/material_content_space"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardBackgroundColor="@color/colorAccent">
+
+
+
+        <TextView
+            android:id="@+id/organization_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textColor="@color/colorTextLight"
+            android:fontFamily="sans-serif-light"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            tools:text="Karel de Grote Hogeschool" />
+
+</android.support.v7.widget.CardView>

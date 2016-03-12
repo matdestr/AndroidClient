@@ -7,17 +7,25 @@ import be.kdg.teame.kandoe.models.users.User;
 
 public interface DashboardContract {
     interface View extends AuthenticatedContract.View, WebDataView {
-        void loadUserData(User user);
+        void showUserdata(User user);
 
         void showSignIn();
 
         void showProfile();
+
+        void showOrganizations();
+
+        void showSessions();
     }
 
     interface UserActionsListener extends InjectableUserActionsListener<DashboardContract.View>, AuthenticatedContract.UserActionsListener {
-        void retrieveUserdata();
+        void loadUserdata();
 
         void openProfile();
+
+        void openOrganizations();
+
+        void openSessions();
 
         void signOut();
 

@@ -2,7 +2,6 @@ package be.kdg.teame.kandoe.di;
 
 import android.support.annotation.NonNull;
 
-import be.kdg.teame.kandoe.core.AuthenticationHelper;
 import be.kdg.teame.kandoe.dashboard.DashboardContract;
 import be.kdg.teame.kandoe.dashboard.DashboardPresenter;
 import be.kdg.teame.kandoe.data.retrofit.services.UserService;
@@ -19,8 +18,8 @@ public class BaseMockDashboardPresenter extends DashboardPresenter {
     }
 
     @Override
-    public void retrieveUserdata() {
-        this.mDashboardView.loadUserData(mUser);
+    public void loadUserdata() {
+        this.mDashboardView.showUserdata(mUser);
     }
 
     @Override

@@ -22,7 +22,7 @@ public final class App extends Application {
         return mComponent;
     }
 
-    public void setAppComponent(AppComponent appComponent) {
+    public void setComponent(AppComponent appComponent) {
         this.mComponent = appComponent;
     }
 }

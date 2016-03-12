@@ -2,9 +2,8 @@ package be.kdg.teame.kandoe.profile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.NavUtils;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +24,9 @@ import butterknife.Bind;
 import butterknife.OnClick;
 
 public class ProfileActivity extends BaseToolbarActivity implements ProfileContract.View {
+
+    @Bind(R.id.collapsing_toolbar_layout)
+    CollapsingToolbarLayout mCollapsingToolbarLayout;
 
     @Bind(R.id.data_profile_pic)
     ImageView mImageViewDataPic;
@@ -57,6 +59,8 @@ public class ProfileActivity extends BaseToolbarActivity implements ProfileContr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mProfilePresenter.setView(this);
+        mCollapsingToolbarLayout.setTitleEnabled(false);
+        getToolbar().setTitle(prefManager.retrieveUsername());
     }
 
     @Override
@@ -68,7 +72,8 @@ public class ProfileActivity extends BaseToolbarActivity implements ProfileContr
     protected void onResume() {
         super.onResume();
         mProfilePresenter.checkUserIsAuthenticated();
-        mProfilePresenter.retrieveUserdata();
+        mProfilePresenter.loadUserdata();
+
     }
 
     @Override
@@ -82,7 +87,9 @@ public class ProfileActivity extends BaseToolbarActivity implements ProfileContr
     }
 
     @Override
-    public void loadUserData(User user) {
+    public void showUserdata(User user) {
+        mCollapsingToolbarLayout.setTitleEnabled(true);
+        mCollapsingToolbarLayout.setTitle(user.getFirstName() + " " + user.getLastName());
         mTextViewDataUsername.setText(user.getUsername());
         mTextViewDataEmail.setText(user.getEmail());
         mTextViewDataFirstname.setText(user.getFirstName());
@@ -106,7 +113,7 @@ public class ProfileActivity extends BaseToolbarActivity implements ProfileContr
         Gson gson = new Gson();
         String json = gson.toJson(user);
 
-        intent.putExtra("user", json);
+        intent.putExtra(ProfileEditActivity.USER, json);
 
         mRevealView.setVisibility(View.VISIBLE);
         mRevealLayout.setVisibility(View.VISIBLE);

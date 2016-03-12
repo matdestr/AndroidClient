@@ -10,14 +10,14 @@ public interface ProfileContract {
     interface View extends AuthenticatedContract.View, WebDataView {
         void showRetrievingDataStatus();
 
-        void loadUserData(User user);
+        void showUserdata(User user);
 
         void showEdit(User user);
 
     }
 
     interface UserActionsListener extends InjectableUserActionsListener<ProfileContract.View>, AuthenticatedContract.UserActionsListener {
-        void retrieveUserdata();
+        void loadUserdata();
 
         void openEditMode();
     }

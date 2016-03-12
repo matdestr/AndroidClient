@@ -6,14 +6,13 @@
         android:checkableBehavior="single">
         <item
             android:checked="true"
+            android:id="@+id/action_my_organizations"
             android:tint="@color/colorAccent"
-            android:title="My Organizations" />
+            android:title="@string/action_organizations" />
         <item
+            android:id="@+id/action_active_sessions"
             android:tint="@color/colorAccent"
-            android:title="Active Sessions" />
-        <item
-            android:tint="@color/colorAccent"
-            android:title="History" />
+            android:title="@string/action_sessions" />
         <!--
                <item
                    android:tint="@color/colorAccent"

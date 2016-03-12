@@ -1,16 +1,13 @@
-package be.kdg.teame.kandoe.models.dto;
-
-import com.google.gson.annotations.SerializedName;
+package be.kdg.teame.kandoe.models.users.dto;
 
 import lombok.Value;
 
 @Value
-public class UpdateUserDTO {
+public class CreateUserDTO {
     private final String username;
-    @SerializedName("name")
     private final String firstName;
-    @SerializedName("surname")
     private final String lastName;
     private final String email;
+    private final String password;
     private final String verifyPassword;
 }

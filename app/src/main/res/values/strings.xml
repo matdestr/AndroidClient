@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">CanDo</string>
 
+    <string name="dashboard_label">Dashboard</string>
+    <string name="organizations_label">Organizations</string>
+    <string name="sessions_label">Sessions</string>
+    <string name="session_label">Session</string>
+
+
     <!-- SIGN IN PAGE -->
     <string name="sign_in_button">Sign in</string>
    
@@ -45,4 +51,9 @@
     <string name="profile_header_title_lastname">Lastname</string>
     <string name="profile_header_title_username">Username</string>
     <string name="retrieving_data">retrieving data …</string>
+    <string name="nothing_to_show_organizations">You are not a part of any organizations</string>
+    <string name="nothing_to_show_sessions">You are not a part of any sessions yet</string>
+    <string name="action_organizations">My organizations</string>
+    <string name="action_sessions">My sessions</string>
+    <string name="action_join">join</string>
 </resources>

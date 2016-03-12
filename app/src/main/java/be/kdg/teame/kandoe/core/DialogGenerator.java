@@ -15,22 +15,29 @@ import be.kdg.teame.kandoe.R;
  */
 public class DialogGenerator {
 
-    public static void showErrorDialog(Context context, @StringRes int titleId, @StringRes int messageId, DialogInterface.OnClickListener onPositiveClickListener){
+    // error dialogs (string resources)
+
+    public static void showErrorDialog(Context context, @StringRes int titleId, @StringRes int messageId, DialogInterface.OnClickListener onPositiveClickListener) {
         showErrorDialog(context, context.getString(titleId), context.getString(messageId), onPositiveClickListener);
     }
 
-    public static void showErrorDialog(Context context, @StringRes int messageId, DialogInterface.OnClickListener onPositiveClickListener){
+    public static void showErrorDialog(Context context, @StringRes int messageId, DialogInterface.OnClickListener onPositiveClickListener) {
         showErrorDialog(context, context.getString(R.string.dialog_error_title_default), context.getString(messageId), onPositiveClickListener);
     }
 
-    public static void showErrorDialog(Context context, @StringRes int titleId, @StringRes int messageId){
+    public static void showErrorDialog(Context context, @StringRes int titleId, @StringRes int messageId) {
         showErrorDialog(context, context.getString(titleId), context.getString(messageId), null);
     }
 
-    public static void showErrorDialog(Context context, @StringRes int messageId){
-        showErrorDialog(context, context.getString(R.string.dialog_error_title_default), context.getString(messageId), null);
+    public static void showErrorDialog(Context context, @StringRes int messageId) {
+        if (messageId == 0)
+            showErrorDialog(context);
+        else
+            showErrorDialog(context, context.getString(R.string.dialog_error_title_default), context.getString(messageId), null);
     }
 
+
+    // error dialogs (strings)
 
     public static void showErrorDialog(Context context, CharSequence title, CharSequence message, DialogInterface.OnClickListener onPositiveClickListener) {
         createErrorDialog(context, title, message, onPositiveClickListener).show();
@@ -41,11 +48,18 @@ public class DialogGenerator {
     }
 
     public static void showErrorDialog(Context context, CharSequence message) {
-        showErrorDialog(context, context.getString(R.string.dialog_error_title_default), message, null);
+        if (message == null)
+            showErrorDialog(context, context.getString(R.string.dialog_error_title_default), message, null);
+        else
+            showErrorDialog(context);
+    }
+
+    public static void showErrorDialog(Context context) {
+        showErrorDialog(context, context.getString(R.string.dialog_error_title_default), context.getString(R.string.dialog_error_message_default));
     }
 
 
-    public static Dialog createErrorDialog(Context context, CharSequence title, CharSequence message, DialogInterface.OnClickListener onPositiveClickListener){
+    public static Dialog createErrorDialog(Context context, CharSequence title, CharSequence message, DialogInterface.OnClickListener onPositiveClickListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title)
                 .setMessage(message)
@@ -55,14 +69,17 @@ public class DialogGenerator {
         return builder.create();
     }
 
-    public static ProgressDialog createProgressDialog(Context context){
+
+    // process dialogs
+
+    public static ProgressDialog createProgressDialog(Context context) {
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setCancelable(false);
 
         return progressDialog;
     }
 
-    public static ProgressDialog createProgressDialog(Context context, @StringRes int messageId){
+    public static ProgressDialog createProgressDialog(Context context, @StringRes int messageId) {
         ProgressDialog progressDialog = createProgressDialog(context);
         progressDialog.setMessage(context.getString(messageId));
 

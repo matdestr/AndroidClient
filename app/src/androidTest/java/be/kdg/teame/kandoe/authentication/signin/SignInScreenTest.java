@@ -64,7 +64,7 @@ public class SignInScreenTest {
                     if (mockedAuthenticationModule == null)
                         mockedAuthenticationModule = new AuthenticationModule();
 
-                    ((App) application).setAppComponent(
+                    ((App) application).setComponent(
                             DaggerAppComponent.builder()
                                     .appModule(new AppModule(application))
                                     .authenticationModule(mockedAuthenticationModule)

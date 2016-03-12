@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.core.AuthenticationHelper;
-import be.kdg.teame.kandoe.core.contracts.AuthenticatedContract;
 import be.kdg.teame.kandoe.data.retrofit.services.UserService;
 import be.kdg.teame.kandoe.di.Injector;
 import be.kdg.teame.kandoe.models.users.User;
@@ -34,7 +33,7 @@ public class ProfilePresenter implements ProfileContract.UserActionsListener {
     }
 
     @Override
-    public void retrieveUserdata() {
+    public void loadUserdata() {
         mProfileView.showRetrievingDataStatus();
 
         mUserService.getUser(mPrefManager.retrieveUsername(), new Callback<User>() {
@@ -45,13 +44,13 @@ public class ProfilePresenter implements ProfileContract.UserActionsListener {
 
                 mUser = user;
 
-                mProfileView.loadUserData(mUser);
+                mProfileView.showUserdata(mUser);
             }
 
             @Override
             public void failure(RetrofitError error) {
                 if (error != null && error.getResponse() != null) {
-                    if (error.getResponse().getStatus() == 400 || error.getResponse().getStatus() == 401) {
+                    if (error.getResponse().getStatus() == HttpStatus.BAD_REQUEST || error.getResponse().getStatus() == HttpStatus.UNAUTHORIZED) {
                         mProfileView.launchUnauthenticatedRedirectActivity();
                     } else {
                         mProfileView.showErrorConnectionFailure("Unable to retrieve profile information for " + mPrefManager.retrieveUsername());
@@ -68,7 +67,7 @@ public class ProfilePresenter implements ProfileContract.UserActionsListener {
         if (mUser != null)
             mProfileView.showEdit(mUser);
         else {
-            retrieveUserdata();
+            loadUserdata();
         }
 
     }

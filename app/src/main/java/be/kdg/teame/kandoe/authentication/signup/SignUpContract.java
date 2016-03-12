@@ -1,7 +1,7 @@
 package be.kdg.teame.kandoe.authentication.signup;
 
 import be.kdg.teame.kandoe.core.contracts.InjectableUserActionsListener;
-import be.kdg.teame.kandoe.models.dto.CreateUserDTO;
+import be.kdg.teame.kandoe.models.users.dto.CreateUserDTO;
 
 public interface SignUpContract {
     interface View {

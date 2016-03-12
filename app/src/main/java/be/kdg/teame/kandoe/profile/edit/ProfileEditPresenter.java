@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.core.AuthenticationHelper;
 import be.kdg.teame.kandoe.data.retrofit.services.UserService;
-import be.kdg.teame.kandoe.models.dto.UpdateUserDTO;
+import be.kdg.teame.kandoe.models.users.dto.UpdateUserDTO;
 import be.kdg.teame.kandoe.models.users.User;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import retrofit.Callback;

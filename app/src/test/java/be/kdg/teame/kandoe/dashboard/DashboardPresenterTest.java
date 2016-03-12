@@ -75,7 +75,7 @@ public class DashboardPresenterTest {
     public void authenticatedRetrieveUserdata(){
         Mockito.when(mPrefManager.retrieveUsername()).thenReturn("username");
 
-        mDashboardPresenter.retrieveUserdata();
+        mDashboardPresenter.loadUserdata();
 
         Mockito.verify(mUserService)
                 .getUser(Mockito.eq("username"), mUserCallbackCaptor.capture());
@@ -84,14 +84,14 @@ public class DashboardPresenterTest {
 
         mUserCallbackCaptor.getValue().success(user, null);
 
-        Mockito.verify(mDashboardView).loadUserData(Mockito.eq(user));
+        Mockito.verify(mDashboardView).showUserdata(Mockito.eq(user));
     }
 
     @Test
     public void unauthenticatedRetrieveUserdata() throws JSONException {
         Mockito.when(mPrefManager.retrieveUsername()).thenReturn("username");
 
-        mDashboardPresenter.retrieveUserdata();
+        mDashboardPresenter.loadUserdata();
 
         Mockito.verify(mUserService)
                 .getUser(Mockito.eq("username"), mUserCallbackCaptor.capture());
@@ -113,6 +113,11 @@ public class DashboardPresenterTest {
         mUserCallbackCaptor.getValue().failure(retrofitError);
 
         Mockito.verify(mDashboardView).launchUnauthenticatedRedirectActivity();
+    }
+
+    @Test
+    public void openSessions(){
+        mDashboardPresenter.openSessions();
     }
 
     @Test

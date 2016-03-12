@@ -3,20 +3,25 @@ package be.kdg.teame.kandoe.util;
 import android.support.test.espresso.PerformException;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
+import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.action.CoordinatesProvider;
 import android.support.test.espresso.action.GeneralLocation;
 import android.support.test.espresso.action.Press;
 import android.support.test.espresso.action.Swipe;
 import android.support.test.espresso.action.Swiper;
+import android.support.test.espresso.matcher.BoundedMatcher;
 import android.support.test.espresso.util.HumanReadables;
 import android.support.test.espresso.util.TreeIterables;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewConfiguration;
 
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 
 import java.util.concurrent.TimeoutException;
 
+import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
@@ -57,8 +62,8 @@ public class CustomViewActions {
                     CoordinatesProvider coordinatesProvider = new CoordinatesProvider() {
                         public float[] calculateCoordinates(View view) {
                             float[] xy = GeneralLocation.BOTTOM_CENTER.calculateCoordinates(view);
-                            xy[0] += 0.0F * (float)view.getWidth();
-                            xy[1] += -0.083F * (float)view.getHeight();
+                            xy[0] += 0.0F * (float) view.getWidth();
+                            xy[1] += -0.083F * (float) view.getHeight();
                             return xy;
                         }
                     };
@@ -69,7 +74,7 @@ public class CustomViewActions {
                     float[] precision = Press.FINGER.describePrecision();
                     Swiper.Status status = Swiper.Status.FAILURE;
 
-                    for(int tries = 0; tries < 3 && status != Swiper.Status.SUCCESS; ++tries) {
+                    for (int tries = 0; tries < 3 && status != Swiper.Status.SUCCESS; ++tries) {
                         try {
                             status = Swipe.SLOW.sendSwipe(uiController, startCoordinates, endCoordinates, precision);
                         } catch (RuntimeException var9) {
@@ -77,8 +82,8 @@ public class CustomViewActions {
                         }
 
                         int duration = ViewConfiguration.getPressedStateDuration();
-                        if(duration > 0) {
-                            uiController.loopMainThreadForAtLeast((long)duration);
+                        if (duration > 0) {
+                            uiController.loopMainThreadForAtLeast((long) duration);
                         }
                     }
                     //End c/p from android/support/test/espresso/action/GeneralSwipeAction.class
@@ -100,4 +105,25 @@ public class CustomViewActions {
             }
         };
     }
+
+    public static ViewAction withCustomConstraints(final ViewAction action, final Matcher<View> constraints) {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return constraints;
+            }
+
+            @Override
+            public String getDescription() {
+                return action.getDescription();
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                action.perform(uiController, view);
+            }
+        };
+    }
 }
+
+

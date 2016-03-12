@@ -19,8 +19,8 @@ public class BaseMockProfilePresenter extends ProfilePresenter {
     }
 
     @Override
-    public void retrieveUserdata() {
-        this.mProfileView.loadUserData(mUser);
+    public void loadUserdata() {
+        this.mProfileView.showUserdata(mUser);
     }
 
     @Override

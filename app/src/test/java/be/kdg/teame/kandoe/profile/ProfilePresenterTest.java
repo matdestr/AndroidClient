@@ -74,7 +74,7 @@ public class ProfilePresenterTest {
     public void authenticatedRetrieveUserdata(){
         Mockito.when(mPrefManager.retrieveUsername()).thenReturn("username");
 
-        mProfilePresenter.retrieveUserdata();
+        mProfilePresenter.loadUserdata();
 
         Mockito.verify(mUserService)
                 .getUser(Mockito.eq("username"), mUserCallbackCaptor.capture());
@@ -84,14 +84,14 @@ public class ProfilePresenterTest {
         mUserCallbackCaptor.getValue().success(user, null);
 
         Mockito.verify(mProfileView).showRetrievingDataStatus();
-        Mockito.verify(mProfileView).loadUserData(Mockito.eq(user));
+        Mockito.verify(mProfileView).showUserdata(Mockito.eq(user));
     }
 
     @Test
     public void unauthenticatedRetrieveUserdata() throws JSONException {
         Mockito.when(mPrefManager.retrieveUsername()).thenReturn("username");
 
-        mProfilePresenter.retrieveUserdata();
+        mProfilePresenter.loadUserdata();
 
         Mockito.verify(mUserService)
                 .getUser(Mockito.eq("username"), mUserCallbackCaptor.capture());

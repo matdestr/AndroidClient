@@ -1,6 +1,6 @@
 package be.kdg.teame.kandoe.data.retrofit.services;
 
-import be.kdg.teame.kandoe.models.dto.CreateUserDTO;
+import be.kdg.teame.kandoe.models.users.dto.CreateUserDTO;
 import be.kdg.teame.kandoe.models.users.User;
 import retrofit.Callback;
 import retrofit.http.Body;

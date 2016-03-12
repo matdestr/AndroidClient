@@ -3,19 +3,14 @@ package be.kdg.teame.kandoe.profile.edit;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.transition.Transition;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
@@ -26,16 +21,16 @@ import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.DialogGenerator;
 import be.kdg.teame.kandoe.core.activities.BaseTransparentToolbarActivity;
 import be.kdg.teame.kandoe.di.components.AppComponent;
-import be.kdg.teame.kandoe.models.dto.CreateUserDTO;
-import be.kdg.teame.kandoe.models.dto.UpdateUserDTO;
+import be.kdg.teame.kandoe.models.users.dto.UpdateUserDTO;
 import be.kdg.teame.kandoe.models.users.User;
-import be.kdg.teame.kandoe.util.http.HttpStatus;
 import be.kdg.teame.kandoe.util.validators.forms.Form;
 import be.kdg.teame.kandoe.util.validators.forms.FormField;
 import butterknife.Bind;
 import butterknife.OnClick;
 
 public class ProfileEditActivity extends BaseTransparentToolbarActivity implements ProfileEditContract.View {
+    public static final String USER = "USER";
+
     private Transition.TransitionListener mEnterTransitionListener;
     private User mUser;
     private Form mFrom;
@@ -69,7 +64,7 @@ public class ProfileEditActivity extends BaseTransparentToolbarActivity implemen
         Bundle extras = getIntent().getExtras();
 
         Gson gson = new Gson();
-        String json = extras.getString("user", null);
+        String json = extras.getString(USER, null);
 
         mUser = gson.fromJson(json, User.class);
 
