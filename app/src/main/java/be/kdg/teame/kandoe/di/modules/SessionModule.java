@@ -6,6 +6,8 @@ import be.kdg.teame.kandoe.dashboard.sessionlist.SessionListContract;
 import be.kdg.teame.kandoe.dashboard.sessionlist.SessionListPresenter;
 import be.kdg.teame.kandoe.data.retrofit.ServiceGenerator;
 import be.kdg.teame.kandoe.data.retrofit.services.SessionService;
+import be.kdg.teame.kandoe.session.SessionContract;
+import be.kdg.teame.kandoe.session.SessionPresenter;
 import be.kdg.teame.kandoe.session.game.SessionGameContract;
 import be.kdg.teame.kandoe.session.game.SessionGamePresenter;
 import be.kdg.teame.kandoe.session.join.SessionJoinContract;
@@ -20,6 +22,11 @@ public class SessionModule {
     @Singleton
     public SessionService provideSessionService(PrefManager prefManager) {
         return ServiceGenerator.createAuthenticatedService(SessionService.class, prefManager);
+    }
+
+    @Provides
+    public SessionContract.UserActionsListener provideSessionPresenter(SessionService sessionService, PrefManager prefManager) {
+        return new SessionPresenter(sessionService, prefManager);
     }
 
     @Provides

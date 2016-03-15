@@ -21,7 +21,7 @@ public interface SessionService {
     void getSession(@Path("sessionId") int sessionId, Callback<Session> callback);
 
     @POST(ENDPOINT + "/{sessionId}/join")
-    void join(@Path("sessionId") int sessionId, Callback callback);
+    void join(@Path("sessionId") int sessionId, Callback<Object> callback);
 
     @GET(ENDPOINT + "/{sessionId}/all-cards")
     void getAllCards(@Path("sessionId") int sessionId, Callback<Session> callback);
@@ -30,7 +30,7 @@ public interface SessionService {
     void chooseCard(@Path("sessionId") int sessionId, Callback<Session> callback);
 
     @POST(ENDPOINT + "/{sessionId}/start")
-    void start(@Path("sessionId") int sessionId, Callback callback);
+    void start(@Path("sessionId") int sessionId, Callback<Object> callback);
 
     @GET(ENDPOINT + "/{sessionId}/positions")
     void getCardPositions(@Path("sessionId") int sessionId, Callback<List<CardPosition>> callback);
@@ -39,5 +39,5 @@ public interface SessionService {
     void increaseCardPriority(@Path("sessionId") int sessionId, Callback<Session> callback);
 
     @POST(ENDPOINT + "/{sessionId}/end")
-    void end(@Path("sessionId") int sessionId, Callback callback);
+    void end(@Path("sessionId") int sessionId, Callback<Object> callback);
 }
