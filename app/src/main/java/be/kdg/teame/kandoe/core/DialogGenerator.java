@@ -18,33 +18,40 @@ public class DialogGenerator {
     // error dialogs (string resources)
 
     public static void showErrorDialog(Context context, @StringRes int titleId, @StringRes int messageId, DialogInterface.OnClickListener onPositiveClickListener) {
-        showErrorDialog(context, context.getString(titleId), context.getString(messageId), onPositiveClickListener);
+        if (context != null)
+            showErrorDialog(context, context.getString(titleId), context.getString(messageId), onPositiveClickListener);
     }
 
     public static void showErrorDialog(Context context, @StringRes int messageId, DialogInterface.OnClickListener onPositiveClickListener) {
-        showErrorDialog(context, context.getString(R.string.dialog_error_title_default), context.getString(messageId), onPositiveClickListener);
+        if (context != null)
+            showErrorDialog(context, context.getString(R.string.dialog_error_title_default), context.getString(messageId), onPositiveClickListener);
     }
 
     public static void showErrorDialog(Context context, @StringRes int titleId, @StringRes int messageId) {
-        showErrorDialog(context, context.getString(titleId), context.getString(messageId), null);
+        if (context != null)
+            showErrorDialog(context, context.getString(titleId), context.getString(messageId), null);
     }
 
     public static void showErrorDialog(Context context, @StringRes int messageId) {
-        if (messageId == 0)
-            showErrorDialog(context);
-        else
-            showErrorDialog(context, context.getString(R.string.dialog_error_title_default), context.getString(messageId), null);
+        if (context != null) {
+            if (messageId == 0)
+                showErrorDialog(context);
+            else
+                showErrorDialog(context, context.getString(R.string.dialog_error_title_default), context.getString(messageId), null);
+        }
     }
 
 
     // error dialogs (strings)
 
     public static void showErrorDialog(Context context, CharSequence title, CharSequence message, DialogInterface.OnClickListener onPositiveClickListener) {
-        createErrorDialog(context, title, message, onPositiveClickListener).show();
+        if (context != null)
+            createErrorDialog(context, title, message, onPositiveClickListener).show();
     }
 
     public static void showErrorDialog(Context context, CharSequence title, CharSequence message) {
-        showErrorDialog(context, title, message, null);
+        if (context != null)
+            showErrorDialog(context, title, message, null);
     }
 
     public static void showErrorDialog(Context context, CharSequence message) {
@@ -55,7 +62,8 @@ public class DialogGenerator {
     }
 
     public static void showErrorDialog(Context context) {
-        showErrorDialog(context, context.getString(R.string.dialog_error_title_default), context.getString(R.string.dialog_error_message_default));
+        if (context != null)
+            showErrorDialog(context, context.getString(R.string.dialog_error_title_default), context.getString(R.string.dialog_error_message_default));
     }
 
 

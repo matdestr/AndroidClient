@@ -1,7 +1,6 @@
 package be.kdg.teame.kandoe.session.game;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
@@ -9,7 +8,7 @@ import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.activities.BaseToolbarActivity;
 import be.kdg.teame.kandoe.di.components.AppComponent;
 
-public class SessionGameActivity extends BaseToolbarActivity implements SessionGameContract.UserActionsListener {
+public class SessionGameActivity extends BaseToolbarActivity implements SessionGameContract.View {
     @Inject
     SessionGameContract.UserActionsListener mSessionGamePresenter;
 
@@ -25,17 +24,22 @@ public class SessionGameActivity extends BaseToolbarActivity implements SessionG
     }
 
     @Override
-    public void setView(@NonNull SessionGameContract.View view) {
-
-    }
-
-    @Override
-    public void checkUserIsAuthenticated() {
-
-    }
-
-    @Override
     protected void injectComponent(AppComponent component) {
         component.inject(this);
+    }
+
+    @Override
+    public void showRanking() {
+
+    }
+
+    @Override
+    public void showCardPicker() {
+
+    }
+
+    @Override
+    public void showErrorConnectionFailure(String errorMessage) {
+
     }
 }
