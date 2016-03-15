@@ -55,7 +55,7 @@ public class DialogGenerator {
     }
 
     public static void showErrorDialog(Context context, CharSequence message) {
-        if (message == null)
+        if (message != null)
             showErrorDialog(context, context.getString(R.string.dialog_error_title_default), message, null);
         else
             showErrorDialog(context);

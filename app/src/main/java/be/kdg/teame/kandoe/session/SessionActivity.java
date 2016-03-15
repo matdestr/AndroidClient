@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 import javax.inject.Inject;
 
@@ -22,9 +23,14 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
 
     private BaseFragment mCurrentFragment;
 
+    private int sessionId = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent bundles = getIntent();
+        sessionId = bundles.getIntExtra(SESSION_ID, -1);
 
         mSessionPresenter.setView(this);
         switchFragment(new SessionJoinFragment());
@@ -34,9 +40,8 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
     @Override
     protected void onResume() {
         Intent bundles = getIntent();
-        int sessionId = bundles.getIntExtra(SESSION_ID, -1);
-
-        mSessionPresenter.loadSession(sessionId);
+        sessionId = bundles.getIntExtra(SESSION_ID, -1);
+        Log.d(getClass().getSimpleName(), "onResume - Current sessionId: " + sessionId);
 
         super.onResume();
     }
@@ -54,6 +59,13 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
     private void switchFragment(BaseFragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        Bundle args = new Bundle();
+        args.putInt(SESSION_ID, sessionId);
+
+        Log.d(getClass().getSimpleName(), "switchFragment - sessionId: " + sessionId);
+
+        fragment.setArguments(args);
 
         if (mCurrentFragment == null)
             transaction.add(R.id.fragment_container, fragment);

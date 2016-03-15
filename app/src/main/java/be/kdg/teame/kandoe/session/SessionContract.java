@@ -12,6 +12,5 @@ public interface SessionContract {
     }
 
     interface UserActionsListener extends InjectableUserActionsListener<View>, AuthenticatedContract.UserActionsListener {
-        void loadSession(int sessionId);
     }
 }

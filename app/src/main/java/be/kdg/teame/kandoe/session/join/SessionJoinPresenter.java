@@ -3,6 +3,10 @@ package be.kdg.teame.kandoe.session.join;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -10,18 +14,17 @@ import javax.inject.Inject;
 import be.kdg.teame.kandoe.core.AuthenticationHelper;
 import be.kdg.teame.kandoe.data.retrofit.services.SessionService;
 import be.kdg.teame.kandoe.data.websockets.JoinService;
-import be.kdg.teame.kandoe.data.websockets.StompService;
-import be.kdg.teame.kandoe.data.websockets.WebSocketsConnector;
 import be.kdg.teame.kandoe.data.websockets.stomp.ListenerSubscription;
-import be.kdg.teame.kandoe.data.websockets.stomp.Stomp;
+import be.kdg.teame.kandoe.session.SessionActivity;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.mime.TypedByteArray;
 
 public class SessionJoinPresenter implements SessionJoinContract.UserActionsListener {
     private final SessionService mSessionService;
-    private JoinService mJoinService;
+    private JoinService mJoinServiceRunnable;
     private final PrefManager mPrefManager;
 
     private SessionJoinContract.View mSessionJoinView;
@@ -44,11 +47,20 @@ public class SessionJoinPresenter implements SessionJoinContract.UserActionsList
 
             @Override
             public void failure(RetrofitError error) {
-                Log.d("Session-join", error.getMessage());
+                String errorMessage = new String(((TypedByteArray) error.getResponse().getBody()).getBytes());
+                try {
+                    JSONObject jsonObject = new JSONObject(errorMessage);
+                    mSessionJoinView.showError(jsonObject.getString("message"));
+                } catch (JSONException e) {
+                    Log.d("Session-join", "JSONException: ".concat(e.getMessage()), e);
+                    mSessionJoinView.showError("Sorry, something went wrong.");
+                }
             }
         });
+    }
 
-
+    @Override
+    public void decline(int sessionId) {
 
     }
 
@@ -63,11 +75,13 @@ public class SessionJoinPresenter implements SessionJoinContract.UserActionsList
     }
 
     private void startWebSocket(int sessionId){
-        mJoinService = new JoinService(String.format("/topic/sessions/%d/participants", sessionId), new ListenerSubscription() {
+        mJoinServiceRunnable = new JoinService(String.format("/topic/sessions/%d/participants", sessionId), new ListenerSubscription() {
             @Override
             public void onMessage(Map<String, String> headers, String body) {
                 Log.d("Session-join", body);
             }
         });
+
+        new Thread(mJoinServiceRunnable).start();
     }
 }
