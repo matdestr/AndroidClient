@@ -14,6 +14,9 @@ public final class Injector {
         private static String refreshTokenTemplate = "grant_type=refresh_token%n"*/
 
     @Getter
-    private static final String apiBaseUrl = "https://wildfly-teameip2kdgbe.rhcloud.com";
+    private static final String apiBaseUrl = /*"https://wildfly-teameip2kdgbe.rhcloud.com"*/ "http://10.0.3.2:8080/kandoe";
+
+    @Getter
+    private static final String webSocketBaseUrl =/* "ws://wildfly-teameip2kdgbe.rhcloud.com"*/ "ws://10.0.3.2:8080/kandoe";
 
 }

@@ -2,6 +2,7 @@ package be.kdg.teame.kandoe.session.join;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.DialogGenerator;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SessionJoinFragment extends BaseFragment implements SessionJoinContract.View {
@@ -35,6 +37,7 @@ public class SessionJoinFragment extends BaseFragment implements SessionJoinCont
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_session_join, container, false);
+        ButterKnife.bind(this, root);
         return root;
     }
 

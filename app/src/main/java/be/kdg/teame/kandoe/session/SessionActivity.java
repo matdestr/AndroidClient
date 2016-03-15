@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.activities.BaseToolbarActivity;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
+import be.kdg.teame.kandoe.session.join.SessionJoinFragment;
 
 public class SessionActivity extends BaseToolbarActivity {
 
@@ -21,6 +22,8 @@ public class SessionActivity extends BaseToolbarActivity {
 
         Intent bundles = getIntent();
         int sessionId = bundles.getIntExtra(SESSION_ID, -1);
+
+        switchFragment(new SessionJoinFragment());
 
     }
 

@@ -19,6 +19,7 @@ import be.kdg.teame.kandoe.di.modules.UserModule;
 import be.kdg.teame.kandoe.profile.ProfileActivity;
 import be.kdg.teame.kandoe.profile.edit.ProfileEditActivity;
 import be.kdg.teame.kandoe.session.game.SessionGameActivity;
+import be.kdg.teame.kandoe.session.join.SessionJoinFragment;
 import dagger.Component;
 
 /**
@@ -59,4 +60,7 @@ public interface AppComponent {
     void inject(OrganizationListFragment organizationListFragment);
 
     void inject(SessionListFragment sessionListFragment);
+
+    void inject(SessionJoinFragment sessionJoinFragment);
+
 }
