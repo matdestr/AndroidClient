@@ -43,7 +43,7 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
     @Inject
     SessionAddCardsContract.UserActionsListener mAddCardsPresenter;
 
-    private final int GRID_SPAN_COUNT = 2;
+    private static final int GRID_SPAN_COUNT = 2;
 
     private int mSessionId;
 
@@ -72,7 +72,7 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
         Bundle args = getArguments();
         mSessionId = args.getInt(SessionActivity.SESSION_ID);
 
-        GridLayoutManager glm = new GridLayoutManager(getContext(), GRID_SPAN_COUNT);
+        GridLayoutManager glm = new GridLayoutManager(getContext(), SessionAddCardsFragment.GRID_SPAN_COUNT);
 
         mCardAdapter = new CardAdapter(getContext(), new ArrayList<CardDetails>(0), mItemListener);
 

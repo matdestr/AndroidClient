@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="176dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/padding_card_details_grid_item"
+    android:id="@+id/session_card_container">
+
+    <CheckBox
+        android:id="@+id/session_card_item_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"/>
+
+    <ImageView
+        android:id="@+id/session_card_item_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:src="@drawable/default_user"/>
+
+    <TextView
+        android:id="@+id/session_card_item_text"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorTextLight"
+        android:textSize="12sp"
+        android:padding="4dp"
+        tools:text="Dit is een heel lange descriptie van een heel mooi kaartje voor onze hele mooie Android app voor ons heel mooie project dat Kandoe heet en wel een hamburger lust."
+        android:layout_alignParentBottom="true"
+        android:ellipsize="end"
+        android:maxLines="3"
+        />
+
+
+</RelativeLayout>

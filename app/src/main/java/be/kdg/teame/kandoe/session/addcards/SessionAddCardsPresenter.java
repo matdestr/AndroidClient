@@ -48,7 +48,7 @@ public class SessionAddCardsPresenter implements SessionAddCardsContract.UserAct
 
            @Override
            public void failure(RetrofitError error) {
-
+               //todo show error
            }
        });
     }
