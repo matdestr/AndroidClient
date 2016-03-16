@@ -30,5 +30,7 @@
     <dimen name="profile_icon_padding">4dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <!-- CARD DETAILS -->
+    <dimen name="padding_card_details_grid_item">4dp</dimen>
 
 </resources>

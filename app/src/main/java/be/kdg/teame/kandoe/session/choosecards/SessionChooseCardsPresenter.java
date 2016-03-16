@@ -29,4 +29,9 @@ public class SessionChooseCardsPresenter implements SessionChooseCardsContract.U
     public void checkUserIsAuthenticated() {
 
     }
+
+    @Override
+    public void loadCards(int sessionId) {
+
+    }
 }

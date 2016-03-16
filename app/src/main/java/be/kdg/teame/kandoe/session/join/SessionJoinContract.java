@@ -11,6 +11,8 @@ public interface SessionJoinContract {
         void setProgressIndicator(boolean active);
         void showError(String error);
         void close();
+        void showJoined();
+        void showUserJoined();
     }
 
     interface UserActionsListener extends InjectableUserActionsListener<View>, AuthenticatedContract.UserActionsListener {

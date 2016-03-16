@@ -14,7 +14,7 @@ import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.session.addcards.SessionAddCardsContract;
 import butterknife.ButterKnife;
 
-public class SessionChooseCardsFragment extends BaseFragment implements SessionAddCardsContract.View  {
+public class SessionChooseCardsFragment extends BaseFragment implements SessionChooseCardsContract.View  {
     @Inject
     SessionAddCardsContract.UserActionsListener mAddCardsPresenter;
 
@@ -33,6 +33,11 @@ public class SessionChooseCardsFragment extends BaseFragment implements SessionA
 
     @Override
     public void showErrorConnectionFailure(String errorMessage) {
+
+    }
+
+    @Override
+    public void showCards() {
 
     }
 }

@@ -105,12 +105,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:orientation="vertical">
+            android:layout_marginBottom="@dimen/material_margin_default"
+            android:weightSum="2"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_join"
                 style="@style/Material.Button.Raised"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="72dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/material_content_space"
@@ -120,7 +123,8 @@
             <Button
                 android:id="@+id/btn_decline"
                 style="@style/Material.Button.Flat"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="72dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/material_content_space"
@@ -145,11 +149,13 @@
             />
 
         <TextView
+            android:id="@+id/join_progresstext"
             android:layout_below="@+id/join_progressbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="2 out of 6 people joined."
-            android:textAlignment="center"/>
+            android:gravity="center"
+            />
 
     </RelativeLayout>
 

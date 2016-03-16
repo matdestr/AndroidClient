@@ -2,7 +2,6 @@ package be.kdg.teame.kandoe.session.join;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,14 +10,12 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.AuthenticationHelper;
 import be.kdg.teame.kandoe.data.retrofit.services.SessionService;
 import be.kdg.teame.kandoe.data.websockets.JoinService;
 import be.kdg.teame.kandoe.data.websockets.SessionSocketService;
 import be.kdg.teame.kandoe.data.websockets.stomp.SubscriptionCallback;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
-import butterknife.Bind;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -32,7 +29,7 @@ public class SessionJoinPresenter implements SessionJoinContract.UserActionsList
     private SessionJoinContract.View mSessionJoinView;
 
     @Inject
-    public SessionJoinPresenter(SessionService sessionService, PrefManager prefManager) {
+    public SessionJoinPresenter(SessionService sessionService,PrefManager prefManager) {
         this.mSessionService = sessionService;
         this.mPrefManager = prefManager;
     }
@@ -40,13 +37,11 @@ public class SessionJoinPresenter implements SessionJoinContract.UserActionsList
     @Override
     public void join(final int sessionId) {
         mSessionJoinView.setProgressIndicator(true);
-
-        startWebSocket(sessionId);
-
         mSessionService.join(sessionId, new Callback<Object>() {
             @Override
             public void success(Object o, Response response) {
                 Log.d("Session-join", "Joined session " + sessionId);
+                mSessionJoinView.showJoined();
                 startWebSocket(sessionId);
             }
 
@@ -112,8 +107,8 @@ public class SessionJoinPresenter implements SessionJoinContract.UserActionsList
         mJoinServiceRunnable = new JoinService(String.format("/topic/sessions/%d/participants", sessionId), new SubscriptionCallback() {
             @Override
             public void onMessage(Map<String, String> headers, String body) {
-                Log.d("Session-join", body);
-
+                Log.d(SessionJoinPresenter.this.getClass().getSimpleName(), body);
+                mSessionJoinView.showUserJoined();
             }
         });
 

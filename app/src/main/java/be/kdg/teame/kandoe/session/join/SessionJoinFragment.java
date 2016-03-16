@@ -2,9 +2,13 @@ package be.kdg.teame.kandoe.session.join;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import javax.inject.Inject;
@@ -19,6 +23,18 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SessionJoinFragment extends BaseFragment implements SessionJoinContract.View {
+    @Bind(R.id.session_load_users_container)
+    RelativeLayout mUserLoadContainer;
+
+    @Bind(R.id.session_accept_container)
+    RelativeLayout mJoinContainer;
+
+    @Bind(R.id.join_progressbar)
+    ProgressBar mProgressBar;
+
+    @Bind(R.id.join_progresstext)
+    TextView mProgressTextView;
+
     @Bind(R.id.session_title)
     TextView mTitleTextView;
 
@@ -100,6 +116,19 @@ public class SessionJoinFragment extends BaseFragment implements SessionJoinCont
     @Override
     public void close() {
         this.getActivity().finish();
+    }
+
+    @Override
+    public void showJoined() {
+        mJoinContainer.setVisibility(View.GONE);
+        mUserLoadContainer.setVisibility(View.VISIBLE);
+        mProgressBar.setIndeterminate(true);
+        mProgressTextView.setText(R.string.session_waiting_for_users);
+    }
+
+    @Override
+    public void showUserJoined() {
+        //todo show snackbar
     }
 
     @Override

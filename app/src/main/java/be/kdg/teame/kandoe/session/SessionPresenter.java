@@ -8,11 +8,9 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.data.retrofit.services.SessionService;
-import be.kdg.teame.kandoe.data.websockets.JoinService;
 import be.kdg.teame.kandoe.data.websockets.SessionSocketService;
 import be.kdg.teame.kandoe.data.websockets.WebSocketsManager;
 import be.kdg.teame.kandoe.data.websockets.stomp.SubscriptionCallback;
-import be.kdg.teame.kandoe.di.Injector;
 import be.kdg.teame.kandoe.models.sessions.Session;
 import be.kdg.teame.kandoe.models.sessions.SessionStatus;
 import be.kdg.teame.kandoe.util.http.HttpStatus;
@@ -23,9 +21,7 @@ import retrofit.client.Response;
 
 public class SessionPresenter implements SessionContract.UserActionsListener {
     private final SessionService mSessionService;
-
     private SessionContract.View mSessionView;
-    private Session mCurrentSession;
 
     @Inject
     public SessionPresenter(SessionService sessionService, PrefManager prefManager){
@@ -43,20 +39,17 @@ public class SessionPresenter implements SessionContract.UserActionsListener {
     }
 
     @Override
-    public void startListening() {
-        int sessionId = 1;
+    public void startListening(int sessionId) {
         final SessionSocketService sessionSocketService = new SessionSocketService(
                 String.format("/topic/sessions/%d/status", sessionId),
                 new SubscriptionCallback() {
                     @Override
                     public void onMessage(Map<String, String> headers, String body) {
                         Log.d("SocketService-message", "session-status:".concat(body));
-                        String[] status = body.split("\"", 1);
-
-
+                        SessionStatus status = SessionStatus.valueOf(body.split("(.*?)", 1)[0]);
+                        mSessionView.onSessionStatusChanged(status);
                     }
                 });
-
 
         Thread thread = WebSocketsManager.getThread(sessionSocketService, sessionId);
 
@@ -70,7 +63,6 @@ public class SessionPresenter implements SessionContract.UserActionsListener {
             @Override
             public void success(Session session, Response response) {
                 mSessionView.showSession(session);
-                mCurrentSession = session;
             }
 
             @Override
@@ -83,7 +75,8 @@ public class SessionPresenter implements SessionContract.UserActionsListener {
                     }
                 } else {
                     mSessionView.showErrorConnectionFailure(null);
-                }            }
+                }
+            }
         });
     }
 }

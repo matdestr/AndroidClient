@@ -2,6 +2,7 @@ package be.kdg.teame.kandoe.data.retrofit.services;
 
 import java.util.List;
 
+import be.kdg.teame.kandoe.models.cards.CardDetails;
 import be.kdg.teame.kandoe.models.cards.CardPosition;
 import be.kdg.teame.kandoe.models.sessions.Session;
 import be.kdg.teame.kandoe.models.sessions.SessionListItem;
@@ -27,7 +28,7 @@ public interface SessionService {
     void decline(@Path("sessionId") int sessionId, Callback<Object> callback);
 
     @GET(ENDPOINT + "/{sessionId}/all-cards")
-    void getAllCards(@Path("sessionId") int sessionId, Callback<Session> callback);
+    void getAllCards(@Path("sessionId") int sessionId, Callback<List<CardDetails>> callback);
 
     @POST(ENDPOINT + "/{sessionId}/all-cards")
     void chooseCard(@Path("sessionId") int sessionId, Callback<Session> callback);
