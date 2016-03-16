@@ -49,7 +49,7 @@ public class SessionListPresenter implements SessionListContract.UserActionsList
 
     @Override
     public void openSession(SessionListItem session) {
-        mSessionListView.showSessionDetail(session.getSessionId());
+        mSessionListView.showSessionDetail(session);
     }
 
     @Override

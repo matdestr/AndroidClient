@@ -138,9 +138,14 @@ public class SessionListFragment extends BaseFragment implements SessionListCont
     }
 
     @Override
-    public void showSessionDetail(int sessionId) {
+    public void showSessionDetail(SessionListItem session) {
         Intent intent = new Intent(getContext(), SessionActivity.class);
-        intent.putExtra(SessionActivity.SESSION_ID, sessionId);
+        intent.putExtra(SessionActivity.SESSION_ID, session.getSessionId());
+        intent.putExtra(SessionActivity.SESSION_CATEGORY_TITLE, session.getCategoryTitle());
+        intent.putExtra(SessionActivity.SESSION_TOPIC_TITLE, session.getTopicTitle());
+        intent.putExtra(SessionActivity.SESSION_ORGANIZATION_TITLE, session.getOrganizationTitle());
+
+
         startActivity(intent);
     }
 

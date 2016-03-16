@@ -14,7 +14,6 @@ import be.kdg.teame.kandoe.di.Injector;
 public class JoinService implements Runnable {
     private String destination;
     private ListenerSubscription listenerWSNetwork;
-    private boolean run = true;
     private Stomp stomp;
 
     public JoinService(@NonNull String destination, @NonNull ListenerSubscription listenerWSNetwork){
@@ -57,17 +56,5 @@ public class JoinService implements Runnable {
         Log.i(this.getClass().getSimpleName(), "Stomp connected");
 
         stomp.subscribe(new Subscription(destination, listenerWSNetwork));
-
-        while (run){
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                this.run = false;
-            }
-        }
-    }
-
-    public void stopService(){
-        this.run = false;
     }
 }

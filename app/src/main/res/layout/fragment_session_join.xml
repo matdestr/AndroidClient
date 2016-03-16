@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="@dimen/material_margin_default"
     android:layout_marginRight="@dimen/material_margin_default"
-    xmlns:tools="http://schemas.android.com/tools">
+    >
 
-    <RelativeLayout
-        android:id="@+id/session_info_container"
+   <RelativeLayout
+       android:id="@+id/session_accept_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true">
+        >
 
         <RelativeLayout
             android:id="@+id/session_header_container"
             android:layout_width="match_parent"
             android:layout_height="@dimen/material_list_item_height"
             android:layout_alignParentTop="true">
+
 
             <TextView
                 android:id="@+id/session_title"
@@ -38,36 +40,117 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/session_button_container"
-            android:layout_width="fill_parent"
+            android:id="@+id/session_content_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/session_header_container"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:weightSum="2"
-            >
+            android:layout_below="@id/session_header_container"
+            android:layout_marginBottom="@dimen/material_content_space"
+            android:layout_marginTop="@dimen/material_content_space"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/organization_title"
+                style="@style/SessionListItemCardText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                tools:text="Organization: Karel de Grote Hogeschool" />
+
+            <TextView
+                android:id="@+id/category_title"
+                style="@style/SessionListItemCardText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                tools:text="Category: Toegepaste Informatica" />
+
+            <TextView
+                android:id="@+id/topic_title"
+                style="@style/SessionListItemCardText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                tools:text="Topic: Android Development" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/material_list_item_height"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/session_content_container"
+            android:layout_marginTop="@dimen/material_content_space"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/session_participant_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                tools:text="12" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_users"
+                android:tint="@color/colorPrimary" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/session_button_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/btn_join"
                 style="@style/Material.Button.Raised"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="72dp"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/material_content_space"
                 android:text="@string/action_join"
                 android:textSize="20sp" />
 
             <Button
                 android:id="@+id/btn_decline"
-                style="@style/Material.Button.Raised.White"
-                android:layout_width="0dp"
+                style="@style/Material.Button.Flat"
+                android:layout_width="match_parent"
                 android:layout_height="72dp"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/material_content_space"
                 android:text="@string/action_decline"
                 android:textSize="20sp" />
-
-        ></LinearLayout>
+        </LinearLayout>
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/session_load_users_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/join_progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="false"
+            />
+
+        <TextView
+            android:layout_below="@+id/join_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="2 out of 6 people joined."
+            android:textAlignment="center"/>
+
+    </RelativeLayout>
+
 </RelativeLayout>

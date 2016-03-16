@@ -11,39 +11,41 @@ import javax.inject.Inject;
 import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.activities.BaseToolbarActivity;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
-import be.kdg.teame.kandoe.data.retrofit.services.SessionService;
 import be.kdg.teame.kandoe.di.components.AppComponent;
+import be.kdg.teame.kandoe.models.sessions.Session;
 import be.kdg.teame.kandoe.session.join.SessionJoinFragment;
 
 public class SessionActivity extends BaseToolbarActivity implements SessionContract.View {
     public static final String SESSION_ID = "SESSION_ID";
+    public static final String SESSION_PARTICIPANT_AMOUNT = "SESSION_PARTICIPANT_AMOUNT";
+    public static final String SESSION_CATEGORY_TITLE = "SESSION_CATEGORY_TITLE";
+    public static final String SESSION_TOPIC_TITLE = "SESSION_TOPIC_TITLE";
+    public static final String SESSION_ORGANIZATION_TITLE = "SESSION_ORGANIZATION_TITLE";
+
 
     @Inject
     SessionContract.UserActionsListener mSessionPresenter;
 
     private BaseFragment mCurrentFragment;
 
-    private int sessionId = -1;
+    private Session mCurrentSession;
+
+    private String mCategoryTitle;
+    private String mTopicTitle;
+    private String mOrganizationTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Intent bundles = getIntent();
-        sessionId = bundles.getIntExtra(SESSION_ID, -1);
+        int sessionId = bundles.getIntExtra(SESSION_ID, -1);
+        mCategoryTitle = bundles.getStringExtra(SESSION_CATEGORY_TITLE);
+        mTopicTitle = bundles.getStringExtra(SESSION_TOPIC_TITLE);
+        mOrganizationTitle = bundles.getStringExtra(SESSION_ORGANIZATION_TITLE);
 
         mSessionPresenter.setView(this);
-        switchFragment(new SessionJoinFragment());
-
-    }
-
-    @Override
-    protected void onResume() {
-        Intent bundles = getIntent();
-        sessionId = bundles.getIntExtra(SESSION_ID, -1);
-        Log.d(getClass().getSimpleName(), "onResume - Current sessionId: " + sessionId);
-
-        super.onResume();
+        mSessionPresenter.loadSession(sessionId);
     }
 
     @Override
@@ -61,9 +63,13 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         Bundle args = new Bundle();
-        args.putInt(SESSION_ID, sessionId);
+        args.putInt(SESSION_ID, mCurrentSession.getSessionId());
+        args.putInt(SESSION_PARTICIPANT_AMOUNT, mCurrentSession.getParticipantInfo().size());
+        args.putString(SESSION_CATEGORY_TITLE, mCategoryTitle);
+        args.putString(SESSION_TOPIC_TITLE, mTopicTitle);
+        args.putString(SESSION_ORGANIZATION_TITLE, mOrganizationTitle);
 
-        Log.d(getClass().getSimpleName(), "switchFragment - sessionId: " + sessionId);
+        Log.d(getClass().getSimpleName(), String.format("switchFragment - switching to fragment %s mSessionId: %d", fragment.getClass().getSimpleName(), mCurrentSession.getSessionId()));
 
         fragment.setArguments(args);
 
@@ -83,8 +89,9 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
     }
 
     @Override
-    public void showSession() {
-
+    public void showSession(Session session) {
+        this.mCurrentSession = session;
+        switchFragment(new SessionJoinFragment());
     }
 
     @Override

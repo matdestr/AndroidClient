@@ -23,6 +23,9 @@ public interface SessionService {
     @POST(ENDPOINT + "/{sessionId}/join")
     void join(@Path("sessionId") int sessionId, Callback<Object> callback);
 
+    @POST(ENDPOINT + "/{sessionId}/decline")
+    void decline(@Path("sessionId") int sessionId, Callback<Object> callback);
+
     @GET(ENDPOINT + "/{sessionId}/all-cards")
     void getAllCards(@Path("sessionId") int sessionId, Callback<Session> callback);
 

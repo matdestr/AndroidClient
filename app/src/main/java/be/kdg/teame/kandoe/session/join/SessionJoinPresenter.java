@@ -2,6 +2,7 @@ package be.kdg.teame.kandoe.session.join;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,12 +12,14 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.AuthenticationHelper;
 import be.kdg.teame.kandoe.data.retrofit.services.SessionService;
 import be.kdg.teame.kandoe.data.websockets.JoinService;
 import be.kdg.teame.kandoe.data.websockets.stomp.ListenerSubscription;
 import be.kdg.teame.kandoe.session.SessionActivity;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
+import butterknife.Bind;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -60,8 +63,28 @@ public class SessionJoinPresenter implements SessionJoinContract.UserActionsList
     }
 
     @Override
-    public void decline(int sessionId) {
+    public void decline(final int sessionId) {
+        mSessionService.decline(sessionId, new Callback<Object>() {
+            @Override
+            public void success(Object o, Response response) {
+                Log.d("Session-join", String.format("Successfully decline session invite for session %d", sessionId));
+                mSessionJoinView.close();
+            }
 
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("Session-join", "Failure: " + error.getMessage(), error);
+
+                String errorMessage = new String(((TypedByteArray) error.getResponse().getBody()).getBytes());
+                try {
+                    JSONObject jsonObject = new JSONObject(errorMessage);
+                    mSessionJoinView.showError(jsonObject.getString("message"));
+                } catch (JSONException e) {
+                    Log.d("Session-join", "JSONException: ".concat(e.getMessage()), e);
+                    mSessionJoinView.showError("Sorry, something went wrong.");
+                }
+            }
+        });
     }
 
     @Override
@@ -79,6 +102,7 @@ public class SessionJoinPresenter implements SessionJoinContract.UserActionsList
             @Override
             public void onMessage(Map<String, String> headers, String body) {
                 Log.d("Session-join", body);
+
             }
         });
 

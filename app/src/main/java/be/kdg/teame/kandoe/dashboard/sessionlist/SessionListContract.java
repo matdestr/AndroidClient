@@ -16,7 +16,7 @@ public interface SessionListContract {
 
         void showZeroSessionsFoundMessage(boolean active);
 
-        void showSessionDetail(int sessionId);
+        void showSessionDetail(SessionListItem session);
     }
 
     interface UserActionsListener extends InjectableUserActionsListener<SessionListContract.View>, AuthenticatedContract.UserActionsListener {
