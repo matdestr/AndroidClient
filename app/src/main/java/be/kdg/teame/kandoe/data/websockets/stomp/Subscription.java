@@ -1,16 +1,14 @@
 package be.kdg.teame.kandoe.data.websockets.stomp;
 
-import be.kdg.teame.kandoe.data.websockets.stomp.ListenerSubscription;
-
 public class Subscription {
 
     private String id;
 
     private String destination;
 
-    private ListenerSubscription callback;
+    private SubscriptionCallback callback;
 
-    public Subscription(String destination, ListenerSubscription callback){
+    public Subscription(String destination, SubscriptionCallback callback){
         this.destination = destination;
         this.callback = callback;
     }
@@ -26,7 +24,7 @@ public class Subscription {
         return destination;
     }
 
-    public ListenerSubscription getCallback() {
+    public SubscriptionCallback getCallback() {
         return callback;
     }
 }

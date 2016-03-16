@@ -13,7 +13,11 @@ import be.kdg.teame.kandoe.core.activities.BaseToolbarActivity;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.models.sessions.Session;
+import be.kdg.teame.kandoe.session.addcards.SessionAddCardsFragment;
+import be.kdg.teame.kandoe.session.choosecards.SessionChooseCardsFragment;
+import be.kdg.teame.kandoe.session.game.SessionGameFragment;
 import be.kdg.teame.kandoe.session.join.SessionJoinFragment;
+import be.kdg.teame.kandoe.session.reviewcards.SessionReviewCardsFragment;
 
 public class SessionActivity extends BaseToolbarActivity implements SessionContract.View {
     public static final String SESSION_ID = "SESSION_ID";
@@ -28,6 +32,7 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
 
     private BaseFragment mCurrentFragment;
 
+    private int sessionId;
     private Session mCurrentSession;
 
     private String mCategoryTitle;
@@ -69,7 +74,10 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
         args.putString(SESSION_TOPIC_TITLE, mTopicTitle);
         args.putString(SESSION_ORGANIZATION_TITLE, mOrganizationTitle);
 
-        Log.d(getClass().getSimpleName(), String.format("switchFragment - switching to fragment %s mSessionId: %d", fragment.getClass().getSimpleName(), mCurrentSession.getSessionId()));
+        Log.d(getClass().getSimpleName(),
+                String.format("switchFragment - switching to fragment %s mSessionId: %d",
+                        fragment.getClass().getSimpleName(), mCurrentSession.getSessionId())
+        );
 
         fragment.setArguments(args);
 
@@ -91,7 +99,37 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
     @Override
     public void showSession(Session session) {
         this.mCurrentSession = session;
-        switchFragment(new SessionJoinFragment());
+
+        BaseFragment fragment = null;
+
+        switch (mCurrentSession.getSessionStatus()) {
+            case CREATED:
+                break;
+            case USERS_JOINING:
+                fragment = new SessionJoinFragment();
+                break;
+            case ADDING_CARDS:
+                fragment = new SessionAddCardsFragment();
+                break;
+            case REVIEWING_CARDS:
+                fragment = new SessionReviewCardsFragment();
+                break;
+            case CHOOSING_CARDS:
+                fragment = new SessionChooseCardsFragment();
+                break;
+            case READY_TO_START:
+                //todo gamelauncher
+                break;
+            case IN_PROGRESS:
+                fragment = new SessionGameFragment();
+                break;
+            case FINISHED:
+                // todo finish
+                break;
+        }
+
+        if (fragment != null)
+            switchFragment(fragment);
     }
 
     @Override

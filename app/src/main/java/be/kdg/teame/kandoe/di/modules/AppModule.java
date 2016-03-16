@@ -4,9 +4,15 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
+
+import java.util.HashMap;
 
 import javax.inject.Singleton;
 
+import be.kdg.teame.kandoe.data.websockets.stomp.ListenerWSNetwork;
+import be.kdg.teame.kandoe.data.websockets.stomp.Stomp;
+import be.kdg.teame.kandoe.di.Injector;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import dagger.Module;
 import dagger.Provides;

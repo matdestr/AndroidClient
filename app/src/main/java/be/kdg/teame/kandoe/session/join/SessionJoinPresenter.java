@@ -7,7 +7,6 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -16,8 +15,8 @@ import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.AuthenticationHelper;
 import be.kdg.teame.kandoe.data.retrofit.services.SessionService;
 import be.kdg.teame.kandoe.data.websockets.JoinService;
-import be.kdg.teame.kandoe.data.websockets.stomp.ListenerSubscription;
-import be.kdg.teame.kandoe.session.SessionActivity;
+import be.kdg.teame.kandoe.data.websockets.SessionSocketService;
+import be.kdg.teame.kandoe.data.websockets.stomp.SubscriptionCallback;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import butterknife.Bind;
 import retrofit.Callback;
@@ -33,7 +32,7 @@ public class SessionJoinPresenter implements SessionJoinContract.UserActionsList
     private SessionJoinContract.View mSessionJoinView;
 
     @Inject
-    public SessionJoinPresenter(SessionService sessionService,PrefManager prefManager) {
+    public SessionJoinPresenter(SessionService sessionService, PrefManager prefManager) {
         this.mSessionService = sessionService;
         this.mPrefManager = prefManager;
     }
@@ -41,6 +40,9 @@ public class SessionJoinPresenter implements SessionJoinContract.UserActionsList
     @Override
     public void join(final int sessionId) {
         mSessionJoinView.setProgressIndicator(true);
+
+        startWebSocket(sessionId);
+
         mSessionService.join(sessionId, new Callback<Object>() {
             @Override
             public void success(Object o, Response response) {
@@ -97,8 +99,17 @@ public class SessionJoinPresenter implements SessionJoinContract.UserActionsList
         AuthenticationHelper.checkUserIsAuthenticated(mPrefManager, mSessionJoinView);
     }
 
-    private void startWebSocket(int sessionId){
-        mJoinServiceRunnable = new JoinService(String.format("/topic/sessions/%d/participants", sessionId), new ListenerSubscription() {
+    private void startWebSocket(int sessionId) {
+        SessionSocketService sessionSocketService = new SessionSocketService(
+                String.format("/topic/sessions/%d/status", sessionId),
+                new SubscriptionCallback() {
+                    @Override
+                    public void onMessage(Map<String, String> headers, String body) {
+                        Log.d("Session-join", body);
+                    }
+                });
+
+        mJoinServiceRunnable = new JoinService(String.format("/topic/sessions/%d/participants", sessionId), new SubscriptionCallback() {
             @Override
             public void onMessage(Map<String, String> headers, String body) {
                 Log.d("Session-join", body);
@@ -106,6 +117,6 @@ public class SessionJoinPresenter implements SessionJoinContract.UserActionsList
             }
         });
 
-        new Thread(mJoinServiceRunnable).start();
+        new Thread(sessionSocketService).start();
     }
 }

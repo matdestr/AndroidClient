@@ -1,26 +1,29 @@
 package be.kdg.teame.kandoe.session.game;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.activities.BaseToolbarActivity;
+import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
+import butterknife.ButterKnife;
 
-public class SessionGameActivity extends BaseToolbarActivity implements SessionGameContract.View {
+public class SessionGameFragment extends BaseFragment implements SessionGameContract.View {
     @Inject
     SessionGameContract.UserActionsListener mSessionGamePresenter;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    protected int getLayoutResource() {
-        // todo proper layout file
-        return R.layout.activity_profile;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_session_game, container, false);
+        ButterKnife.bind(this, root);
+        return root;
     }
 
     @Override

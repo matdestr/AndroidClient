@@ -5,7 +5,7 @@ import android.util.Log;
 
 import java.util.HashMap;
 
-import be.kdg.teame.kandoe.data.websockets.stomp.ListenerSubscription;
+import be.kdg.teame.kandoe.data.websockets.stomp.SubscriptionCallback;
 import be.kdg.teame.kandoe.data.websockets.stomp.ListenerWSNetwork;
 import be.kdg.teame.kandoe.data.websockets.stomp.Stomp;
 import be.kdg.teame.kandoe.data.websockets.stomp.Subscription;
@@ -13,13 +13,13 @@ import be.kdg.teame.kandoe.di.Injector;
 
 public class JoinService implements Runnable {
     private String destination;
-    private ListenerSubscription listenerWSNetwork;
+    private SubscriptionCallback subscriptionCallback;
     private Stomp stomp;
 
-    public JoinService(@NonNull String destination, @NonNull ListenerSubscription listenerWSNetwork){
+    public JoinService(@NonNull String destination, @NonNull SubscriptionCallback subscriptionCallback){
 
         this.destination = destination;
-        this.listenerWSNetwork = listenerWSNetwork;
+        this.subscriptionCallback = subscriptionCallback;
 
         this.stomp = new Stomp(Injector.getWebSocketBaseUrl().concat("/ws"),
                 new HashMap<String, String>(),
@@ -31,11 +31,11 @@ public class JoinService implements Runnable {
                         Log.i("Stomp-state", "Connected");
                         break;
 
-                    case Stomp.DECONNECTED_FROM_APP:
+                    case Stomp.DISCONNECTED_FROM_APP:
                         Log.i("Stomp-state", "Deconnected from app");
                         break;
 
-                    case Stomp.DECONNECTED_FROM_OTHER:
+                    case Stomp.DISCONNECTED_FROM_OTHER:
                         Log.i("Stomp-state", "Deconnected from app");
                         break;
 
@@ -55,6 +55,6 @@ public class JoinService implements Runnable {
         stomp.connect();
         Log.i(this.getClass().getSimpleName(), "Stomp connected");
 
-        stomp.subscribe(new Subscription(destination, listenerWSNetwork));
+        stomp.subscribe(new Subscription(destination, subscriptionCallback));
     }
 }

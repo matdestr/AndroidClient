@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/material_margin_default"
+    android:layout_marginRight="@dimen/material_margin_default"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/session_info_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:id="@+id/session_header_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/material_list_item_height"
+            android:layout_alignParentTop="true">
+
+            <TextView
+                android:id="@+id/session_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                tools:text="Session 1" />
+
+            <ImageView
+                android:id="@+id/session_status_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:tint="@color/colorAccent"
+                tools:src="@drawable/ic_session_status_created" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/session_button_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/session_header_container"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="2"
+            >
+
+            <Button
+                android:id="@+id/btn_join"
+                style="@style/Material.Button.Raised"
+                android:layout_width="0dp"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="@string/action_join"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_decline"
+                style="@style/Material.Button.Raised.White"
+                android:layout_width="0dp"
+                android:layout_height="72dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="@string/action_decline"
+                android:textSize="20sp" />
+
+        ></LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

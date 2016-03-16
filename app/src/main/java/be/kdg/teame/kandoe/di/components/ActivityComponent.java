@@ -6,7 +6,7 @@ import be.kdg.teame.kandoe.core.activities.BaseActivity;
 import be.kdg.teame.kandoe.dashboard.DashboardActivity;
 import be.kdg.teame.kandoe.profile.ProfileActivity;
 import be.kdg.teame.kandoe.profile.edit.ProfileEditActivity;
-import be.kdg.teame.kandoe.session.game.SessionGameActivity;
+import be.kdg.teame.kandoe.session.game.SessionGameFragment;
 
 /*@ActivityScope
 @Component(modules = {
@@ -28,5 +28,5 @@ public interface ActivityComponent {
 
     void inject(ProfileEditActivity profileEditActivity);
 
-    void inject(SessionGameActivity sessionGameActivity);
+    void inject(SessionGameFragment sessionGameFragment);
 }
