@@ -5,39 +5,16 @@
         android:id="@+id/menu_group_drawer_main"
         android:checkableBehavior="single">
         <item
-            android:checked="true"
             android:id="@+id/action_my_organizations"
+            android:checked="true"
+            android:icon="@drawable/ic_globe"
             android:tint="@color/colorAccent"
             android:title="@string/action_organizations" />
         <item
             android:id="@+id/action_active_sessions"
+            android:icon="@drawable/ic_topic"
             android:tint="@color/colorAccent"
             android:title="@string/action_sessions" />
-        <!--
-               <item
-                   android:tint="@color/colorAccent"
-                   android:title="Four" />
-               <item
-                   android:tint="@color/colorAccent"
-                   android:title="Five" />
-               <item
-                   android:tint="@color/colorAccent"
-                   android:title="Six" />
-               <item
-                   android:tint="@color/colorAccent"
-                   android:title="Seven" />
-               <item
-                   android:tint="@color/colorAccent"
-                   android:title="Eight" />
-               <item
-                   android:tint="@color/colorAccent"
-                   android:title="Nine" />
-               <item
-                   android:tint="@color/colorAccent"
-                   android:title="Ten" />
-               <item
-                   android:tint="@color/colorAccent"
-                   android:title="Eleven" />-->
     </group>
     <group
         android:id="@+id/menu_group_drawer_footer"
@@ -49,16 +26,17 @@
             android:title="@string/action_sign_out" />
     </group>
 
-<!--    <item
-        android:id="@+id/navigation_subheader"
-        android:title="Test header">
-        <menu>
-            <item
-                android:id="@+id/navigation_sub_item_1"
-                android:title="test 1" />
-            <item
-                android:id="@+id/navigation_sub_item_2"
-                android:title="test 2" />
-        </menu>
-    </item>-->
+    <!--
+       <item
+            android:id="@+id/navigation_subheader"
+            android:title="Test header">
+            <menu>
+                <item
+                    android:id="@+id/navigation_sub_item_1"
+                    android:title="test 1" />
+                <item
+                    android:id="@+id/navigation_sub_item_2"
+                    android:title="test 2" />
+            </menu>
+        </item>-->
 </menu>

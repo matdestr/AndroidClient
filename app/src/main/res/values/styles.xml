@@ -136,6 +136,5 @@
 
     <style name="SessionListItemCardText" parent="android:style/TextAppearance.Small">
         <item name="android:fontFamily">sans-serif-light</item>
-        <item name="android:layout_marginBottom">@dimen/material_content_space</item>
     </style>
 </resources>

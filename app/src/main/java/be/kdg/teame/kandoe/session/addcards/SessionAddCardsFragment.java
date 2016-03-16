@@ -153,16 +153,14 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, int position) {
             CardDetails cardDetails = mCardDetails.get(position);
-            int statusDrawableId = R.drawable.ic_unknown;
 
             viewHolder.cardTitle.getBackground().setAlpha(95);
 
             viewHolder.cardTitle.setText(cardDetails.getText());
             Picasso.with(mContext)
                     .load(cardDetails.getImageUrl())
-                    .placeholder(statusDrawableId)
+                    .placeholder(R.drawable.placeholder_image)
                     .into(viewHolder.cardImage);
-
         }
 
         public void replaceData(List<CardDetails> sessions) {

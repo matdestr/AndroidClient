@@ -40,15 +40,19 @@ public class SessionAddCardsPresenter implements SessionAddCardsContract.UserAct
 
     @Override
     public void loadCards(int sessionId) {
+        mAddCardsView.setProgressIndicator(true);
+
        mSessionService.getAllCards(sessionId, new Callback<List<CardDetails>>() {
            @Override
            public void success(List<CardDetails> cardDetails, Response response) {
+               mAddCardsView.setProgressIndicator(false);
                mAddCardsView.showCards(cardDetails);
            }
 
            @Override
            public void failure(RetrofitError error) {
                //todo show error
+               mAddCardsView.setProgressIndicator(false);
            }
        });
     }

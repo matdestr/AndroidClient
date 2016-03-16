@@ -145,7 +145,6 @@ public class SessionListFragment extends BaseFragment implements SessionListCont
         intent.putExtra(SessionActivity.SESSION_TOPIC_TITLE, session.getTopicTitle());
         intent.putExtra(SessionActivity.SESSION_ORGANIZATION_TITLE, session.getOrganizationTitle());
 
-
         startActivity(intent);
     }
 
@@ -219,11 +218,13 @@ public class SessionListFragment extends BaseFragment implements SessionListCont
 
             viewHolder.title.setText(String.format("Session %d", session.getSessionId()));
             viewHolder.status.setImageResource(statusDrawableId);
-            viewHolder.organization.setText(String.format("Organization %s", session.getOrganizationTitle()));
-            viewHolder.category.setText(String.format("Category %s", session.getCategoryTitle()));
+            viewHolder.organization.setText(session.getOrganizationTitle());
+            viewHolder.category.setText(session.getCategoryTitle());
 
             if (session.getTopicTitle() != null)
-                viewHolder.topic.setText(String.format("Topic %s", session.getTopicTitle()));
+                viewHolder.topic.setText(session.getTopicTitle());
+            else
+                viewHolder.topicContainer.setVisibility(View.INVISIBLE);
 
             viewHolder.participantAmount.setText(String.valueOf(session.getParticipantAmount()));
 
@@ -255,6 +256,7 @@ public class SessionListFragment extends BaseFragment implements SessionListCont
             public TextView category;
             public TextView topic;
             public TextView participantAmount;
+            public View topicContainer;
 
             private SessionItemListener mItemListener;
 
@@ -267,6 +269,7 @@ public class SessionListFragment extends BaseFragment implements SessionListCont
                 category = ButterKnife.findById(itemView, R.id.category_title);
                 topic = ButterKnife.findById(itemView, R.id.topic_title);
                 participantAmount = ButterKnife.findById(itemView, R.id.session_participant_amount);
+                topicContainer = ButterKnife.findById(itemView, R.id.topic_container);
                 itemView.setOnClickListener(this);
             }
 
