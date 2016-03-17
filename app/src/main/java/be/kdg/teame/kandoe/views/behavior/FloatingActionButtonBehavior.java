@@ -1,11 +1,21 @@
 package be.kdg.teame.kandoe.views.behavior;
 
+import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewCompat;
+import android.util.AttributeSet;
 import android.view.View;
 
 public class FloatingActionButtonBehavior extends FloatingActionButton.Behavior {
+
+    /**
+     * Default constructor needed otherwise the application will crash
+     */
+    public FloatingActionButtonBehavior(Context context, AttributeSet attributeSet){
+        super();
+    }
+
     @Override
     public void onNestedScroll(
             CoordinatorLayout coordinatorLayout,
