@@ -20,6 +20,7 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
@@ -31,4 +32,32 @@
         app:layout_anchor="@id/recycler_view"
         app:layout_behavior="be.kdg.teame.kandoe.views.behavior.FloatingActionButtonBehavior"/>
 
+    <RelativeLayout
+        android:id="@+id/session_wait_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/wait_progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="false"
+            />
+
+        <TextView
+            android:id="@+id/wait_progresstext"
+            android:layout_below="@+id/wait_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_margin_default"
+            tools:text="2 out of 6 people joined."
+            android:text="@string/session_waiting_for_users_to_add_cards"
+            android:gravity="center"
+            />
+
+    </RelativeLayout>
+
 </android.support.design.widget.CoordinatorLayout>
+

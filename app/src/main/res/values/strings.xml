@@ -57,5 +57,7 @@
     <string name="action_sessions">My sessions</string>
     <string name="action_join">join</string>
     <string name="action_decline">decline</string>
-    <string name="session_waiting_for_users">Waiting for users to join</string>
+    <string name="session_waiting_for_users_to_join">Waiting for other users to join</string>
+    <string name="session_waiting_for_users_to_add_cards">Waiting for other users to add cards</string>
+    <string name="session_waiting_for_users_to_choose_cards">Waiting for other users to choose cards</string>
 </resources>

@@ -11,9 +11,12 @@ public interface SessionChooseCardsContract {
     interface View extends AuthenticatedContract.View, WebDataView {
         void setProgressIndicator(boolean active);
         void showCards(List<CardDetails> cardDetails);
+        void onChooseCardsCompleted();
     }
 
     interface UserActionsListener extends InjectableUserActionsListener<View>, AuthenticatedContract.UserActionsListener {
         void loadCards(int sessionId);
+        void chooseCard(int index);
+        void chooseCards(int sessionId);
     }
 }

@@ -5,14 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="@dimen/padding_card_details_grid_item"
     android:id="@+id/session_card_container">
-
-    <CheckBox
-        android:id="@+id/session_card_item_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"/>
-
     <ImageView
         android:id="@+id/session_card_item_image"
         android:layout_width="match_parent"
@@ -33,5 +25,14 @@
         android:maxLines="3"
         />
 
+
+    <CheckBox
+        android:id="@+id/session_card_item_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:clickable="false"
+        />
 
 </RelativeLayout>

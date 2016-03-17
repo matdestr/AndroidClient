@@ -10,6 +10,11 @@ public class WebSocketsManager {
 
     }
 
+    /**
+     * Generates a unique identifier for a Thread.
+     *
+     * @return the unique identifier
+     * */
     private static <T> String generateUniqueThreadName(Runnable runnable, T identifier) {
         final String prefix = "Thread_";
 
@@ -21,7 +26,7 @@ public class WebSocketsManager {
     }
 
     /**
-     * Registers the thread in the {@link WebSocketsManager} if the thread not exists.
+     * Registers the thread in the {@link WebSocketsManager} if the thread does not exist.
      * If the thread exists it will return the existing thread.
      *
      * @return the existing thread

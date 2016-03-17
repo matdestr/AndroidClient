@@ -9,7 +9,6 @@ public interface SessionJoinContract {
 
     interface View extends AuthenticatedContract.View, WebDataView {
         void setProgressIndicator(boolean active);
-        void showError(String error);
         void close();
         void showJoined();
         void showUserJoined();

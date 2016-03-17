@@ -7,10 +7,12 @@ import be.kdg.teame.kandoe.models.cards.CardPosition;
 import be.kdg.teame.kandoe.models.sessions.Session;
 import be.kdg.teame.kandoe.models.sessions.SessionListItem;
 import retrofit.Callback;
+import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.PUT;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 public interface SessionService {
     String ENDPOINT = "/api/sessions";
@@ -29,6 +31,9 @@ public interface SessionService {
 
     @GET(ENDPOINT + "/{sessionId}/all-cards")
     void getAllCards(@Path("sessionId") int sessionId, Callback<List<CardDetails>> callback);
+
+    @POST(ENDPOINT + "/{sessionId}/chosen-cards")
+    void chooseCards(@Path("sessionId") int sessionId, @Query("cardDetailsId") List<Integer> cardDetails, Callback<Object> callback);
 
     @POST(ENDPOINT + "/{sessionId}/all-cards")
     void chooseCard(@Path("sessionId") int sessionId, Callback<Session> callback);

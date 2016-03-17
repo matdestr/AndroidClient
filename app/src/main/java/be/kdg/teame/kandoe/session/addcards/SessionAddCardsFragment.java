@@ -3,6 +3,7 @@ package be.kdg.teame.kandoe.session.addcards;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -22,6 +25,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.R;
+import be.kdg.teame.kandoe.core.DialogGenerator;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.models.cards.CardDetails;
@@ -39,6 +43,15 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
 
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
+
+    @Bind(R.id.fab_ok)
+    FloatingActionButton mFloatingActionButton;
+
+    @Bind(R.id.session_wait_container)
+    RelativeLayout mWaitContainer;
+
+    @Bind(R.id.wait_progressbar)
+    ProgressBar mWaitProgressBar;
 
     @Inject
     SessionAddCardsContract.UserActionsListener mAddCardsPresenter;
@@ -91,6 +104,12 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
             }
         });
 
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
         return root;
     }
 
@@ -107,7 +126,10 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
 
     @Override
     public void showErrorConnectionFailure(String errorMessage) {
-
+        if (errorMessage != null)
+            DialogGenerator.showErrorDialog(getActivity(), errorMessage);
+        else
+            DialogGenerator.showErrorDialog(getActivity());
     }
 
     @Override
@@ -128,6 +150,15 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
     @Override
     public void showCards(List<CardDetails> cardDetails) {
         mCardAdapter.replaceData(cardDetails);
+    }
+
+    @Override
+    public void onCardsAddedCompleted() {
+        mFloatingActionButton.setVisibility(View.GONE);
+        mSwipeRefreshLayout.setVisibility(View.GONE);
+        mWaitProgressBar.setIndeterminate(true);
+        mWaitContainer.setVisibility(View.VISIBLE);
+
     }
 
     private static class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {

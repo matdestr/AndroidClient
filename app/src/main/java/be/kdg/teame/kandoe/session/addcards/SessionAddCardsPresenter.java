@@ -56,4 +56,6 @@ public class SessionAddCardsPresenter implements SessionAddCardsContract.UserAct
            }
        });
     }
+
+    //todo let user add cards and show spinner in view
 }

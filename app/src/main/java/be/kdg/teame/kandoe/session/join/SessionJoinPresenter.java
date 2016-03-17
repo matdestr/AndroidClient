@@ -50,10 +50,10 @@ public class SessionJoinPresenter implements SessionJoinContract.UserActionsList
                 String errorMessage = new String(((TypedByteArray) error.getResponse().getBody()).getBytes());
                 try {
                     JSONObject jsonObject = new JSONObject(errorMessage);
-                    mSessionJoinView.showError(jsonObject.getString("message"));
+                    mSessionJoinView.showErrorConnectionFailure(jsonObject.getString("message"));
                 } catch (JSONException e) {
                     Log.d("Session-join", "JSONException: ".concat(e.getMessage()), e);
-                    mSessionJoinView.showError("Sorry, something went wrong.");
+                    mSessionJoinView.showErrorConnectionFailure("Sorry, something went wrong.");
                 }
             }
         });
@@ -64,7 +64,7 @@ public class SessionJoinPresenter implements SessionJoinContract.UserActionsList
         mSessionService.decline(sessionId, new Callback<Object>() {
             @Override
             public void success(Object o, Response response) {
-                Log.d("Session-join", String.format("Successfully decline session invite for session %d", sessionId));
+                Log.d("Session-join", String.format("Successfully declined session invite for session %d", sessionId));
                 mSessionJoinView.close();
             }
 
@@ -75,10 +75,10 @@ public class SessionJoinPresenter implements SessionJoinContract.UserActionsList
                 String errorMessage = new String(((TypedByteArray) error.getResponse().getBody()).getBytes());
                 try {
                     JSONObject jsonObject = new JSONObject(errorMessage);
-                    mSessionJoinView.showError(jsonObject.getString("message"));
+                    mSessionJoinView.showErrorConnectionFailure(jsonObject.getString("message"));
                 } catch (JSONException e) {
                     Log.d("Session-join", "JSONException: ".concat(e.getMessage()), e);
-                    mSessionJoinView.showError("Sorry, something went wrong.");
+                    mSessionJoinView.showErrorConnectionFailure("Sorry, something went wrong.");
                 }
             }
         });

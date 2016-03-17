@@ -2,8 +2,6 @@ package be.kdg.teame.kandoe.session.join;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,10 +106,6 @@ public class SessionJoinFragment extends BaseFragment implements SessionJoinCont
 
     }
 
-    @Override
-    public void showError(String error) {
-        DialogGenerator.showErrorDialog(getActivity(), error);
-    }
 
     @Override
     public void close() {
@@ -123,7 +117,7 @@ public class SessionJoinFragment extends BaseFragment implements SessionJoinCont
         mJoinContainer.setVisibility(View.GONE);
         mUserLoadContainer.setVisibility(View.VISIBLE);
         mProgressBar.setIndeterminate(true);
-        mProgressTextView.setText(R.string.session_waiting_for_users);
+        mProgressTextView.setText(R.string.session_waiting_for_users_to_join);
     }
 
     @Override

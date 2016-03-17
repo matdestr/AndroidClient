@@ -3,6 +3,7 @@ package be.kdg.teame.kandoe.session.choosecards;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,6 +26,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.R;
+import be.kdg.teame.kandoe.core.DialogGenerator;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.models.cards.CardDetails;
@@ -42,10 +45,23 @@ public class SessionChooseCardsFragment extends BaseFragment implements SessionC
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
+    @Bind(R.id.fab_ok)
+    FloatingActionButton mFloatingActionButton;
+
+    @Bind(R.id.session_wait_container)
+    RelativeLayout mWaitContainer;
+
+    @Bind(R.id.wait_progressbar)
+    ProgressBar mWaitProgressBar;
+
     @Inject
     SessionChooseCardsContract.UserActionsListener mAddCardsPresenter;
 
+    private int selectedColor;
+    private int unselectedColor;
+
     private static final int GRID_SPAN_COUNT = 2;
+    private static final int ALPHA = 200;
 
     private int mSessionId;
 
@@ -54,8 +70,19 @@ public class SessionChooseCardsFragment extends BaseFragment implements SessionC
      */
     private SessionAddCardItemListener mItemListener = new SessionAddCardItemListener() {
         @Override
-        public void onCardClick(CardDetails clickedCard) {
-            Log.d(SessionAddCardItemListener.class.getSimpleName(), "Clicked on card: " + clickedCard.getText());
+        public void onCardClick(int pos, TextView cardTitle, CheckBox checkbox) {
+            mAddCardsPresenter.chooseCard(pos);
+
+            boolean checked = checkbox.isChecked();
+            checkbox.setChecked(!checked);
+            checked = checkbox.isChecked();
+
+            if (checked)
+                cardTitle.setBackgroundColor(selectedColor);
+            else
+                cardTitle.setBackgroundColor(unselectedColor);
+
+            cardTitle.getBackground().setAlpha(ALPHA);
         }
     };
 
@@ -68,8 +95,11 @@ public class SessionChooseCardsFragment extends BaseFragment implements SessionC
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_add_cards, container, false);
+        View root = inflater.inflate(R.layout.fragment_choose_cards, container, false);
         ButterKnife.bind(this, root);
+
+        this.unselectedColor = ContextCompat.getColor(getActivity(), R.color.colorAccent);
+        this.selectedColor = ContextCompat.getColor(getActivity(), R.color.colorPrimary);
 
         Bundle args = getArguments();
         mSessionId = args.getInt(SessionActivity.SESSION_ID);
@@ -93,6 +123,13 @@ public class SessionChooseCardsFragment extends BaseFragment implements SessionC
             }
         });
 
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAddCardsPresenter.chooseCards(mSessionId);
+            }
+        });
+
         return root;
     }
 
@@ -109,7 +146,7 @@ public class SessionChooseCardsFragment extends BaseFragment implements SessionC
 
     @Override
     public void showErrorConnectionFailure(String errorMessage) {
-
+        DialogGenerator.showErrorDialog(getActivity(), errorMessage);
     }
 
     @Override
@@ -130,6 +167,14 @@ public class SessionChooseCardsFragment extends BaseFragment implements SessionC
     @Override
     public void showCards(List<CardDetails> cardDetails) {
         mCardAdapter.replaceData(cardDetails);
+    }
+
+    @Override
+    public void onChooseCardsCompleted() {
+        mFloatingActionButton.setVisibility(View.GONE);
+        mSwipeRefreshLayout.setVisibility(View.GONE);
+        mWaitProgressBar.setIndeterminate(true);
+        mWaitContainer.setVisibility(View.VISIBLE);
     }
 
     private static class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
@@ -157,7 +202,7 @@ public class SessionChooseCardsFragment extends BaseFragment implements SessionC
             CardDetails cardDetails = mCardDetails.get(position);
             int statusDrawableId = R.drawable.ic_unknown;
 
-            viewHolder.cardTitle.getBackground().setAlpha(95);
+            viewHolder.cardTitle.getBackground().setAlpha(ALPHA);
             viewHolder.cardTitle.setText(cardDetails.getText());
             Picasso.with(mContext)
                     .load(cardDetails.getImageUrl())
@@ -199,36 +244,19 @@ public class SessionChooseCardsFragment extends BaseFragment implements SessionC
                 cardTitle = ButterKnife.findById(itemView, R.id.session_card_item_text);
                 cardImage = ButterKnife.findById(itemView, R.id.session_card_item_image);
                 checkbox = ButterKnife.findById(itemView, R.id.session_card_item_checkbox);
+
                 itemView.setOnClickListener(this);
-                container.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //Select the checkbox if the container is tapped
-                        boolean checked = checkbox.isChecked();
-                        checkbox.setChecked(!checked);
-
-                        int selected = view.getContext().getResources().getColor(R.color.colorPrimary);
-                        int unselected = view.getContext().getResources().getColor(R.color.colorAccent);
-
-                        //todo set alpha level
-                        if (checked)
-                            cardTitle.setBackgroundColor(selected);
-                        else
-                            cardTitle.setBackgroundColor(unselected);
-                    }
-                });
             }
 
             @Override
             public void onClick(View v) {
                 int position = getAdapterPosition();
-                CardDetails session = getItem(position);
-                mItemListener.onCardClick(session);
+                mItemListener.onCardClick(position, cardTitle, checkbox);
             }
         }
     }
 
     public interface SessionAddCardItemListener {
-        void onCardClick(CardDetails clickedCard);
+        void onCardClick(int pos, TextView textView, CheckBox checkBox);
     }
 }
