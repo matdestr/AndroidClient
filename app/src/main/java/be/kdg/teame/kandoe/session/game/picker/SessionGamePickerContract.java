@@ -1,24 +1,22 @@
-package be.kdg.teame.kandoe.session.join;
+package be.kdg.teame.kandoe.session.game.picker;
 
 import be.kdg.teame.kandoe.core.contracts.AuthenticatedContract;
 import be.kdg.teame.kandoe.core.contracts.InjectableUserActionsListener;
 import be.kdg.teame.kandoe.core.contracts.WebDataView;
-import be.kdg.teame.kandoe.models.sessions.Session;
+import be.kdg.teame.kandoe.models.cards.CardDetails;
 
-public interface SessionJoinContract {
-
+public interface SessionGamePickerContract {
     interface View extends AuthenticatedContract.View, WebDataView {
-        void setProgressIndicator(boolean active);
-        void close();
+        void showNextCard(CardDetails cardDetails);
 
-        void showJoined();
-
-        void showUserJoined();
+        void showPreviousCard(CardDetails cardDetails);
     }
 
     interface UserActionsListener extends InjectableUserActionsListener<View>, AuthenticatedContract.UserActionsListener {
-        void join(int sessionId);
+        void loadNextCard();
 
-        void decline(int sessionId);
+        void loadPreviousCard();
+
+        void pickCard();
     }
 }

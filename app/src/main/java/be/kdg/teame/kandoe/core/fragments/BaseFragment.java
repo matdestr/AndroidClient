@@ -52,5 +52,4 @@ public abstract class BaseFragment extends Fragment implements AuthenticatedCont
     protected void injectComponent(AppComponent component) {
         component.inject(this);
     }
-
 }

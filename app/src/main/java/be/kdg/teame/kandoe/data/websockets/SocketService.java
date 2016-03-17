@@ -6,17 +6,20 @@ import be.kdg.teame.kandoe.data.websockets.stomp.SubscriptionCallback;
 import be.kdg.teame.kandoe.data.websockets.stomp.Stomp;
 import be.kdg.teame.kandoe.data.websockets.stomp.Subscription;
 import be.kdg.teame.kandoe.di.Injector;
+import lombok.Getter;
 
-public class SessionSocketService implements Runnable{
+public class SocketService implements Runnable{
+    @Getter
+    private String subscriptionId;
     private String destination;
     private SubscriptionCallback subscriptionCallback;
     private Stomp stomp;
     private boolean run;
 
     private final static long INTERVAL = 500L;
-    private final static String SUBSCRIPTION_ID = "subscription_id_session_service";
 
-    public SessionSocketService(@NonNull String destination, @NonNull SubscriptionCallback subscriptionCallback) {
+    public SocketService(@NonNull String destination, @NonNull String subscriptionId, @NonNull SubscriptionCallback subscriptionCallback) {
+        this.subscriptionId = subscriptionId;
         this.destination = destination;
         this.subscriptionCallback = subscriptionCallback;
         this.stomp = Injector.getStomp();
@@ -28,7 +31,7 @@ public class SessionSocketService implements Runnable{
         stomp.connect();
 
         Subscription subscription = new Subscription(destination, subscriptionCallback);
-        subscription.setId(SUBSCRIPTION_ID);
+        subscription.setId(subscriptionId);
 
         stomp.subscribe(subscription);
 

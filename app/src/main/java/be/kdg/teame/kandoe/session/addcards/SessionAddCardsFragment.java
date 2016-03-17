@@ -10,6 +10,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -74,6 +77,28 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAddCardsPresenter.setView(this);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_session_add_card, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_session_add_card:
+                Log.i("test", "test");
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Nullable

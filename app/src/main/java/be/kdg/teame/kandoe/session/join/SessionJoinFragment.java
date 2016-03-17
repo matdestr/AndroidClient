@@ -1,5 +1,6 @@
 package be.kdg.teame.kandoe.session.join;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -48,6 +49,8 @@ public class SessionJoinFragment extends BaseFragment implements SessionJoinCont
     @Bind(R.id.session_participant_amount)
     TextView mSessionParticipantView;
 
+    private ProgressDialog mProgressDialogJoining;
+
 
     @Inject
     SessionJoinContract.UserActionsListener mSessionJoinPresenter;
@@ -92,6 +95,8 @@ public class SessionJoinFragment extends BaseFragment implements SessionJoinCont
         mOrganizationTextView.setText(mOrganization);
         mCategoryTextView.setText(mCategory);
         mSessionParticipantView.setText(String.format("%d", mParticipantAmount));
+        mProgressDialogJoining = DialogGenerator.createProgressDialog(getContext(), R.string.session_joining_session);
+
 
         return root;
     }
@@ -103,7 +108,10 @@ public class SessionJoinFragment extends BaseFragment implements SessionJoinCont
 
     @Override
     public void setProgressIndicator(boolean active) {
-
+        if (active)
+            mProgressDialogJoining.show();
+        else
+            mProgressDialogJoining.dismiss();
     }
 
 
@@ -127,14 +135,16 @@ public class SessionJoinFragment extends BaseFragment implements SessionJoinCont
 
     @Override
     public void showErrorConnectionFailure(String errorMessage) {
-            DialogGenerator.showErrorDialog(getContext(), errorMessage);
+        DialogGenerator.showErrorDialog(getContext(), errorMessage);
     }
 
     @OnClick(R.id.btn_join)
-    public void onJoinClick(){
+    public void onJoinClick() {
         mSessionJoinPresenter.join(mSessionId);
     }
 
     @OnClick(R.id.btn_decline)
-    public void onDeclineClick() { mSessionJoinPresenter.decline(mSessionId); }
+    public void onDeclineClick() {
+        mSessionJoinPresenter.decline(mSessionId);
+    }
 }

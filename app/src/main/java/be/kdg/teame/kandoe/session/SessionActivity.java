@@ -26,6 +26,7 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
     public static final String SESSION_CATEGORY_TITLE = "SESSION_CATEGORY_TITLE";
     public static final String SESSION_TOPIC_TITLE = "SESSION_TOPIC_TITLE";
     public static final String SESSION_ORGANIZATION_TITLE = "SESSION_ORGANIZATION_TITLE";
+    public static final String SESSION_PARTICIPANT_CAN_ADD_CARDS = "SESSION_ORGANIZATION_TITLE";
 
 
     @Inject
@@ -65,7 +66,7 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
     }
 
     private void switchFragment(BaseFragment fragment) {
-        if (fragment == null){
+        if (fragment == null) {
             Log.e("switch-fragment", "fragment cannot be null");
             return;
         }
@@ -73,19 +74,10 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        Bundle args = new Bundle();
-        args.putInt(SESSION_ID, mCurrentSession.getSessionId());
-        args.putInt(SESSION_PARTICIPANT_AMOUNT, mCurrentSession.getParticipantInfo().size());
-        args.putString(SESSION_CATEGORY_TITLE, mCategoryTitle);
-        args.putString(SESSION_TOPIC_TITLE, mTopicTitle);
-        args.putString(SESSION_ORGANIZATION_TITLE, mOrganizationTitle);
-
         Log.d(getClass().getSimpleName(),
                 String.format("switchFragment - switching to fragment %s mSessionId: %d",
                         fragment.getClass().getSimpleName(), mCurrentSession.getSessionId())
         );
-
-        fragment.setArguments(args);
 
         if (mCurrentFragment == null)
             transaction.add(R.id.fragment_container, fragment);
@@ -112,27 +104,49 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
             switchFragment(fragment);
     }
 
-    private BaseFragment chooseFragment(SessionStatus sessionStatus){
+    private BaseFragment chooseFragment(SessionStatus sessionStatus) {
+        BaseFragment fragment = null;
+
+        Bundle args = new Bundle();
+        args.putInt(SESSION_ID, mCurrentSession.getSessionId());
+
         switch (sessionStatus) {
             case CREATED:
                 break;
             case USERS_JOINING:
-                return new SessionJoinFragment();
+                fragment = new SessionJoinFragment();
+                args.putString(SESSION_CATEGORY_TITLE, mCategoryTitle);
+                args.putString(SESSION_TOPIC_TITLE, mTopicTitle);
+                args.putString(SESSION_ORGANIZATION_TITLE, mOrganizationTitle);
+                args.putInt(SESSION_PARTICIPANT_AMOUNT, mCurrentSession.getParticipantInfo().size());
+                break;
             case ADDING_CARDS:
-                return new SessionAddCardsFragment();
+                fragment = new SessionAddCardsFragment();
+                args.putBoolean(SESSION_PARTICIPANT_CAN_ADD_CARDS, mCurrentSession.isParticipantsCanAddCards());
+                break;
             case REVIEWING_CARDS:
-                return new SessionReviewCardsFragment();
+                fragment = new SessionReviewCardsFragment();
+                args.putBoolean(SESSION_PARTICIPANT_CAN_ADD_CARDS, mCurrentSession.isCardCommentsAllowed());
+                break;
             case CHOOSING_CARDS:
-                return new SessionChooseCardsFragment();
+                fragment = new SessionChooseCardsFragment();
+                break;
             case READY_TO_START:
                 //todo gamelauncher
+                break;
             case IN_PROGRESS:
-                return new SessionGameFragment();
+                fragment = new SessionGameFragment();
+                break;
             case FINISHED:
                 // todo finish
+                break;
         }
 
-        return null;
+        if (fragment != null)
+            fragment.setArguments(args);
+
+
+        return fragment;
     }
 
     @Override

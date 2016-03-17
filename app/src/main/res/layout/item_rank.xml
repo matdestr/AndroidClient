@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="96dp"
+    android:padding="@dimen/padding_card_details_grid_item">
+
+    <TextView
+        android:id="@+id/rank"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/material_content_space"
+        android:layout_marginLeft="@dimen/material_content_space"
+        android:gravity="center"
+        android:textSize="24sp"
+        tools:text="1" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/material_margin_default"
+        android:layout_marginTop="@dimen/material_margin_default"
+        android:layout_toRightOf="@id/rank"
+        android:layout_marginRight="@dimen/material_margin_default"
+        android:background="@color/colorPrimaryDark" />
+
+
+    <com.pkmmte.view.CircularImageView
+        android:id="@+id/session_card_item_image"
+        android:layout_width="@dimen/material_list_item_height"
+        android:layout_height="@dimen/material_list_item_height"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/material_margin_default"
+        android:layout_toRightOf="@id/separator"
+        android:src="@drawable/default_user" />
+
+    <TextView
+        android:id="@+id/session_card_item_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/session_card_item_image"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="3"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:layout_marginRight="@dimen/material_margin_default"
+        android:textColor="@color/colorTextNeutral"
+        android:textSize="12sp"
+        tools:text="Dit is een heel lange descriptie van een heel mooi kaartje voor onze hele mooie Android app voor ons heel mooie project dat Kandoe heet en wel een hamburger lust." />
+
+
+</RelativeLayout>

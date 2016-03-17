@@ -12,8 +12,8 @@ import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.core.AuthenticationHelper;
 import be.kdg.teame.kandoe.data.retrofit.services.SessionService;
-import be.kdg.teame.kandoe.data.websockets.JoinService;
-import be.kdg.teame.kandoe.data.websockets.SessionSocketService;
+import be.kdg.teame.kandoe.data.websockets.SocketService;
+import be.kdg.teame.kandoe.data.websockets.WebSocketsManager;
 import be.kdg.teame.kandoe.data.websockets.stomp.SubscriptionCallback;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import retrofit.Callback;
@@ -23,7 +23,6 @@ import retrofit.mime.TypedByteArray;
 
 public class SessionJoinPresenter implements SessionJoinContract.UserActionsListener {
     private final SessionService mSessionService;
-    private JoinService mJoinServiceRunnable;
     private final PrefManager mPrefManager;
 
     private SessionJoinContract.View mSessionJoinView;
@@ -40,6 +39,7 @@ public class SessionJoinPresenter implements SessionJoinContract.UserActionsList
         mSessionService.join(sessionId, new Callback<Object>() {
             @Override
             public void success(Object o, Response response) {
+                mSessionJoinView.setProgressIndicator(false);
                 Log.d("Session-join", "Joined session " + sessionId);
                 mSessionJoinView.showJoined();
                 startWebSocket(sessionId);
@@ -47,6 +47,8 @@ public class SessionJoinPresenter implements SessionJoinContract.UserActionsList
 
             @Override
             public void failure(RetrofitError error) {
+                mSessionJoinView.setProgressIndicator(false);
+
                 String errorMessage = new String(((TypedByteArray) error.getResponse().getBody()).getBytes());
                 try {
                     JSONObject jsonObject = new JSONObject(errorMessage);
@@ -95,16 +97,10 @@ public class SessionJoinPresenter implements SessionJoinContract.UserActionsList
     }
 
     private void startWebSocket(int sessionId) {
-        SessionSocketService sessionSocketService = new SessionSocketService(
-                String.format("/topic/sessions/%d/status", sessionId),
+        SocketService participantsJoinSocketService = new SocketService(
+                String.format("/topic/sessions/%d/participants", sessionId),
+                "session_join_subscription_id",
                 new SubscriptionCallback() {
-                    @Override
-                    public void onMessage(Map<String, String> headers, String body) {
-                        Log.d("Session-join", body);
-                    }
-                });
-
-        mJoinServiceRunnable = new JoinService(String.format("/topic/sessions/%d/participants", sessionId), new SubscriptionCallback() {
             @Override
             public void onMessage(Map<String, String> headers, String body) {
                 Log.d(SessionJoinPresenter.this.getClass().getSimpleName(), body);
@@ -112,6 +108,8 @@ public class SessionJoinPresenter implements SessionJoinContract.UserActionsList
             }
         });
 
-        new Thread(sessionSocketService).start();
+        Thread joinThread = WebSocketsManager.getThread(participantsJoinSocketService, sessionId);
+
+        joinThread.start();
     }
 }

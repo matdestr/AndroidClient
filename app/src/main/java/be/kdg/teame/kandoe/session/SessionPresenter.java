@@ -8,7 +8,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.data.retrofit.services.SessionService;
-import be.kdg.teame.kandoe.data.websockets.SessionSocketService;
+import be.kdg.teame.kandoe.data.websockets.SocketService;
 import be.kdg.teame.kandoe.data.websockets.WebSocketsManager;
 import be.kdg.teame.kandoe.data.websockets.stomp.SubscriptionCallback;
 import be.kdg.teame.kandoe.models.sessions.Session;
@@ -22,9 +22,10 @@ import retrofit.client.Response;
 public class SessionPresenter implements SessionContract.UserActionsListener {
     private final SessionService mSessionService;
     private SessionContract.View mSessionView;
+    private SocketService mSessionStatusSocketService;
 
     @Inject
-    public SessionPresenter(SessionService sessionService, PrefManager prefManager){
+    public SessionPresenter(SessionService sessionService, PrefManager prefManager) {
         this.mSessionService = sessionService;
     }
 
@@ -40,8 +41,9 @@ public class SessionPresenter implements SessionContract.UserActionsListener {
 
     @Override
     public void startListening(int sessionId) {
-        final SessionSocketService sessionSocketService = new SessionSocketService(
+        mSessionStatusSocketService = new SocketService(
                 String.format("/topic/sessions/%d/status", sessionId),
+                "sessions_status_subscription_id",
                 new SubscriptionCallback() {
                     @Override
                     public void onMessage(Map<String, String> headers, String body) {
@@ -51,7 +53,7 @@ public class SessionPresenter implements SessionContract.UserActionsListener {
                     }
                 });
 
-        Thread thread = WebSocketsManager.getThread(sessionSocketService, sessionId);
+        Thread thread = WebSocketsManager.getThread(mSessionStatusSocketService, sessionId);
 
         if (!thread.isAlive())
             thread.start();
