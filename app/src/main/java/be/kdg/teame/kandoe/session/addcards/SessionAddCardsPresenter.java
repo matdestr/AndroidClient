@@ -1,6 +1,10 @@
 package be.kdg.teame.kandoe.session.addcards;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -14,6 +18,7 @@ import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.mime.TypedByteArray;
 
 public class SessionAddCardsPresenter implements SessionAddCardsContract.UserActionsListener{
 
@@ -51,11 +56,31 @@ public class SessionAddCardsPresenter implements SessionAddCardsContract.UserAct
 
            @Override
            public void failure(RetrofitError error) {
-               //todo show error
                mAddCardsView.setProgressIndicator(false);
+               String errorMessage = new String(((TypedByteArray) error.getResponse().getBody()).getBytes());
+               try {
+                   JSONObject jsonObject = new JSONObject(errorMessage);
+                   mAddCardsView.showErrorConnectionFailure(jsonObject.getString("message"));
+               } catch (JSONException e) {
+                   Log.d("Session-join", "JSONException: ".concat(e.getMessage()), e);
+                   mAddCardsView.showErrorConnectionFailure("Sorry, something went wrong.");
+               }
            }
        });
     }
 
-    //todo let user add cards and show spinner in view
+    @Override
+    public void addCards(int sessionId) {
+        mSessionService.addCards(sessionId, null, new Callback<Object>() {
+            @Override
+            public void success(Object o, Response response) {
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
+    }
 }

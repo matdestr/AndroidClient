@@ -183,7 +183,6 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
         mSwipeRefreshLayout.setVisibility(View.GONE);
         mWaitProgressBar.setIndeterminate(true);
         mWaitContainer.setVisibility(View.VISIBLE);
-
     }
 
     private static class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {

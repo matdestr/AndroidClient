@@ -8,9 +8,13 @@ import android.view.ViewGroup;
 
 import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
+import be.kdg.teame.kandoe.models.sessions.Session;
 import butterknife.ButterKnife;
+import lombok.Getter;
 
-public class SessionGameRankingFragment extends BaseFragment {
+public class SessionGameRankingFragment extends BaseFragment implements SessionGameRankingContract.View {
+    @Getter
+    private SessionGameRankingContract.UserActionsListener mGameRankingContractPresenter;
 
     @Nullable
     @Override
@@ -19,5 +23,10 @@ public class SessionGameRankingFragment extends BaseFragment {
         ButterKnife.bind(this, root);
 
         return root;
+    }
+
+    @Override
+    public void showErrorConnectionFailure(String errorMessage) {
+
     }
 }

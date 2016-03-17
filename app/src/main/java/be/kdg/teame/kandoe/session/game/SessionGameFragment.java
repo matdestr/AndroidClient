@@ -95,9 +95,15 @@ public class SessionGameFragment extends BaseFragment implements SessionGameCont
 
     // Add Fragments to Tabs
     private void setupViewPager(ViewPager viewPager) {
+        SessionGamePickerFragment gamePickerFragment = new SessionGamePickerFragment();
+        SessionGameRankingFragment gameRankingFragment = new SessionGameRankingFragment();
+
+        mSessionGamePresenter.addDataListener(gamePickerFragment.getMSessionGamePickerPresenter());
+        mSessionGamePresenter.addDataListener(gameRankingFragment.getMGameRankingContractPresenter());
+
         Adapter adapter = new Adapter(getFragmentManager());
-        adapter.addFragment(new SessionGamePickerFragment(), "Picker");
-        adapter.addFragment(new SessionGameRankingFragment(), "Ranking");
+        adapter.addFragment(gamePickerFragment, "Picker");
+        adapter.addFragment(gameRankingFragment, "Ranking");
         viewPager.setAdapter(adapter);
     }
 

@@ -16,5 +16,6 @@ public interface SessionAddCardsContract {
 
     interface UserActionsListener extends InjectableUserActionsListener<View>, AuthenticatedContract.UserActionsListener {
         void loadCards(int sessionId);
+        void addCards(int sessionId);
     }
 }

@@ -151,6 +151,7 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
 
     @Override
     public void onSessionStatusChanged(SessionStatus sessionStatus) {
+        Log.d(getClass().getSimpleName(), "Session status changed to " + sessionStatus);
         switchFragment(chooseFragment(sessionStatus));
     }
 

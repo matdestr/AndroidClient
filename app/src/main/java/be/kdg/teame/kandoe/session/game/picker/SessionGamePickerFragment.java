@@ -11,8 +11,12 @@ import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.models.cards.CardDetails;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import lombok.Getter;
 
 public class SessionGamePickerFragment extends BaseFragment implements SessionGamePickerContract.View {
+
+    @Getter
+    private SessionGamePickerContract.UserActionsListener mSessionGamePickerPresenter;
 
     @Nullable
     @Override
