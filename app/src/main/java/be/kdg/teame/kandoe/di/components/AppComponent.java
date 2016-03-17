@@ -22,6 +22,8 @@ import be.kdg.teame.kandoe.session.SessionActivity;
 import be.kdg.teame.kandoe.session.addcards.SessionAddCardsFragment;
 import be.kdg.teame.kandoe.session.choosecards.SessionChooseCardsFragment;
 import be.kdg.teame.kandoe.session.game.SessionGameFragment;
+import be.kdg.teame.kandoe.session.game.picker.SessionGamePickerFragment;
+import be.kdg.teame.kandoe.session.game.ranking.SessionGameRankingFragment;
 import be.kdg.teame.kandoe.session.join.SessionJoinFragment;
 import be.kdg.teame.kandoe.session.reviewcards.SessionReviewCardsFragment;
 import dagger.Component;
@@ -58,8 +60,6 @@ public interface AppComponent {
 
     void inject(SessionActivity sessionActivity);
 
-    void inject(SessionGameFragment sessionGameFragment);
-
     void inject(BaseFragment baseFragment);
 
     void inject(OrganizationListFragment organizationListFragment);
@@ -73,5 +73,11 @@ public interface AppComponent {
     void inject(SessionChooseCardsFragment sessionChooseCardsFragment);
 
     void inject(SessionReviewCardsFragment sessionReviewCardsFragment);
+
+    void inject(SessionGameFragment sessionGameFragment);
+
+    void inject(SessionGamePickerFragment sessionGamePickerFragment);
+
+    void inject(SessionGameRankingFragment sessionGameRankingFragment);
 
 }

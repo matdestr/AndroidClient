@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
+import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.models.cards.CardDetails;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -25,6 +26,11 @@ public class SessionGamePickerFragment extends BaseFragment implements SessionGa
         ButterKnife.bind(this, root);
 
         return root;
+    }
+
+    @Override
+    protected void injectComponent(AppComponent component) {
+        component.inject(this);
     }
 
     @OnClick(R.id.fab_next_card)

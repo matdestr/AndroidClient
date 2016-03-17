@@ -47,6 +47,8 @@ public class SessionGamePickerPresenter implements SessionGamePickerContract.Use
         mSessionGamePickerView = view;
     }
 
+
+
     @Override
     public void checkUserIsAuthenticated() {
         AuthenticationHelper.checkUserIsAuthenticated(mPrefManager, mSessionGamePickerView);
@@ -54,6 +56,7 @@ public class SessionGamePickerPresenter implements SessionGamePickerContract.Use
 
     @Override
     public void onReceiveData(List<CardPosition> cardPositions) {
-        Log.d(getClass().getSimpleName(), "Received cardpositions");
+        if (cardPositions !=null)
+        Log.wtf(getClass().getSimpleName(), "Received cardpositions");
     }
 }

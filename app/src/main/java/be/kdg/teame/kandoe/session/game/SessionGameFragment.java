@@ -24,6 +24,7 @@ import be.kdg.teame.kandoe.core.activities.BaseActivity;
 import be.kdg.teame.kandoe.core.activities.BaseToolbarActivity;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
+import be.kdg.teame.kandoe.session.SessionActivity;
 import be.kdg.teame.kandoe.session.game.picker.SessionGamePickerFragment;
 import be.kdg.teame.kandoe.session.game.ranking.SessionGameRankingFragment;
 import butterknife.Bind;
@@ -39,6 +40,11 @@ public class SessionGameFragment extends BaseFragment implements SessionGameCont
 
     @Inject
     SessionGameContract.UserActionsListener mSessionGamePresenter;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Nullable
     @Override
@@ -68,6 +74,11 @@ public class SessionGameFragment extends BaseFragment implements SessionGameCont
         // Set Tabs inside Toolbar
         mTabLayout.setupWithViewPager(mViewPager);
 
+        Bundle arguments = getArguments();
+        int sessionId = arguments.getInt(SessionActivity.SESSION_ID);
+
+        mSessionGamePresenter.loadCardPositions(sessionId);
+
         return root;
     }
 
@@ -75,7 +86,6 @@ public class SessionGameFragment extends BaseFragment implements SessionGameCont
     protected void injectComponent(AppComponent component) {
         component.inject(this);
     }
-
 
 
     @Override

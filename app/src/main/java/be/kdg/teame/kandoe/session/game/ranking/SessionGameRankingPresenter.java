@@ -9,7 +9,6 @@ import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.core.AuthenticationHelper;
 import be.kdg.teame.kandoe.models.cards.CardPosition;
-import be.kdg.teame.kandoe.session.game.DataListener;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 
 public class SessionGameRankingPresenter implements SessionGameRankingContract.UserActionsListener {

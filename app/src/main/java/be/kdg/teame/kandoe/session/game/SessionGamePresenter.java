@@ -49,6 +49,8 @@ public class SessionGamePresenter implements SessionGameContract.UserActionsList
 
     @Override
     public void addDataListener(DataListener listener) {
+        //todo delete this log
+        Log.wtf("wtf", "adding some listeners bruff");
         if (listener != null)
             this.mListeners.add(listener);
     }
@@ -62,6 +64,9 @@ public class SessionGamePresenter implements SessionGameContract.UserActionsList
 
     @Override
     public void loadCardPositions(int sessionId) {
+        Log.d("loading card positions", "lol");
+        notifyListeners();
+
         mSessionService.getCardPositions(sessionId, new Callback<List<CardPosition>>() {
             @Override
             public void success(List<CardPosition> cardPositions, Response response) {
@@ -73,14 +78,15 @@ public class SessionGamePresenter implements SessionGameContract.UserActionsList
             public void failure(RetrofitError error) {
                 Log.d(getClass().getSimpleName(), "Failed to receive cardpositions: " + error.getMessage(), error);
 
-                String errorMessage = new String(((TypedByteArray) error.getResponse().getBody()).getBytes());
+                //todo fix this
+                /*String errorMessage = new String(((TypedByteArray) error.getResponse().getBody()).getBytes());
                 try {
                     JSONObject jsonObject = new JSONObject(errorMessage);
                     mSessionGameView.showErrorConnectionFailure(jsonObject.getString("message"));
                 } catch (JSONException e) {
                     Log.d("Session-join", "JSONException: ".concat(e.getMessage()), e);
                     mSessionGameView.showErrorConnectionFailure("Sorry, something went wrong.");
-                }
+                }*/
             }
         });
     }

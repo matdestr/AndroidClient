@@ -14,6 +14,10 @@ import be.kdg.teame.kandoe.session.choosecards.SessionChooseCardsContract;
 import be.kdg.teame.kandoe.session.choosecards.SessionChooseCardsPresenter;
 import be.kdg.teame.kandoe.session.game.SessionGameContract;
 import be.kdg.teame.kandoe.session.game.SessionGamePresenter;
+import be.kdg.teame.kandoe.session.game.picker.SessionGamePickerContract;
+import be.kdg.teame.kandoe.session.game.picker.SessionGamePickerPresenter;
+import be.kdg.teame.kandoe.session.game.ranking.SessionGameRankingContract;
+import be.kdg.teame.kandoe.session.game.ranking.SessionGameRankingPresenter;
 import be.kdg.teame.kandoe.session.join.SessionJoinContract;
 import be.kdg.teame.kandoe.session.join.SessionJoinPresenter;
 import be.kdg.teame.kandoe.session.reviewcards.SessionReviewCardsContract;
@@ -33,11 +37,6 @@ public class SessionModule {
     @Provides
     public SessionContract.UserActionsListener provideSessionPresenter(SessionService sessionService, PrefManager prefManager) {
         return new SessionPresenter(sessionService, prefManager);
-    }
-
-    @Provides
-    public SessionGameContract.UserActionsListener provideSessionGamePresenter(SessionService sessionService, PrefManager prefManager) {
-        return new SessionGamePresenter(sessionService, prefManager);
     }
 
     @Provides
@@ -65,5 +64,19 @@ public class SessionModule {
         return new SessionChooseCardsPresenter(sessionService, prefManager);
     }
 
+    @Provides
+    public SessionGameContract.UserActionsListener provideSessionGamePresenter(SessionService sessionService, PrefManager prefManager) {
+        return new SessionGamePresenter(sessionService, prefManager);
+    }
+
+    @Provides
+    public SessionGamePickerContract.UserActionsListener provideSessionGamePickerPresenter(PrefManager prefManager) {
+        return new SessionGamePickerPresenter(prefManager);
+    }
+
+    @Provides
+    public SessionGameRankingContract.UserActionsListener provideSessionGameRankingPresenter(PrefManager prefManager) {
+        return new SessionGameRankingPresenter(prefManager);
+    }
 
 }
