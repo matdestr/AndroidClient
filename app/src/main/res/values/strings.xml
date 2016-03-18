@@ -9,7 +9,7 @@
 
     <!-- SIGN IN PAGE -->
     <string name="sign_in_button">Sign in</string>
-   
+
     <string name="sign_in_sign_up_now"><u>Sign up now!</u></string>
 
     <string name="form_email_hint">Email</string>
@@ -19,9 +19,9 @@
     <string name="form_firstname_hint">First name</string>
     <string name="form_lastname_hint">Last name</string>
     <string name="sign_up_button">Sign Up</string>
-   
+
     <string name="sign_up_already_member">Already a member? <u>Sign in</u></string>
-    
+
     <string name="sign_up_error_title">Failed to create account</string>
     <string name="sign_up_progress_message">Creating an account …</string>
 
@@ -63,4 +63,7 @@
     <string name="session_waiting_for_users_to_join">Waiting for other users to join</string>
     <string name="session_waiting_for_users_to_add_cards">Waiting for other users to add cards</string>
     <string name="session_waiting_for_users_to_choose_cards">Waiting for other users to choose cards</string>
+    <string name="session_adding_cards">adding cards</string>
+    <string name="no_cards_selected">No cards selected</string>
+    <string name="session_saving_cards">saving cards</string>
 </resources>

@@ -9,13 +9,18 @@ import be.kdg.teame.kandoe.models.cards.CardDetails;
 
 public interface SessionAddCardsContract {
     interface View extends AuthenticatedContract.View, WebDataView {
+        void setRefreshingProgressIndicator(boolean active);
+
         void setProgressIndicator(boolean active);
+
         void showCards(List<CardDetails> cardDetails);
-        void onCardsAddedCompleted();
+
+        void showWaitingForOtherParticipants();
     }
 
     interface UserActionsListener extends InjectableUserActionsListener<View>, AuthenticatedContract.UserActionsListener {
         void loadCards(int sessionId);
+
         void addCards(int sessionId);
     }
 }

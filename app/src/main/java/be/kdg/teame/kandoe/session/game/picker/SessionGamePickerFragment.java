@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
 import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
@@ -17,7 +19,14 @@ import lombok.Getter;
 public class SessionGamePickerFragment extends BaseFragment implements SessionGamePickerContract.View {
 
     @Getter
-    private SessionGamePickerContract.UserActionsListener mSessionGamePickerPresenter;
+    @Inject
+    SessionGamePickerContract.UserActionsListener mSessionGamePickerPresenter;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mSessionGamePickerPresenter.setView(this);
+    }
 
     @Nullable
     @Override

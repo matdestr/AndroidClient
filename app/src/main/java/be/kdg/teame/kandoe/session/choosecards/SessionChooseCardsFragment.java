@@ -1,14 +1,15 @@
 package be.kdg.teame.kandoe.session.choosecards;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,11 +34,11 @@ import be.kdg.teame.kandoe.models.cards.CardDetails;
 import be.kdg.teame.kandoe.session.SessionActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class SessionChooseCardsFragment extends BaseFragment implements SessionChooseCardsContract.View  {
-    private CardAdapter mCardAdapter;
+public class SessionChooseCardsFragment extends BaseFragment implements SessionChooseCardsContract.View {
 
     @Bind(R.id.refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -45,7 +46,7 @@ public class SessionChooseCardsFragment extends BaseFragment implements SessionC
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
-    @Bind(R.id.fab_ok)
+    @Bind(R.id.fab_continue)
     FloatingActionButton mFloatingActionButton;
 
     @Bind(R.id.session_wait_container)
@@ -54,35 +55,25 @@ public class SessionChooseCardsFragment extends BaseFragment implements SessionC
     @Bind(R.id.wait_progressbar)
     ProgressBar mWaitProgressBar;
 
+    private ProgressDialog mProgressDialog;
+
     @Inject
     SessionChooseCardsContract.UserActionsListener mAddCardsPresenter;
 
-    private int selectedColor;
-    private int unselectedColor;
+    private CardAdapter mCardAdapter;
+    private int mSessionId;
 
     private static final int GRID_SPAN_COUNT = 2;
     private static final int ALPHA = 200;
-
-    private int mSessionId;
 
     /**
      * Listener for clicks on sessions in the RecyclerView.
      */
     private SessionAddCardItemListener mItemListener = new SessionAddCardItemListener() {
         @Override
-        public void onCardClick(int pos, TextView cardTitle, CheckBox checkbox) {
-            mAddCardsPresenter.chooseCard(pos);
-
-            boolean checked = checkbox.isChecked();
-            checkbox.setChecked(!checked);
-            checked = checkbox.isChecked();
-
-            if (checked)
-                cardTitle.setBackgroundColor(selectedColor);
-            else
-                cardTitle.setBackgroundColor(unselectedColor);
-
-            cardTitle.getBackground().setAlpha(ALPHA);
+        public void onCardClick(CardDetails clickedCard) {
+            clickedCard.setActive(!clickedCard.isActive());
+            mCardAdapter.notifyDataSetChanged();
         }
     };
 
@@ -97,9 +88,6 @@ public class SessionChooseCardsFragment extends BaseFragment implements SessionC
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_choose_cards, container, false);
         ButterKnife.bind(this, root);
-
-        this.unselectedColor = ContextCompat.getColor(getActivity(), R.color.colorAccent);
-        this.selectedColor = ContextCompat.getColor(getActivity(), R.color.colorPrimary);
 
         Bundle args = getArguments();
         mSessionId = args.getInt(SessionActivity.SESSION_ID);
@@ -123,12 +111,8 @@ public class SessionChooseCardsFragment extends BaseFragment implements SessionC
             }
         });
 
-        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAddCardsPresenter.chooseCards(mSessionId);
-            }
-        });
+        mProgressDialog = DialogGenerator.createProgressDialog(getContext(), R.string.session_saving_cards);
+
 
         return root;
     }
@@ -150,7 +134,15 @@ public class SessionChooseCardsFragment extends BaseFragment implements SessionC
     }
 
     @Override
-    public void setProgressIndicator(final boolean active) {
+    public void setProgressIndicator(boolean active) {
+        if (active)
+            mProgressDialog.show();
+        else
+            mProgressDialog.dismiss();
+    }
+
+    @Override
+    public void setRefreshingProgressIndicator(final boolean active) {
 
         if (getView() == null || mSwipeRefreshLayout == null)
             return;
@@ -170,20 +162,45 @@ public class SessionChooseCardsFragment extends BaseFragment implements SessionC
     }
 
     @Override
-    public void onChooseCardsCompleted() {
+    public void showWaitingForOtherParticipants() {
         mFloatingActionButton.setVisibility(View.GONE);
         mSwipeRefreshLayout.setVisibility(View.GONE);
         mWaitProgressBar.setIndeterminate(true);
         mWaitContainer.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void showNoCardsSelected() {
+        if (getView() == null) return;
+
+        Snackbar snackbar = Snackbar.make(getView(), R.string.no_cards_selected, Snackbar.LENGTH_LONG);
+
+        View sbView = snackbar.getView();
+        TextView textView = ButterKnife.findById(sbView, android.support.design.R.id.snackbar_text);
+        textView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextLight));
+
+        snackbar.show();
+    }
+
+    @OnClick(R.id.fab_continue)
+    public void onFabContinueClick() {
+        List<Integer> chosenCards = new ArrayList<>();
+
+        for (CardDetails card : mCardAdapter.getData())
+            if (card.isActive())
+                chosenCards.add(card.getCardDetailsId());
+
+
+        mAddCardsPresenter.chooseCards(mSessionId, chosenCards);
+    }
+
     private static class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         private Context mContext;
-        private List<CardDetails> mCardDetails;
+        private List<CardDetails> mCards;
         private SessionAddCardItemListener mItemListener;
 
-        public CardAdapter(Context context, List<CardDetails> sessions, SessionAddCardItemListener itemListener) {
-            setList(sessions);
+        public CardAdapter(Context context, List<CardDetails> cards, SessionAddCardItemListener itemListener) {
+            setList(cards);
             mContext = context;
             mItemListener = itemListener;
         }
@@ -199,33 +216,43 @@ public class SessionChooseCardsFragment extends BaseFragment implements SessionC
 
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, int position) {
-            CardDetails cardDetails = mCardDetails.get(position);
-            int statusDrawableId = R.drawable.ic_unknown;
+            CardDetails cardDetails = mCards.get(position);
 
             viewHolder.cardTitle.getBackground().setAlpha(ALPHA);
             viewHolder.cardTitle.setText(cardDetails.getText());
             Picasso.with(mContext)
                     .load(cardDetails.getImageUrl())
-                    .placeholder(statusDrawableId)
+                    .placeholder(R.drawable.placeholder_image)
                     .into(viewHolder.cardImage);
+
+            viewHolder.checkbox.setChecked(cardDetails.isActive());
+
+            if (cardDetails.isActive())
+                viewHolder.cardTitle.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+            else
+                viewHolder.cardTitle.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccent));
         }
 
-        public void replaceData(List<CardDetails> sessions) {
-            setList(sessions);
+        public void replaceData(List<CardDetails> cards) {
+            setList(cards);
             notifyDataSetChanged();
         }
 
-        private void setList(List<CardDetails> sessions) {
-            mCardDetails = checkNotNull(sessions);
+        public List<CardDetails> getData() {
+            return mCards;
+        }
+
+        private void setList(List<CardDetails> cards) {
+            mCards = checkNotNull(cards);
         }
 
         @Override
         public int getItemCount() {
-            return mCardDetails.size();
+            return mCards.size();
         }
 
         public CardDetails getItem(int position) {
-            return mCardDetails.get(position);
+            return mCards.get(position);
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -251,12 +278,13 @@ public class SessionChooseCardsFragment extends BaseFragment implements SessionC
             @Override
             public void onClick(View v) {
                 int position = getAdapterPosition();
-                mItemListener.onCardClick(position, cardTitle, checkbox);
+                CardDetails card = getItem(position);
+                mItemListener.onCardClick(card);
             }
         }
     }
 
     public interface SessionAddCardItemListener {
-        void onCardClick(int pos, TextView textView, CheckBox checkBox);
+        void onCardClick(CardDetails clickedCard);
     }
 }

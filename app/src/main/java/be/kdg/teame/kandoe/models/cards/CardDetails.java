@@ -9,4 +9,5 @@ public class CardDetails {
     private int cardDetailsId;
     private String text;
     private String imageUrl;
+    private boolean active;
 }

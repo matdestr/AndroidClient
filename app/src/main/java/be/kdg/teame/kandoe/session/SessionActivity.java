@@ -34,9 +34,9 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
 
     private BaseFragment mCurrentFragment;
 
-    private int sessionId;
     private Session mCurrentSession;
 
+    private int mSessionId;
     private String mCategoryTitle;
     private String mTopicTitle;
     private String mOrganizationTitle;
@@ -46,13 +46,14 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
         super.onCreate(savedInstanceState);
 
         Intent bundles = getIntent();
-        sessionId = bundles.getIntExtra(SESSION_ID, -1);
+
+        mSessionId = bundles.getIntExtra(SESSION_ID, -1);
         mCategoryTitle = bundles.getStringExtra(SESSION_CATEGORY_TITLE);
         mTopicTitle = bundles.getStringExtra(SESSION_TOPIC_TITLE);
         mOrganizationTitle = bundles.getStringExtra(SESSION_ORGANIZATION_TITLE);
 
         mSessionPresenter.setView(this);
-        mSessionPresenter.loadSession(sessionId);
+        mSessionPresenter.loadSession(mSessionId);
     }
 
     @Override
@@ -63,6 +64,12 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
     @Override
     protected void injectComponent(AppComponent component) {
         component.inject(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSessionPresenter.openStatusListener(mSessionId);
     }
 
     private void switchFragment(BaseFragment fragment) {
@@ -139,6 +146,7 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
                 break;
             case FINISHED:
                 // todo finish
+                mSessionPresenter.closeStatusListener();
                 break;
         }
 

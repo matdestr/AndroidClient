@@ -3,7 +3,11 @@ package be.kdg.teame.kandoe.session;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
@@ -40,15 +44,24 @@ public class SessionPresenter implements SessionContract.UserActionsListener {
     }
 
     @Override
-    public void startListening(int sessionId) {
+    public void openStatusListener(int sessionId) {
         mSessionStatusSocketService = new SocketService(
                 String.format("/topic/sessions/%d/status", sessionId),
                 "sessions_status_subscription_id",
                 new SubscriptionCallback() {
                     @Override
                     public void onMessage(Map<String, String> headers, String body) {
-                        Log.d("SocketService-message", "session-status:".concat(body));
-                        SessionStatus status = SessionStatus.valueOf(body.split("(.*?)", 1)[0]);
+                        Pattern p = Pattern.compile(".*\"(.*)\".*");
+                        Matcher m = p.matcher(body);
+
+                        SessionStatus status = null;
+
+                        if (m.find())
+                            status = SessionStatus.valueOf(m.group(1));
+
+                        //todo error handling when not legit?
+
+                        Log.i("SocketService-message", "session-status: ".concat(String.valueOf(status)));
                         mSessionView.onSessionStatusChanged(status);
                     }
                 });
@@ -57,6 +70,12 @@ public class SessionPresenter implements SessionContract.UserActionsListener {
 
         if (!thread.isAlive())
             thread.start();
+    }
+
+    @Override
+    public void closeStatusListener() {
+        if (mSessionStatusSocketService != null)
+            mSessionStatusSocketService.stop();
     }
 
     @Override

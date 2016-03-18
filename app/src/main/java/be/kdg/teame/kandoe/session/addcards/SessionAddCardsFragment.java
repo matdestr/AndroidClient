@@ -1,5 +1,6 @@
 package be.kdg.teame.kandoe.session.addcards;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,11 +36,11 @@ import be.kdg.teame.kandoe.models.cards.CardDetails;
 import be.kdg.teame.kandoe.session.SessionActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class SessionAddCardsFragment extends BaseFragment implements SessionAddCardsContract.View {
-    private CardAdapter mCardAdapter;
 
     @Bind(R.id.refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -47,7 +48,7 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
-    @Bind(R.id.fab_ok)
+    @Bind(R.id.fab_continue)
     FloatingActionButton mFloatingActionButton;
 
     @Bind(R.id.session_wait_container)
@@ -56,10 +57,13 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
     @Bind(R.id.wait_progressbar)
     ProgressBar mWaitProgressBar;
 
+    private ProgressDialog mProgressDialog;
+
     @Inject
     SessionAddCardsContract.UserActionsListener mAddCardsPresenter;
 
     private static final int GRID_SPAN_COUNT = 2;
+    private CardAdapter mCardAdapter;
 
     private int mSessionId;
 
@@ -92,7 +96,7 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_session_add_card:
                 Log.i("test", "test");
                 break;
@@ -129,11 +133,7 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
             }
         });
 
-        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
+        mProgressDialog = DialogGenerator.createProgressDialog(getContext(), R.string.session_adding_cards);
 
         return root;
     }
@@ -158,7 +158,7 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
     }
 
     @Override
-    public void setProgressIndicator(final boolean active) {
+    public void setRefreshingProgressIndicator(final boolean active) {
 
         if (getView() == null || mSwipeRefreshLayout == null)
             return;
@@ -173,25 +173,38 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
     }
 
     @Override
+    public void setProgressIndicator(boolean active) {
+        if (active)
+            mProgressDialog.show();
+        else
+            mProgressDialog.dismiss();
+    }
+
+    @Override
     public void showCards(List<CardDetails> cardDetails) {
         mCardAdapter.replaceData(cardDetails);
     }
 
     @Override
-    public void onCardsAddedCompleted() {
+    public void showWaitingForOtherParticipants() {
         mFloatingActionButton.setVisibility(View.GONE);
         mSwipeRefreshLayout.setVisibility(View.GONE);
         mWaitProgressBar.setIndeterminate(true);
         mWaitContainer.setVisibility(View.VISIBLE);
     }
 
+    @OnClick(R.id.fab_continue)
+    public void onFabContinueClick() {
+        mAddCardsPresenter.addCards(mSessionId);
+    }
+
     private static class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         private Context mContext;
-        private List<CardDetails> mCardDetails;
+        private List<CardDetails> mCards;
         private SessionAddCardItemListener mItemListener;
 
-        public CardAdapter(Context context, List<CardDetails> sessions, SessionAddCardItemListener itemListener) {
-            setList(sessions);
+        public CardAdapter(Context context, List<CardDetails> cards, SessionAddCardItemListener itemListener) {
+            setList(cards);
             mContext = context;
             mItemListener = itemListener;
         }
@@ -207,7 +220,7 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
 
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, int position) {
-            CardDetails cardDetails = mCardDetails.get(position);
+            CardDetails cardDetails = mCards.get(position);
 
             viewHolder.cardTitle.getBackground().setAlpha(95);
 
@@ -218,22 +231,22 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
                     .into(viewHolder.cardImage);
         }
 
-        public void replaceData(List<CardDetails> sessions) {
-            setList(sessions);
+        public void replaceData(List<CardDetails> cards) {
+            setList(cards);
             notifyDataSetChanged();
         }
 
-        private void setList(List<CardDetails> sessions) {
-            mCardDetails = checkNotNull(sessions);
+        private void setList(List<CardDetails> cards) {
+            mCards = checkNotNull(cards);
         }
 
         @Override
         public int getItemCount() {
-            return mCardDetails.size();
+            return mCards.size();
         }
 
         public CardDetails getItem(int position) {
-            return mCardDetails.get(position);
+            return mCards.get(position);
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -254,8 +267,8 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
             @Override
             public void onClick(View v) {
                 int position = getAdapterPosition();
-                CardDetails session = getItem(position);
-                mItemListener.onCardClick(session);
+                CardDetails card = getItem(position);
+                mItemListener.onCardClick(card);
             }
         }
     }

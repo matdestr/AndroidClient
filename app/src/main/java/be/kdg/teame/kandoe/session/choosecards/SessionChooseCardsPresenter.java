@@ -27,14 +27,10 @@ public class SessionChooseCardsPresenter implements SessionChooseCardsContract.U
     private SessionService mSessionService;
     private PrefManager mPrefManager;
 
-    private List<CardDetails> mAllCards;
-    private List<Integer> mSelectedCards;
-
     @Inject
     public SessionChooseCardsPresenter(SessionService mSessionService, PrefManager mPrefManager) {
         this.mPrefManager = mPrefManager;
         this.mSessionService = mSessionService;
-        this.mSelectedCards = new ArrayList<>();
     }
 
     @Override
@@ -49,47 +45,37 @@ public class SessionChooseCardsPresenter implements SessionChooseCardsContract.U
 
     @Override
     public void loadCards(int sessionId) {
-        mChooseCardsView.setProgressIndicator(true);
+        mChooseCardsView.setRefreshingProgressIndicator(true);
         mSessionService.getAllCards(sessionId, new Callback<List<CardDetails>>() {
             @Override
             public void success(List<CardDetails> cardDetails, Response response) {
-                mChooseCardsView.setProgressIndicator(false);
-                mAllCards = cardDetails;
+                mChooseCardsView.setRefreshingProgressIndicator(false);
                 mChooseCardsView.showCards(cardDetails);
             }
 
             @Override
             public void failure(RetrofitError error) {
                 //todo show error
-                mChooseCardsView.setProgressIndicator(false);
+                mChooseCardsView.setRefreshingProgressIndicator(false);
             }
         });
     }
 
     @Override
-    public void chooseCard(int index) {
-        if (mAllCards != null)
-            if (mSelectedCards.contains(mAllCards.get(index).getCardDetailsId())) {
-                mSelectedCards.remove(index);
-                Log.d(SessionChooseCardsPresenter.class.getSimpleName(), "Removed card " + mAllCards.get(index).getText());
-            }
-            else {
-                this.mSelectedCards.add(mAllCards.get(index).getCardDetailsId());
-                Log.d(SessionChooseCardsPresenter.class.getSimpleName(), "Added card " + mAllCards.get(index).getText());
-            }
-    }
+    public void chooseCards(int sessionId, List<Integer> cardIds) {
 
-    @Override
-    public void chooseCards(int sessionId) {
-        if (mSelectedCards.isEmpty()) return;
+        if (cardIds.isEmpty()) {
+            mChooseCardsView.showNoCardsSelected();
+            return;
+        }
 
-        Log.d(SessionChooseCardsPresenter.class.getSimpleName(), "Adding " + mSelectedCards.size() + " cards");
-
-        mSessionService.chooseCards(sessionId, mSelectedCards, new Callback<Object>() {
+        mChooseCardsView.setProgressIndicator(true);
+        mSessionService.chooseCards(sessionId, cardIds, new Callback<Object>() {
             @Override
             public void success(Object o, Response response) {
+                mChooseCardsView.setProgressIndicator(false);
                 Log.d(SessionChooseCardsPresenter.class.getSimpleName(), "Cards added successfully");
-                mChooseCardsView.onChooseCardsCompleted();
+                mChooseCardsView.showWaitingForOtherParticipants();
             }
 
             @Override
