@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/material_margin_default"
+    android:orientation="horizontal"
+    android:weightSum="2">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_layout_email"
+        style="@style/Material.TextInputLayout.Dark"
+        android:layout_width="0dp"
+        android:layout_margin="@dimen/material_margin_default"
+        android:layout_weight="1.7"
+        app:errorTextAppearance="@style/Material.TextInputLayout.Error.Dark"
+        app:hintTextAppearance="@style/Material.TextInputLayout.Hint.Dark">
+
+        <EditText
+            android:id="@+id/form_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/form_email_hint"
+            android:inputType="textEmailAddress" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:onClick="onRemoveInviteClick"
+        android:id="@+id/remove_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.3"
+        android:src="@drawable/ic_action_remove"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:fabSize="mini" />
+
+</LinearLayout>

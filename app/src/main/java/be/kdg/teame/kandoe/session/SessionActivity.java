@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewManager;
 
 import javax.inject.Inject;
 
@@ -43,6 +45,7 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
     private String mCategoryTitle;
     private String mTopicTitle;
     private String mOrganizationTitle;
+    private XmlClickable xmlClickableFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,11 +103,6 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
     }
 
     @Override
-    public void setProgressIndicator(boolean active) {
-
-    }
-
-    @Override
     public void showSession(Session session) {
         this.mCurrentSession = session;
 
@@ -122,6 +120,7 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
 
         switch (sessionStatus) {
             case CREATED:
+                Log.i("session-status", "created");
                 fragment = new SessionInviteFragment();
                 break;
             case USERS_JOINING:
@@ -173,5 +172,10 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
     @Override
     public void showErrorConnectionFailure(String errorMessage) {
 
+    }
+
+    public void onRemoveInviteClick(View view){
+        if (mCurrentFragment instanceof SessionInviteFragment)
+            ((XmlClickable) mCurrentFragment).onRemoveInviteClick(view);
     }
 }
