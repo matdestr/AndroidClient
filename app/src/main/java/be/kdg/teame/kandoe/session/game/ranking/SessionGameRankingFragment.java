@@ -3,6 +3,7 @@ package be.kdg.teame.kandoe.session.game.ranking;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -70,6 +71,7 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
 
         mRankAdapter = new RankAdapter(getContext(), new ArrayList<CardPosition>(0), mItemListener);
         recyclerView.setAdapter(mRankAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return root;
     }
@@ -127,10 +129,10 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
         public void onBindViewHolder(ViewHolder viewHolder, int position) {
             CardPosition cardPosition = mCardPositions.get(position);
 
-            viewHolder.cardTitle.getBackground().setAlpha(95);
+            //viewHolder.cardTitle.getBackground().setAlpha(95);
 
             viewHolder.cardTitle.setText(cardPosition.getCardDetails().getText());
-            viewHolder.rank.setText(position + 1);
+            viewHolder.rank.setText("" + (position + 1));
             Picasso.with(mContext)
                     .load(cardPosition.getCardDetails().getImageUrl())
                     .placeholder(R.drawable.placeholder_image)
@@ -150,6 +152,7 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
                     return o1.getPriority() - o2.getPriority();
                 }
             });
+            Log.d(getClass().getSimpleName(), "Received, set and sorted" + cardPositions.size() +  "cardpositions");
         }
 
         @Override

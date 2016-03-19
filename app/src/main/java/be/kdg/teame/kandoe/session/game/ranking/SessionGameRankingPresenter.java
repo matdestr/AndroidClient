@@ -33,7 +33,7 @@ public class SessionGameRankingPresenter implements SessionGameRankingContract.U
 
     @Override
     public void onReceiveData(List<CardPosition> cardPositions) {
-        mSessionGameRankingView.showData(cardPositions);
         Log.d(getClass().getSimpleName(), "Received " + cardPositions.size() + " cardpositions");
+        mSessionGameRankingView.showData(cardPositions);
     }
 }
