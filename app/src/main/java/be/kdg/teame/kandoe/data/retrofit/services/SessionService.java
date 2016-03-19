@@ -52,4 +52,7 @@ public interface SessionService {
 
     @POST(ENDPOINT + "/{sessionId}/end")
     void end(@Path("sessionId") int sessionId, Callback<Object> callback);
+
+    @POST(ENDPOINT + "/{sessionId}/invite")
+    void invite(@Path("sessionId") int sessionId, @Query("email") String email,Callback<Object> callback);
 }
