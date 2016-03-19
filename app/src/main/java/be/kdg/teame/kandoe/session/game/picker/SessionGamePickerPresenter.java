@@ -87,7 +87,6 @@ public class SessionGamePickerPresenter implements SessionGamePickerContract.Use
                 ErrorMessage errorMessage = gson.fromJson(json, ErrorMessage.class);
 
                 mSessionGamePickerView.showErrorConnectionFailure(errorMessage.getMessage());
-
             }
         });
     }

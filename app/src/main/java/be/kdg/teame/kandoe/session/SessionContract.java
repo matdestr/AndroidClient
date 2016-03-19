@@ -9,7 +9,6 @@ import be.kdg.teame.kandoe.models.sessions.SessionStatus;
 public interface SessionContract {
 
     interface View extends AuthenticatedContract.View, WebDataView {
-        void setProgressIndicator(boolean active);
         void showSession(Session session);
         void onSessionStatusChanged(SessionStatus sessionStatus);
     }

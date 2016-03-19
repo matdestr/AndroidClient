@@ -6,6 +6,7 @@ import be.kdg.teame.kandoe.models.cards.CardDetails;
 import be.kdg.teame.kandoe.models.cards.CardPosition;
 import be.kdg.teame.kandoe.models.sessions.Session;
 import be.kdg.teame.kandoe.models.sessions.SessionListItem;
+import be.kdg.teame.kandoe.models.users.dto.EmailDTO;
 import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.GET;
@@ -35,11 +36,8 @@ public interface SessionService {
     @POST(ENDPOINT + "/{sessionId}/chosen-cards")
     void chooseCards(@Path("sessionId") int sessionId, @Query("cardDetailsId") List<Integer> cardDetails, Callback<Object> callback);
 
-    @POST(ENDPOINT + "/{sessionId}/all-cards")
-    void chooseCard(@Path("sessionId") int sessionId, Callback<Session> callback);
-
     @POST(ENDPOINT + "/{sessionId}/all-cards/addall")
-    void addCards(@Path("sessionId") int sessionId, @Body List<CardDetails> cardDetails,Callback<Object> callback);
+    void addCards(@Path("sessionId") int sessionId, @Body List<CardDetails> cardDetails, Callback<Object> callback);
 
     @POST(ENDPOINT + "/{sessionId}/start")
     void start(@Path("sessionId") int sessionId, Callback<Object> callback);
@@ -54,5 +52,12 @@ public interface SessionService {
     void end(@Path("sessionId") int sessionId, Callback<Object> callback);
 
     @POST(ENDPOINT + "/{sessionId}/invite")
-    void invite(@Path("sessionId") int sessionId, @Query("email") String email,Callback<Object> callback);
+    void invite(@Path("sessionId") int sessionId, @Query("email") String email, Callback<Object> callback);
+
+    @POST(ENDPOINT + "/{sessionId}/invite-all")
+    void invite(@Path("sessionId") int sessionId, @Body List<EmailDTO> emails, Callback<Object> callback);
+
+    @POST(ENDPOINT + "/{sessionId}/invite/confirm")
+    void confirmInvitation(@Path("sessionId") int sessionId, Callback<Object> callback);
+
 }

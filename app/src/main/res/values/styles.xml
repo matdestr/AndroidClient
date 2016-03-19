@@ -69,6 +69,18 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="Material.TextInputLayout.Dark" parent="Material.TextInputLayout">
+        <item name="android:textColor">@color/colorTextDark</item>
+    </style>
+
+    <style name="Material.TextInputLayout.Hint.Dark" parent="Material.TextInputLayout.Hint">
+        <item name="android:textColorHint">@color/colorTextDark</item>
+    </style>
+
+    <style name="Material.TextInputLayout.Error.Dark" parent="Material.TextInputLayout.Error">
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="Material.TextInputLayout.EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

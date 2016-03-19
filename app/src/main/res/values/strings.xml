@@ -70,4 +70,6 @@
     <string name="game_launcher_waiting_text">Waiting for organizer to start the game</string>
     <string name="session_waiting_for_organizer_to_start_session">Waiting for organizor to start session</string>
     <string name="processing_vote">processing vote …</string>
+    <string name="session_inviting_users">inviting users …</string>
+    <string name="action_session_add_form_field">add field</string>
 </resources>

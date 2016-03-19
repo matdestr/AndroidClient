@@ -6,9 +6,14 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
+import be.kdg.teame.kandoe.core.AuthenticationHelper;
 import be.kdg.teame.kandoe.data.retrofit.services.SessionService;
+import be.kdg.teame.kandoe.models.users.dto.EmailDTO;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -19,24 +24,42 @@ public class SessionInvitePresenter implements SessionInviteContract.UserActions
     private final PrefManager mPrefManager;
     private final SessionService mSessionService;
 
-    @Inject
-    SessionInviteContract.View mSessionInviteContractView;
+    private SessionInviteContract.View mSessionInviteContractView;
 
-    public SessionInvitePresenter(SessionService sessionService, PrefManager prefManager){
+    public SessionInvitePresenter(SessionService sessionService, PrefManager prefManager) {
         mSessionService = sessionService;
         mPrefManager = prefManager;
     }
 
     @Override
-    public void inviteUser(int sessionId, final String email) {
-        mSessionService.invite(sessionId, email, new Callback<Object>() {
+    public void inviteUsers(final int sessionId, List<String> emails) {
+        mSessionInviteContractView.setProgressIndicator(true);
+
+        List<EmailDTO> emailDTOs = new ArrayList<>();
+        for (String email : emails) {
+            emailDTOs.add(new EmailDTO(email));
+        }
+
+        mSessionService.invite(sessionId, emailDTOs, new Callback<Object>() {
             @Override
             public void success(Object o, Response response) {
-                mSessionInviteContractView.showUserInvited();
+                mSessionService.confirmInvitation(sessionId, new Callback<Object>() {
+                    @Override
+                    public void success(Object o, Response response) {
+                        mSessionInviteContractView.setProgressIndicator(false);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        mSessionInviteContractView.setProgressIndicator(false);
+                        mSessionInviteContractView.showErrorConnectionFailure(null);
+                    }
+                });
             }
 
             @Override
             public void failure(RetrofitError error) {
+                mSessionInviteContractView.setProgressIndicator(false);
                 Log.d(SessionInvitePresenter.class.getSimpleName(), "Failed to invite user: ".concat(error.getMessage().concat(": ").concat("" + error.getKind())), error);
 
                 if (error.getResponse().getBody() != null) {
@@ -56,6 +79,7 @@ public class SessionInvitePresenter implements SessionInviteContract.UserActions
         });
     }
 
+
     @Override
     public void setView(@NonNull SessionInviteContract.View view) {
         this.mSessionInviteContractView = view;
@@ -63,6 +87,6 @@ public class SessionInvitePresenter implements SessionInviteContract.UserActions
 
     @Override
     public void checkUserIsAuthenticated() {
-
+        AuthenticationHelper.checkUserIsAuthenticated(mPrefManager, mSessionInviteContractView);
     }
 }
