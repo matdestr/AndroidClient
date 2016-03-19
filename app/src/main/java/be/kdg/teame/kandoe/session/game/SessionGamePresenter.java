@@ -14,6 +14,7 @@ import be.kdg.teame.kandoe.data.retrofit.services.SessionService;
 import be.kdg.teame.kandoe.data.websockets.SocketService;
 import be.kdg.teame.kandoe.data.websockets.WebSocketsManager;
 import be.kdg.teame.kandoe.data.websockets.stomp.SubscriptionCallback;
+import be.kdg.teame.kandoe.models.cards.CardDetails;
 import be.kdg.teame.kandoe.models.cards.CardPosition;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import retrofit.Callback;
@@ -51,24 +52,20 @@ public class SessionGamePresenter implements SessionGameContract.UserActionsList
 
     @Override
     public void addDataListener(DataListener listener) {
-        //todo delete this log
-        Log.wtf("wtf", "adding some listeners bruff");
-        if (listener != null)
+        if (listener != null) {
             this.mListeners.add(listener);
+            Log.d(getClass().getSimpleName(), listener.getClass().getSimpleName().concat(" is ready to receive data."));
+        }
     }
 
-    private void notifyListeners() {
-        //Todo replace null with data
-        for (DataListener listener : mListeners) {
-            listener.onReceiveData(null);
-        }
+    private void notifyListeners(List<CardPosition> cardDetails) {
+        Log.d(getClass().getSimpleName(), "Notifying " + mListeners.size() + " listeners about " + cardDetails.size() + " cards.");
+        for (DataListener listener : mListeners)
+            listener.onReceiveData(cardDetails);
     }
 
     @Override
     public void loadCardPositions(int sessionId, final boolean initial) {
-        Log.d("loading card positions", "lol");
-        notifyListeners();
-
         mSessionService.getCardPositions(sessionId, new Callback<List<CardPosition>>() {
             @Override
             public void success(List<CardPosition> cardPositions, Response response) {
@@ -78,7 +75,8 @@ public class SessionGamePresenter implements SessionGameContract.UserActionsList
                     mSessionGameView.seedInitialDataChildFragments(cardPositions);
                 else
                     mSessionGameView.updateDataChildFragments(cardPositions);
-                //notifyListeners();
+
+                notifyListeners(cardPositions);
             }
 
             @Override

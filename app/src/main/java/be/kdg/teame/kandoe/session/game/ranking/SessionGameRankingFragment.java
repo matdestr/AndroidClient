@@ -24,19 +24,27 @@ import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.models.cards.CardPosition;
+import be.kdg.teame.kandoe.session.game.ChildFragmentReadyListener;
 import be.kdg.teame.kandoe.session.game.DataListener;
-import be.kdg.teame.kandoe.session.game.SessionGameFragment;
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import lombok.Getter;
+import lombok.Setter;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class SessionGameRankingFragment extends BaseFragment implements SessionGameRankingContract.View {
     private RankAdapter mRankAdapter;
 
+    @Bind(R.id.recycler_view)
+    RecyclerView recyclerView;
+
     @Getter
     @Inject
     SessionGameRankingContract.UserActionsListener mGameRankingContractPresenter;
+
+    @Setter
+    private ChildFragmentReadyListener fragmentReadyListener;
 
     /**
      * Listener for clicks on sessions in the RecyclerView.
@@ -61,8 +69,16 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
         ButterKnife.bind(this, root);
 
         mRankAdapter = new RankAdapter(getContext(), new ArrayList<CardPosition>(0), mItemListener);
+        recyclerView.setAdapter(mRankAdapter);
 
         return root;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (fragmentReadyListener != null)
+            fragmentReadyListener.onReadyToListen(mGameRankingContractPresenter);
     }
 
     @Override
@@ -78,6 +94,7 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
     @Override
     public void showData(List<CardPosition> cardPositions) {
         mRankAdapter.replaceData(cardPositions);
+        Log.d(getClass().getSimpleName(), "Replaced cardpositions");
     }
 
     @Override
