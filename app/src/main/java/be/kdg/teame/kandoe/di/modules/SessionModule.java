@@ -18,6 +18,8 @@ import be.kdg.teame.kandoe.session.game.picker.SessionGamePickerContract;
 import be.kdg.teame.kandoe.session.game.picker.SessionGamePickerPresenter;
 import be.kdg.teame.kandoe.session.game.ranking.SessionGameRankingContract;
 import be.kdg.teame.kandoe.session.game.ranking.SessionGameRankingPresenter;
+import be.kdg.teame.kandoe.session.invite.SessionInviteContract;
+import be.kdg.teame.kandoe.session.invite.SessionInvitePresenter;
 import be.kdg.teame.kandoe.session.join.SessionJoinContract;
 import be.kdg.teame.kandoe.session.join.SessionJoinPresenter;
 import be.kdg.teame.kandoe.session.reviewcards.SessionReviewCardsContract;
@@ -79,4 +81,8 @@ public class SessionModule {
         return new SessionGameRankingPresenter(prefManager);
     }
 
+    @Provides
+    public SessionInviteContract.UserActionsListener provideSessionInvitePresenter(SessionService sessionService, PrefManager prefManager){
+        return new SessionInvitePresenter(sessionService, prefManager);
+    }
 }

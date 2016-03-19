@@ -57,7 +57,6 @@
     <string name="action_sessions">My sessions</string>
     <string name="action_join">join</string>
     <string name="action_decline">decline</string>
-    <string name="session_waiting_for_users">Waiting for users to join</string>
     <string name="action_session_add_cards">add new card</string>
     <string name="session_joining_session">joining</string>
     <string name="session_waiting_for_users_to_join">Waiting for other users to join</string>
@@ -66,4 +65,5 @@
     <string name="session_adding_cards">adding cards</string>
     <string name="no_cards_selected">No cards selected</string>
     <string name="session_saving_cards">saving cards</string>
+    <string name="session_waiting_for_organizer_to_start_session">Waiting for organizor to start session</string>
 </resources>

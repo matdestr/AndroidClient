@@ -17,6 +17,7 @@ import be.kdg.teame.kandoe.models.sessions.SessionStatus;
 import be.kdg.teame.kandoe.session.addcards.SessionAddCardsFragment;
 import be.kdg.teame.kandoe.session.choosecards.SessionChooseCardsFragment;
 import be.kdg.teame.kandoe.session.game.SessionGameFragment;
+import be.kdg.teame.kandoe.session.invite.SessionInviteFragment;
 import be.kdg.teame.kandoe.session.join.SessionJoinFragment;
 import be.kdg.teame.kandoe.session.reviewcards.SessionReviewCardsFragment;
 
@@ -119,6 +120,7 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
 
         switch (sessionStatus) {
             case CREATED:
+                fragment = new SessionInviteFragment();
                 break;
             case USERS_JOINING:
                 fragment = new SessionJoinFragment();
