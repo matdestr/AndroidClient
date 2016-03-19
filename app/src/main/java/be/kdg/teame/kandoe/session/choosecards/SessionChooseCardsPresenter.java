@@ -80,6 +80,7 @@ public class SessionChooseCardsPresenter implements SessionChooseCardsContract.U
 
             @Override
             public void failure(RetrofitError error) {
+                mChooseCardsView.setProgressIndicator(false);
                 Log.d(SessionChooseCardsPresenter.class.getSimpleName(), "Couldn't add cards: " + error.getMessage(), error);
                 String errorMessage = new String(((TypedByteArray) error.getResponse().getBody()).getBytes());
                 try {

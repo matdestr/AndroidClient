@@ -66,4 +66,7 @@
     <string name="session_adding_cards">adding cards</string>
     <string name="no_cards_selected">No cards selected</string>
     <string name="session_saving_cards">saving cards</string>
+    <string name="session_action_start_game">start game</string>
+    <string name="session_starting_game">starting game …</string>
+    <string name="game_launcher_waiting_text">Waiting for organizer to start the game</string>
 </resources>

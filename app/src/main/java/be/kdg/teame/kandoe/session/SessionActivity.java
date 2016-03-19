@@ -17,6 +17,7 @@ import be.kdg.teame.kandoe.models.sessions.SessionStatus;
 import be.kdg.teame.kandoe.session.addcards.SessionAddCardsFragment;
 import be.kdg.teame.kandoe.session.choosecards.SessionChooseCardsFragment;
 import be.kdg.teame.kandoe.session.game.SessionGameFragment;
+import be.kdg.teame.kandoe.session.gamelauncher.SessionGameLauncherFragment;
 import be.kdg.teame.kandoe.session.join.SessionJoinFragment;
 import be.kdg.teame.kandoe.session.reviewcards.SessionReviewCardsFragment;
 
@@ -27,6 +28,7 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
     public static final String SESSION_TOPIC_TITLE = "SESSION_TOPIC_TITLE";
     public static final String SESSION_ORGANIZATION_TITLE = "SESSION_ORGANIZATION_TITLE";
     public static final String SESSION_PARTICIPANT_CAN_ADD_CARDS = "SESSION_ORGANIZATION_TITLE";
+    public static final String SESSION_IS_ORGANIZER = "SESSION_IS_ORGANIZER";
 
 
     @Inject
@@ -139,7 +141,10 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
                 fragment = new SessionChooseCardsFragment();
                 break;
             case READY_TO_START:
-                //todo gamelauncher
+                fragment = new SessionGameLauncherFragment();
+                String organizerUsername = mCurrentSession.getOrganizer().getUsername();
+                args.putBoolean(SESSION_IS_ORGANIZER,
+                        organizerUsername.equals(prefManager.retrieveUsername()));
                 break;
             case IN_PROGRESS:
                 fragment = new SessionGameFragment();

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/material_margin_default"
+    android:layout_marginRight="@dimen/material_margin_default">
+
+    <RelativeLayout
+        android:id="@+id/session_accept_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_start_game"
+            style="@style/Material.Button.Raised"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:textSize="24sp"
+            android:fontFamily="sans-serif-medium"
+            android:layout_centerInParent="true"
+            android:text="@string/session_action_start_game"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/session_wait_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/wait_progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="false" />
+
+        <TextView
+            android:id="@+id/wait_progresstext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/wait_progressbar"
+            android:layout_marginTop="@dimen/material_margin_default"
+            android:gravity="center"
+            android:text="@string/game_launcher_waiting_text"
+            tools:text="Waiting for organizer to start the game" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
