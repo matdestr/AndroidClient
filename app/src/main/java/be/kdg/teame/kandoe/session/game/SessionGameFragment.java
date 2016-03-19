@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,14 +53,20 @@ public class SessionGameFragment extends BaseFragment implements SessionGameCont
         super.onCreate(savedInstanceState);
         mSessionGamePresenter.setView(this);
 
+        Bundle arguments = getArguments();
+
+        mSessionId = arguments.getInt(SessionActivity.SESSION_ID);
+
+        Bundle newArgs = new Bundle();
+        newArgs.putInt(SessionActivity.SESSION_ID, mSessionId);
+
         mSessionGamePickerFragment = new SessionGamePickerFragment();
+        mSessionGamePickerFragment.setArguments(newArgs);
         mSessionGameRankingFragment = new SessionGameRankingFragment();
         mSessionGamePickerFragment.setFragmentReadyListener(this);
         mSessionGameRankingFragment.setFragmentReadyListener(this);
 
-        Bundle arguments = getArguments();
 
-        mSessionId = arguments.getInt(SessionActivity.SESSION_ID);
 
         mSessionGamePresenter.loadCardPositions(mSessionId, true);
     }
@@ -123,8 +128,7 @@ public class SessionGameFragment extends BaseFragment implements SessionGameCont
 
     @Override
     public void seedInitialDataChildFragments(List<CardPosition> cardPositions) {
-        Gson gson = new Gson();
-        String json = gson.toJson(cardPositions);
+
 
 /*        Bundle args = new Bundle();
         args.putString(CARD_POSITIONS, json);
@@ -135,7 +139,6 @@ public class SessionGameFragment extends BaseFragment implements SessionGameCont
 
     @Override
     public void updateDataChildFragments(List<CardPosition> cardPositions) {
-        mSessionGamePickerFragment.updateData(cardPositions);
         mSessionGameRankingFragment.updateData(cardPositions);
     }
 

@@ -11,11 +11,13 @@ import be.kdg.teame.kandoe.session.game.DataListener;
 
 public interface SessionGamePickerContract {
     interface View extends AuthenticatedContract.View, WebDataView {
+        void setProgressIndicator(boolean active);
+
         void showNextCard(CardDetails cardDetails);
 
         void showPreviousCard(CardDetails cardDetails);
 
-        void updateData(List<CardPosition> cardPositions);
+        void showCard(CardDetails cardDetails);
     }
 
     interface UserActionsListener extends InjectableUserActionsListener<View>, AuthenticatedContract.UserActionsListener, DataListener {
@@ -23,6 +25,6 @@ public interface SessionGamePickerContract {
 
         void loadPreviousCard();
 
-        void pickCard();
+        void pickCard(int sessionId);
     }
 }

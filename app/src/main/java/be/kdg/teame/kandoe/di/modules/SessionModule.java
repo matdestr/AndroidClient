@@ -79,8 +79,8 @@ public class SessionModule {
     }
 
     @Provides
-    public SessionGamePickerContract.UserActionsListener provideSessionGamePickerPresenter(PrefManager prefManager) {
-        return new SessionGamePickerPresenter(prefManager);
+    public SessionGamePickerContract.UserActionsListener provideSessionGamePickerPresenter(SessionService sessionService, PrefManager prefManager) {
+        return new SessionGamePickerPresenter(sessionService, prefManager);
     }
 
     @Provides

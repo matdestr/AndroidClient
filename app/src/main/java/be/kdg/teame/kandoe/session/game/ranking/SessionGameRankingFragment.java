@@ -26,7 +26,6 @@ import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.models.cards.CardPosition;
 import be.kdg.teame.kandoe.session.game.ChildFragmentReadyListener;
-import be.kdg.teame.kandoe.session.game.DataListener;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import lombok.Getter;
@@ -44,8 +43,7 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
     @Inject
     SessionGameRankingContract.UserActionsListener mGameRankingContractPresenter;
 
-    @Setter
-    private ChildFragmentReadyListener fragmentReadyListener;
+    private ChildFragmentReadyListener mFragmentReadyListener;
 
     /**
      * Listener for clicks on sessions in the RecyclerView.
@@ -79,8 +77,8 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (fragmentReadyListener != null)
-            fragmentReadyListener.onReadyToListen(mGameRankingContractPresenter);
+        if (mFragmentReadyListener != null)
+            mFragmentReadyListener.onReadyToListen(mGameRankingContractPresenter);
     }
 
     @Override
@@ -104,6 +102,10 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
         mRankAdapter.replaceData(cardPositions);
     }
 
+
+    public void setFragmentReadyListener(ChildFragmentReadyListener fragmentReadyListener) {
+        this.mFragmentReadyListener = fragmentReadyListener;
+    }
 
     private static class RankAdapter extends RecyclerView.Adapter<RankAdapter.ViewHolder> {
         private Context mContext;

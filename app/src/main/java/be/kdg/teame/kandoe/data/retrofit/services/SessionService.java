@@ -48,7 +48,7 @@ public interface SessionService {
     void getCardPositions(@Path("sessionId") int sessionId, Callback<List<CardPosition>> callback);
 
     @PUT(ENDPOINT + "/{sessionId}/positions")
-    void increaseCardPriority(@Path("sessionId") int sessionId, Callback<Session> callback);
+    void increaseCardPriority(@Path("sessionId") int sessionId, @Query("cardDetailsId") int cardDetailsId, Callback<Object> callback);
 
     @POST(ENDPOINT + "/{sessionId}/end")
     void end(@Path("sessionId") int sessionId, Callback<Object> callback);
