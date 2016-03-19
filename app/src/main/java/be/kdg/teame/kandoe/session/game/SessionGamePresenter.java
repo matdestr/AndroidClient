@@ -3,22 +3,22 @@ package be.kdg.teame.kandoe.session.game;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.core.AuthenticationHelper;
 import be.kdg.teame.kandoe.data.retrofit.services.SessionService;
+import be.kdg.teame.kandoe.data.websockets.SocketService;
+import be.kdg.teame.kandoe.data.websockets.WebSocketsManager;
+import be.kdg.teame.kandoe.data.websockets.stomp.SubscriptionCallback;
 import be.kdg.teame.kandoe.models.cards.CardPosition;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import retrofit.mime.TypedByteArray;
 
 public class SessionGamePresenter implements SessionGameContract.UserActionsListener {
 
@@ -28,6 +28,8 @@ public class SessionGamePresenter implements SessionGameContract.UserActionsList
 
     private SessionService mSessionService;
     private PrefManager mPrefManager;
+    private SocketService mCurrentParticipantService;
+
 
     @Inject
     public SessionGamePresenter(SessionService sessionService, PrefManager prefManager) {
@@ -55,7 +57,7 @@ public class SessionGamePresenter implements SessionGameContract.UserActionsList
             this.mListeners.add(listener);
     }
 
-    private void notifyListeners(){
+    private void notifyListeners() {
         //Todo replace null with data
         for (DataListener listener : mListeners) {
             listener.onReceiveData(null);
@@ -63,7 +65,7 @@ public class SessionGamePresenter implements SessionGameContract.UserActionsList
     }
 
     @Override
-    public void loadCardPositions(int sessionId) {
+    public void loadCardPositions(int sessionId, final boolean initial) {
         Log.d("loading card positions", "lol");
         notifyListeners();
 
@@ -71,7 +73,12 @@ public class SessionGamePresenter implements SessionGameContract.UserActionsList
             @Override
             public void success(List<CardPosition> cardPositions, Response response) {
                 Log.d(getClass().getSimpleName(), "Received " + cardPositions.size() + " positions.");
-                notifyListeners();
+
+                if (initial)
+                    mSessionGameView.seedInitialDataChildFragments(cardPositions);
+                else
+                    mSessionGameView.updateDataChildFragments(cardPositions);
+                //notifyListeners();
             }
 
             @Override
@@ -89,6 +96,31 @@ public class SessionGamePresenter implements SessionGameContract.UserActionsList
                 }*/
             }
         });
+    }
+
+    @Override
+    public void openCurrentParticipantListener(int sessionId) {
+        mCurrentParticipantService = new SocketService(
+                "/topic/sessions/".concat(String.valueOf(sessionId)).concat("/current-participant"),
+                "sessions_current_participant_subscription_id",
+                new SubscriptionCallback() {
+                    @Override
+                    public void onMessage(Map<String, String> headers, String body) {
+                        System.out.println(body);
+                    }
+                }
+        );
+
+        Thread thread = WebSocketsManager.getThread(mCurrentParticipantService, sessionId);
+
+        if (!thread.isAlive())
+            thread.start();
+    }
+
+    @Override
+    public void closeCurrentParticipantListener() {
+        if (mCurrentParticipantService != null)
+            mCurrentParticipantService.stop();
     }
 
 }

@@ -23,8 +23,9 @@ import javax.inject.Inject;
 import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
-import be.kdg.teame.kandoe.models.cards.CardDetails;
 import be.kdg.teame.kandoe.models.cards.CardPosition;
+import be.kdg.teame.kandoe.session.game.DataListener;
+import be.kdg.teame.kandoe.session.game.SessionGameFragment;
 import butterknife.ButterKnife;
 import lombok.Getter;
 
@@ -36,7 +37,6 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
     @Getter
     @Inject
     SessionGameRankingContract.UserActionsListener mGameRankingContractPresenter;
-
 
     /**
      * Listener for clicks on sessions in the RecyclerView.
@@ -62,7 +62,6 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
 
         mRankAdapter = new RankAdapter(getContext(), new ArrayList<CardPosition>(0), mItemListener);
 
-
         return root;
     }
 
@@ -75,6 +74,17 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
     public void showErrorConnectionFailure(String errorMessage) {
 
     }
+
+    @Override
+    public void showData(List<CardPosition> cardPositions) {
+        mRankAdapter.replaceData(cardPositions);
+    }
+
+    @Override
+    public void updateData(List<CardPosition> cardPositions) {
+        mRankAdapter.replaceData(cardPositions);
+    }
+
 
     private static class RankAdapter extends RecyclerView.Adapter<RankAdapter.ViewHolder> {
         private Context mContext;

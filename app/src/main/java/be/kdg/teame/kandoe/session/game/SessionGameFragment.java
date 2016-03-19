@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +22,10 @@ import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.DialogGenerator;
-import be.kdg.teame.kandoe.core.activities.BaseActivity;
-import be.kdg.teame.kandoe.core.activities.BaseToolbarActivity;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
+import be.kdg.teame.kandoe.models.cards.CardPosition;
+import be.kdg.teame.kandoe.profile.edit.ProfileEditActivity;
 import be.kdg.teame.kandoe.session.SessionActivity;
 import be.kdg.teame.kandoe.session.game.picker.SessionGamePickerFragment;
 import be.kdg.teame.kandoe.session.game.ranking.SessionGameRankingFragment;
@@ -35,8 +37,14 @@ public class SessionGameFragment extends BaseFragment implements SessionGameCont
     @Bind(R.id.viewpager)
     ViewPager mViewPager;
 
-    TabLayout mTabLayout;
-    AppBarLayout mAppBarLayout;
+    private TabLayout mTabLayout;
+    private AppBarLayout mAppBarLayout;
+    private PagerAdapter mPagerAdapter;
+    private SessionGamePickerFragment mSessionGamePickerFragment;
+    private SessionGameRankingFragment mSessionGameRankingFragment;
+    private int mSessionId;
+
+    public static final String CARD_POSITIONS = "session_game_fragment_card_positions";
 
     @Inject
     SessionGameContract.UserActionsListener mSessionGamePresenter;
@@ -44,6 +52,16 @@ public class SessionGameFragment extends BaseFragment implements SessionGameCont
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mSessionGamePresenter.setView(this);
+
+        mSessionGamePickerFragment = new SessionGamePickerFragment();
+        mSessionGameRankingFragment = new SessionGameRankingFragment();
+
+        Bundle arguments = getArguments();
+
+        mSessionId = arguments.getInt(SessionActivity.SESSION_ID);
+
+        mSessionGamePresenter.loadCardPositions(mSessionId, true);
     }
 
     @Nullable
@@ -74,19 +92,22 @@ public class SessionGameFragment extends BaseFragment implements SessionGameCont
         // Set Tabs inside Toolbar
         mTabLayout.setupWithViewPager(mViewPager);
 
-        Bundle arguments = getArguments();
-        int sessionId = arguments.getInt(SessionActivity.SESSION_ID);
-
-        mSessionGamePresenter.loadCardPositions(sessionId);
 
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // nice to know: get current item viewpager
+        // Fragment baseFragment = mPagerAdapter.getItem(mViewPager.getCurrentItem());
+        mSessionGamePresenter.openCurrentParticipantListener(mSessionId);
     }
 
     @Override
     protected void injectComponent(AppComponent component) {
         component.inject(this);
     }
-
 
     @Override
     public void showRanking() {
@@ -99,29 +120,46 @@ public class SessionGameFragment extends BaseFragment implements SessionGameCont
     }
 
     @Override
+    public void seedInitialDataChildFragments(List<CardPosition> cardPositions) {
+        Gson gson = new Gson();
+        String json = gson.toJson(cardPositions);
+
+/*        Bundle args = new Bundle();
+        args.putString(CARD_POSITIONS, json);
+
+        mSessionGamePickerFragment.setArguments(args);
+        mSessionGameRankingFragment.setArguments(args);*/
+    }
+
+    @Override
+    public void updateDataChildFragments(List<CardPosition> cardPositions) {
+        mSessionGamePickerFragment.updateData(cardPositions);
+        mSessionGameRankingFragment.updateData(cardPositions);
+    }
+
+    @Override
     public void showErrorConnectionFailure(String errorMessage) {
         DialogGenerator.showErrorDialog(getContext(), errorMessage);
     }
 
+
     // Add Fragments to Tabs
     private void setupViewPager(ViewPager viewPager) {
-        SessionGamePickerFragment gamePickerFragment = new SessionGamePickerFragment();
-        SessionGameRankingFragment gameRankingFragment = new SessionGameRankingFragment();
 
-        mSessionGamePresenter.addDataListener(gamePickerFragment.getMSessionGamePickerPresenter());
-        mSessionGamePresenter.addDataListener(gameRankingFragment.getMGameRankingContractPresenter());
+        mSessionGamePresenter.addDataListener(mSessionGamePickerFragment.getMSessionGamePickerPresenter());
+        mSessionGamePresenter.addDataListener(mSessionGameRankingFragment.getMGameRankingContractPresenter());
 
-        Adapter adapter = new Adapter(getFragmentManager());
-        adapter.addFragment(gamePickerFragment, "Picker");
-        adapter.addFragment(gameRankingFragment, "Ranking");
-        viewPager.setAdapter(adapter);
+        mPagerAdapter = new PagerAdapter(getFragmentManager());
+        mPagerAdapter.addFragment(mSessionGamePickerFragment, "Picker");
+        mPagerAdapter.addFragment(mSessionGameRankingFragment, "Ranking");
+        viewPager.setAdapter(mPagerAdapter);
     }
 
-    private static class Adapter extends FragmentPagerAdapter {
+    private static class PagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public Adapter(FragmentManager manager) {
+        public PagerAdapter(FragmentManager manager) {
             super(manager);
         }
 

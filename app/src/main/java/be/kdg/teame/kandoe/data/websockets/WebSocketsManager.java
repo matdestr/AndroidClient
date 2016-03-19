@@ -1,12 +1,14 @@
 package be.kdg.teame.kandoe.data.websockets;
 
+import android.util.Log;
+
 import java.util.HashSet;
 import java.util.Set;
 
 public class WebSocketsManager {
     private static Set<Thread> threads = new HashSet<>();
 
-    private WebSocketsManager(){
+    private WebSocketsManager() {
 
     }
 
@@ -40,14 +42,20 @@ public class WebSocketsManager {
     public static <T> Thread getThread(SocketService service, T identifier) {
         String name = generateUniqueThreadName(service, identifier);
 
-        for (Thread existingThread : threads)
-            if (name.equals(existingThread.getName()))
-                return existingThread;
+        Thread thread = null;
 
+        for (Thread existingThread : threads) {
+            if (name.equals(existingThread.getName())) {
+                Log.i(WebSocketsManager.class.getSimpleName(), "thread already exists");
+                thread = existingThread;
+                break;
+            }
+        }
 
-        Thread thread = new Thread(service, name);
-
-        threads.add(thread);
+        if (thread == null){
+            thread = new Thread(service, name);
+            threads.add(thread);
+        }
 
         return thread;
     }

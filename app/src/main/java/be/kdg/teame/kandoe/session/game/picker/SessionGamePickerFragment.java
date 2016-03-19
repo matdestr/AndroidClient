@@ -6,12 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.models.cards.CardDetails;
+import be.kdg.teame.kandoe.models.cards.CardPosition;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lombok.Getter;
@@ -65,6 +68,11 @@ public class SessionGamePickerFragment extends BaseFragment implements SessionGa
     @Override
     public void showPreviousCard(CardDetails cardDetails) {
         replaceData(cardDetails);
+    }
+
+    @Override
+    public void updateData(List<CardPosition> cardPositions) {
+
     }
 
     @Override
