@@ -11,12 +11,7 @@ import be.kdg.teame.kandoe.models.cards.CardPosition;
 public interface SessionGameContract {
     interface View extends AuthenticatedContract.View, WebDataView {
         void showRanking();
-
         void showCardPicker();
-
-        void seedInitialDataChildFragments(List<CardPosition> cardPositions);
-
-        void updateDataChildFragments(List<CardPosition> cardPositions);
     }
 
     interface UserActionsListener extends InjectableUserActionsListener<View>, AuthenticatedContract.UserActionsListener {

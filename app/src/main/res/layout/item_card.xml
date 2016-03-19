@@ -10,7 +10,8 @@
         android:id="@+id/session_card_item_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:src="@drawable/default_user" />
+        tools:src="@drawable/placeholder_image"
+        android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/session_card_item_text"

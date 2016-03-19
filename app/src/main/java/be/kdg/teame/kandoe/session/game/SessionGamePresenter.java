@@ -70,12 +70,6 @@ public class SessionGamePresenter implements SessionGameContract.UserActionsList
             @Override
             public void success(List<CardPosition> cardPositions, Response response) {
                 Log.d(getClass().getSimpleName(), "Received " + cardPositions.size() + " positions.");
-
-                if (initial)
-                    mSessionGameView.seedInitialDataChildFragments(cardPositions);
-                else
-                    mSessionGameView.updateDataChildFragments(cardPositions);
-
                 notifyListeners(cardPositions);
             }
 

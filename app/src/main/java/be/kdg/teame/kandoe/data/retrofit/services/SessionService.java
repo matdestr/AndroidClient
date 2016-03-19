@@ -24,6 +24,9 @@ public interface SessionService {
     @GET(ENDPOINT + "/{sessionId}")
     void getSession(@Path("sessionId") int sessionId, Callback<Session> callback);
 
+    @GET(ENDPOINT + "/{sessionId}/can-add-cards")
+    void canUserStillAddCards(@Path("sessionId") int sessionId, Callback<Object> callback);
+
     @POST(ENDPOINT + "/{sessionId}/join")
     void join(@Path("sessionId") int sessionId, Callback<Object> callback);
 
@@ -36,6 +39,12 @@ public interface SessionService {
     @POST(ENDPOINT + "/{sessionId}/chosen-cards")
     void chooseCards(@Path("sessionId") int sessionId, @Query("cardDetailsId") List<Integer> cardDetails, Callback<Object> callback);
 
+    @POST(ENDPOINT + "/{sessionId}/all-cards")
+    void chooseCard(@Path("sessionId") int sessionId, Callback<Session> callback);
+
+    @POST(ENDPOINT + "/{sessionId}/all-cards/")
+    void addCards(@Path("sessionId") int sessionId, @Body CardDetails cardDetails,Callback<Object> callback);
+    
     @POST(ENDPOINT + "/{sessionId}/all-cards/addall")
     void addCards(@Path("sessionId") int sessionId, @Body List<CardDetails> cardDetails, Callback<Object> callback);
 

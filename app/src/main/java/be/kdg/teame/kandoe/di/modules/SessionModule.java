@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import be.kdg.teame.kandoe.dashboard.sessionlist.SessionListContract;
 import be.kdg.teame.kandoe.dashboard.sessionlist.SessionListPresenter;
 import be.kdg.teame.kandoe.data.retrofit.ServiceGenerator;
+import be.kdg.teame.kandoe.data.retrofit.services.CardDetailsService;
 import be.kdg.teame.kandoe.data.retrofit.services.SessionService;
 import be.kdg.teame.kandoe.session.SessionContract;
 import be.kdg.teame.kandoe.session.SessionPresenter;

@@ -88,6 +88,14 @@ public class SignUpPresenter implements SignUpContract.UserActionsListener {
         });
     }
 
+    /* *
+     * Tries to login the user with a given username and password.
+     * If successful, saves the {@link AccessToken} in the {@link PrefManager}.
+     * Shows an error if not successful.
+     *
+     * @param username the username of the user
+     * @param password the password of the user
+     */
     private void signInUser(String username, String password) {
         mSignInService.signIn(SignInService.GRANT_TYPE_PASSWORD, username, password, new Callback<AccessToken>() {
             @Override

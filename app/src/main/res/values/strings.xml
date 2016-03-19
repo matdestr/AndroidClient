@@ -72,4 +72,6 @@
     <string name="processing_vote">processing vote …</string>
     <string name="session_inviting_users">inviting users …</string>
     <string name="action_session_add_form_field">add field</string>
+    <string name="form_add_card_text">Enter a description for your card</string>
+    <string name="action_accept">accept</string>
 </resources>
