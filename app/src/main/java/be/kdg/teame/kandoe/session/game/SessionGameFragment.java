@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,14 +26,13 @@ import be.kdg.teame.kandoe.core.DialogGenerator;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.models.cards.CardPosition;
-import be.kdg.teame.kandoe.profile.edit.ProfileEditActivity;
 import be.kdg.teame.kandoe.session.SessionActivity;
 import be.kdg.teame.kandoe.session.game.picker.SessionGamePickerFragment;
 import be.kdg.teame.kandoe.session.game.ranking.SessionGameRankingFragment;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SessionGameFragment extends BaseFragment implements SessionGameContract.View {
+public class SessionGameFragment extends BaseFragment implements SessionGameContract.View, ChildFragmentReadyListener {
 
     @Bind(R.id.viewpager)
     ViewPager mViewPager;
@@ -56,6 +56,8 @@ public class SessionGameFragment extends BaseFragment implements SessionGameCont
 
         mSessionGamePickerFragment = new SessionGamePickerFragment();
         mSessionGameRankingFragment = new SessionGameRankingFragment();
+        mSessionGamePickerFragment.setFragmentReadyListener(this);
+        mSessionGameRankingFragment.setFragmentReadyListener(this);
 
         Bundle arguments = getArguments();
 
@@ -145,14 +147,15 @@ public class SessionGameFragment extends BaseFragment implements SessionGameCont
 
     // Add Fragments to Tabs
     private void setupViewPager(ViewPager viewPager) {
-
-        mSessionGamePresenter.addDataListener(mSessionGamePickerFragment.getMSessionGamePickerPresenter());
-        mSessionGamePresenter.addDataListener(mSessionGameRankingFragment.getMGameRankingContractPresenter());
-
         mPagerAdapter = new PagerAdapter(getFragmentManager());
         mPagerAdapter.addFragment(mSessionGamePickerFragment, "Picker");
         mPagerAdapter.addFragment(mSessionGameRankingFragment, "Ranking");
         viewPager.setAdapter(mPagerAdapter);
+    }
+
+    @Override
+    public void onReadyToListen(DataListener listener) {
+        mSessionGamePresenter.addDataListener(listener);
     }
 
     private static class PagerAdapter extends FragmentPagerAdapter {

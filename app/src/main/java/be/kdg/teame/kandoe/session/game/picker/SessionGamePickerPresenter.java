@@ -56,7 +56,7 @@ public class SessionGamePickerPresenter implements SessionGamePickerContract.Use
 
     @Override
     public void onReceiveData(List<CardPosition> cardPositions) {
-        if (cardPositions !=null)
-        Log.wtf(getClass().getSimpleName(), "Received cardpositions");
+        Log.d(getClass().getSimpleName(), "Received " + cardPositions.size() + " cardpositions");
+        mSessionGamePickerView.updateData(cardPositions);
     }
 }

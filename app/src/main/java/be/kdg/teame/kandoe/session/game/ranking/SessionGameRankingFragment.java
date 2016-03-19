@@ -3,6 +3,7 @@ package be.kdg.teame.kandoe.session.game.ranking;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,19 +25,27 @@ import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.models.cards.CardPosition;
+import be.kdg.teame.kandoe.session.game.ChildFragmentReadyListener;
 import be.kdg.teame.kandoe.session.game.DataListener;
-import be.kdg.teame.kandoe.session.game.SessionGameFragment;
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import lombok.Getter;
+import lombok.Setter;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class SessionGameRankingFragment extends BaseFragment implements SessionGameRankingContract.View {
     private RankAdapter mRankAdapter;
 
+    @Bind(R.id.recycler_view)
+    RecyclerView recyclerView;
+
     @Getter
     @Inject
     SessionGameRankingContract.UserActionsListener mGameRankingContractPresenter;
+
+    @Setter
+    private ChildFragmentReadyListener fragmentReadyListener;
 
     /**
      * Listener for clicks on sessions in the RecyclerView.
@@ -61,8 +70,17 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
         ButterKnife.bind(this, root);
 
         mRankAdapter = new RankAdapter(getContext(), new ArrayList<CardPosition>(0), mItemListener);
+        recyclerView.setAdapter(mRankAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return root;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (fragmentReadyListener != null)
+            fragmentReadyListener.onReadyToListen(mGameRankingContractPresenter);
     }
 
     @Override
@@ -78,6 +96,7 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
     @Override
     public void showData(List<CardPosition> cardPositions) {
         mRankAdapter.replaceData(cardPositions);
+        Log.d(getClass().getSimpleName(), "Replaced cardpositions");
     }
 
     @Override
@@ -110,10 +129,10 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
         public void onBindViewHolder(ViewHolder viewHolder, int position) {
             CardPosition cardPosition = mCardPositions.get(position);
 
-            viewHolder.cardTitle.getBackground().setAlpha(95);
+            //viewHolder.cardTitle.getBackground().setAlpha(95);
 
             viewHolder.cardTitle.setText(cardPosition.getCardDetails().getText());
-            viewHolder.rank.setText(position + 1);
+            viewHolder.rank.setText("" + (position + 1));
             Picasso.with(mContext)
                     .load(cardPosition.getCardDetails().getImageUrl())
                     .placeholder(R.drawable.placeholder_image)
@@ -133,6 +152,7 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
                     return o1.getPriority() - o2.getPriority();
                 }
             });
+            Log.d(getClass().getSimpleName(), "Received, set and sorted" + cardPositions.size() +  "cardpositions");
         }
 
         @Override

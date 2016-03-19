@@ -15,15 +15,20 @@ import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.models.cards.CardDetails;
 import be.kdg.teame.kandoe.models.cards.CardPosition;
+import be.kdg.teame.kandoe.session.game.ChildFragmentReadyListener;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lombok.Getter;
+import lombok.Setter;
 
 public class SessionGamePickerFragment extends BaseFragment implements SessionGamePickerContract.View {
 
     @Getter
     @Inject
     SessionGamePickerContract.UserActionsListener mSessionGamePickerPresenter;
+
+    @Setter
+    private ChildFragmentReadyListener fragmentReadyListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,13 @@ public class SessionGamePickerFragment extends BaseFragment implements SessionGa
         ButterKnife.bind(this, root);
 
         return root;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (fragmentReadyListener != null)
+            fragmentReadyListener.onReadyToListen(mSessionGamePickerPresenter);
     }
 
     @Override
