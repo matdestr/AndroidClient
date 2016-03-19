@@ -118,6 +118,8 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
         Bundle args = new Bundle();
         args.putInt(SESSION_ID, mCurrentSession.getSessionId());
 
+        String organizerUsername = mCurrentSession.getOrganizer().getUsername();
+
         switch (sessionStatus) {
             case CREATED:
                 Log.i("session-status", "created");
@@ -143,12 +145,13 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
                 break;
             case READY_TO_START:
                 fragment = new SessionGameLauncherFragment();
-                String organizerUsername = mCurrentSession.getOrganizer().getUsername();
                 args.putBoolean(SESSION_IS_ORGANIZER,
                         organizerUsername.equals(prefManager.retrieveUsername()));
                 break;
             case IN_PROGRESS:
                 fragment = new SessionGameFragment();
+                args.putBoolean(SESSION_IS_ORGANIZER,
+                        organizerUsername.equals(prefManager.retrieveUsername()));
                 break;
             case FINISHED:
                 // todo finish
@@ -174,7 +177,7 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
 
     }
 
-    public void onRemoveInviteClick(View view){
+    public void onRemoveInviteClick(View view) {
         if (mCurrentFragment instanceof SessionInviteFragment)
             ((XmlClickable) mCurrentFragment).onRemoveInviteClick(view);
     }

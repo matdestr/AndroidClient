@@ -56,13 +56,20 @@ public class SessionGameFragment extends BaseFragment implements SessionGameCont
         Bundle arguments = getArguments();
 
         mSessionId = arguments.getInt(SessionActivity.SESSION_ID);
+        final boolean isOrganizer = arguments.getBoolean(SessionActivity.SESSION_IS_ORGANIZER);
 
-        Bundle newArgs = new Bundle();
-        newArgs.putInt(SessionActivity.SESSION_ID, mSessionId);
+        Bundle gamePickerArgs = new Bundle();
+        gamePickerArgs.putInt(SessionActivity.SESSION_ID, mSessionId);
 
         mSessionGamePickerFragment = new SessionGamePickerFragment();
-        mSessionGamePickerFragment.setArguments(newArgs);
+        mSessionGamePickerFragment.setArguments(gamePickerArgs);
+
+        Bundle gameRankingArgs = new Bundle();
+        gamePickerArgs.putBoolean(SessionActivity.SESSION_ID, isOrganizer);
+
         mSessionGameRankingFragment = new SessionGameRankingFragment();
+        mSessionGameRankingFragment.setArguments(gameRankingArgs);
+
         mSessionGamePickerFragment.setFragmentReadyListener(this);
         mSessionGameRankingFragment.setFragmentReadyListener(this);
 

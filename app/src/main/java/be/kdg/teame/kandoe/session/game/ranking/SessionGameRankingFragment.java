@@ -3,6 +3,7 @@ package be.kdg.teame.kandoe.session.game.ranking;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,6 +26,7 @@ import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.models.cards.CardPosition;
+import be.kdg.teame.kandoe.session.SessionActivity;
 import be.kdg.teame.kandoe.session.game.ChildFragmentReadyListener;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,11 +41,15 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
 
+    @Bind(R.id.fab_finish)
+    FloatingActionButton mFabFinish;
+
     @Getter
     @Inject
     SessionGameRankingContract.UserActionsListener mGameRankingContractPresenter;
 
     private ChildFragmentReadyListener mFragmentReadyListener;
+    private boolean isOrganizer;
 
     /**
      * Listener for clicks on sessions in the RecyclerView.
@@ -59,6 +65,9 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mGameRankingContractPresenter.setView(this);
+
+        Bundle args = getArguments();
+        isOrganizer = args.getBoolean(SessionActivity.SESSION_ID, false);
     }
 
     @Nullable
@@ -70,6 +79,12 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
         mRankAdapter = new RankAdapter(getContext(), new ArrayList<CardPosition>(0), mItemListener);
         recyclerView.setAdapter(mRankAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        //todo fix this
+        if (!isOrganizer)
+            mFabFinish.setVisibility(View.VISIBLE);
+        else
+            mFabFinish.setVisibility(View.GONE);
 
         return root;
     }
@@ -154,7 +169,7 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
                     return o1.getPriority() - o2.getPriority();
                 }
             });
-            Log.d(getClass().getSimpleName(), "Received, set and sorted" + cardPositions.size() +  "cardpositions");
+            Log.d(getClass().getSimpleName(), "Received, set and sorted" + cardPositions.size() + "cardpositions");
         }
 
         @Override

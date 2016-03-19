@@ -54,8 +54,8 @@ public class SessionGamePickerFragment extends BaseFragment implements SessionGa
         super.onCreate(savedInstanceState);
         mSessionGamePickerPresenter.setView(this);
 
-        Bundle bundle = getArguments();
-        mSessionId = bundle.getInt(SessionActivity.SESSION_ID);
+        Bundle args = getArguments();
+        mSessionId = args.getInt(SessionActivity.SESSION_ID);
     }
 
     @Nullable
