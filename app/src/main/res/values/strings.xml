@@ -62,6 +62,7 @@
     <string name="session_waiting_for_users_to_join">Waiting for other users to join</string>
     <string name="session_waiting_for_users_to_add_cards">Waiting for other users to add cards</string>
     <string name="session_waiting_for_users_to_choose_cards">Waiting for other users to choose cards</string>
+    <string name="session_waiting_for_users_to_review_cards">Waiting for other users to review cards</string>
     <string name="session_adding_cards">adding cards</string>
     <string name="no_cards_selected">No cards selected</string>
     <string name="session_saving_cards">saving cards</string>
@@ -72,6 +73,8 @@
     <string name="processing_vote">processing vote …</string>
     <string name="session_inviting_users">inviting users …</string>
     <string name="action_session_add_form_field">add field</string>
+    <string name="saving_reviews">Saving reviews</string>
     <string name="form_add_card_text">Enter a description for your card</string>
+    <string name="form_add_review_text">Enter a comment for this card</string>
     <string name="action_accept">accept</string>
 </resources>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/review_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="visible"
+        android:padding="@dimen/material_content_space"
+        android:background="@color/colorAccent"
+        >
+
+        <ImageView
+            android:id="@+id/session_card_item_image"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:src="@drawable/placeholder_image"
+            tools:src="@drawable/placeholder_image"
+            android:scaleType="fitXY"/>
+
+        <TextView
+            android:id="@+id/session_card_item_text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:padding="4dp"
+            android:textColor="@color/colorTextLight"
+            android:textSize="12sp"
+            android:layout_below="@id/session_card_item_image"
+            />
+
+        <EditText
+            android:id="@+id/session_review_text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:padding="4dp"
+            android:textColor="@color/colorTextLight"
+            android:textSize="12sp"
+            android:layout_below="@id/session_card_item_text"
+            android:hint="@string/form_add_review_text"
+            android:textColorHint="@color/colorTextLight"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:padding="@dimen/material_content_space"
+            android:layout_below="@id/session_review_text">
+
+            <Button
+                android:id="@+id/action_dialog_accept"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/Material.Button.Raised"
+                android:layout_weight="1"
+                android:text="@string/action_accept"
+                tools:text="Accept"/>
+
+            <Button
+                android:id="@+id/action_dialog_decline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/Material.Button.Flat"
+                android:layout_weight="1"
+                android:text="@string/action_decline"
+                tools:text="Decline"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

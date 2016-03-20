@@ -6,6 +6,7 @@ import be.kdg.teame.kandoe.models.cards.CardDetails;
 import be.kdg.teame.kandoe.models.cards.CardPosition;
 import be.kdg.teame.kandoe.models.sessions.Session;
 import be.kdg.teame.kandoe.models.sessions.SessionListItem;
+import be.kdg.teame.kandoe.models.sessions.dto.CreateReviewDTO;
 import be.kdg.teame.kandoe.models.users.dto.EmailDTO;
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -47,6 +48,12 @@ public interface SessionService {
     
     @POST(ENDPOINT + "/{sessionId}/all-cards/addall")
     void addCards(@Path("sessionId") int sessionId, @Body List<CardDetails> cardDetails, Callback<Object> callback);
+
+    @POST(ENDPOINT + "/{sessionId}/reviews/add-all")
+    void addReviews(@Path("sessionId") int sessionId, @Body List<CreateReviewDTO> reviews, Callback<Object> callback);
+
+    @POST(ENDPOINT + "/{sessionId}/reviews/confirm")
+    void confirmReviews(@Path("sessionId") int sessionId, Callback<Object> callback);
 
     @POST(ENDPOINT + "/{sessionId}/all-cards/confirm")
     void confirmAddedCards(@Path("sessionId") int sessionId, Callback<Object> callback);

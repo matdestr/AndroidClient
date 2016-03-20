@@ -16,9 +16,6 @@ public final class Injector {
     @Getter
     private static String clientDetailsHeader = "Basic YW5kcm9pZDpzZWNyZXQ=";
 
-    /*    @Getter
-        private static String refreshTokenTemplate = "grant_type=refresh_token%n"*/
-
     @Getter
     private static final String apiBaseUrl = /*"https://wildfly-teameip2kdgbe.rhcloud.com"*/ "http://10.0.3.2:8080/kandoe";
 
@@ -28,7 +25,6 @@ public final class Injector {
     @Getter
     private static final String threadPrefix = "Thread_";
 
-    //todo do this better
     @Getter
     private static final Stomp stomp =
             new Stomp(
@@ -39,23 +35,23 @@ public final class Injector {
                         public void onState(int state) {
                             switch (state) {
                                 case Stomp.CONNECTED:
-                                    Log.i("Stomp-state", "Connected");
+                                    //Log.i("Stomp-state", "Connected");
                                     break;
 
                                 case Stomp.DISCONNECTED_FROM_APP:
-                                    Log.i("Stomp-state", "Disconnected from app");
+                                    //Log.i("Stomp-state", "Disconnected from app");
                                     break;
 
                                 case Stomp.DISCONNECTED_FROM_OTHER:
-                                    Log.i("Stomp-state", "Disconnected from app");
+                                    //Log.i("Stomp-state", "Disconnected from app");
                                     break;
 
                                 case Stomp.NOT_AGAIN_CONNECTED:
-                                    Log.i("Stomp-state", "Not again connected");
+                                    //Log.i("Stomp-state", "Not again connected");
                                     break;
 
                                 default:
-                                    Log.i("Stomp-state", "Unknown stomp state: " + state);
+                                    //Log.i("Stomp-state", "Unknown stomp state: " + state);
                             }
                         }
                     });

@@ -7,6 +7,10 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
+/**
+ * This class implements custom behavior for a {@link FloatingActionButton}.
+ * When scrolling down, the {@link FloatingActionButton} disappears.
+ * */
 public class FloatingActionButtonBehavior extends FloatingActionButton.Behavior {
 
     /**
