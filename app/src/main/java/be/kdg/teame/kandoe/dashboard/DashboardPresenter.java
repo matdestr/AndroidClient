@@ -15,6 +15,12 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+/**
+ * This class is responsible for managing and performing the actions that the user can initiate in {@link DashboardActivity}.
+ * It implements {@link DashboardContract.UserActionsListener} and notifies the view after completing its actions.
+ *
+ * @see DashboardContract.UserActionsListener
+ * */
 public class DashboardPresenter implements DashboardContract.UserActionsListener {
 
     private DashboardContract.View mDashboardView;

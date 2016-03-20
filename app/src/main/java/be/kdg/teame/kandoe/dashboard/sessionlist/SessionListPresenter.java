@@ -13,6 +13,12 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+/**
+ * This class is responsible for managing and performing the actions that the user can initiate in {@link SessionListFragment}.
+ * It implements {@link SessionListContract.UserActionsListener} and notifies the view after completing its actions.
+ *
+ * @see SessionListContract.UserActionsListener
+ * */
 public class SessionListPresenter implements SessionListContract.UserActionsListener {
     private SessionListContract.View mSessionListView;
     private final SessionService mSessionService;

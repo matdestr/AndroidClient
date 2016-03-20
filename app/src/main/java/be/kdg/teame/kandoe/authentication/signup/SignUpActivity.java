@@ -21,6 +21,14 @@ import be.kdg.teame.kandoe.util.validators.forms.FormField;
 import butterknife.Bind;
 import butterknife.OnClick;
 
+/**
+ * This Activity is responsible for managing the sign up View.
+ * It extends {@link BaseActivity} and implements {@link SignUpContract.View}.
+ * Actions initiated in this view are sent to and handled by the {@link SignUpPresenter}.
+ * @see BaseActivity
+ * @see SignUpContract.View
+ * @see SignUpPresenter
+ * */
 public class SignUpActivity extends BaseActivity implements SignUpContract.View {
     @Bind(R.id.form_username)
     EditText mEditTextUsername;
@@ -77,6 +85,9 @@ public class SignUpActivity extends BaseActivity implements SignUpContract.View 
         component.inject(this);
     }
 
+    /**
+     * Creates a {@link CreateUserDTO} object with the data the user specified and passes it on to the {@link SignUpPresenter#signUp} method of the {@link SignUpPresenter}.
+     * */
     @OnClick(R.id.btn_sign_up)
     protected void signUpClickHandler() {
 

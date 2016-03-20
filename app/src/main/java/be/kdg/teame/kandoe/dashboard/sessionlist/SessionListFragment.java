@@ -31,7 +31,14 @@ import butterknife.ButterKnife;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-
+/**
+ * This Fragment is responsible for showing the dashboard to the user.
+ * It extends {@link BaseFragment} and implements {@link SessionListContract.View}.
+ * Actions initiated in this view are sent to and handled by the {@link SessionListContract.UserActionsListener}.
+ * @see BaseFragment
+ * @see SessionListContract.View
+ * @see SessionListPresenter
+ * */
 public class SessionListFragment extends BaseFragment implements SessionListContract.View {
 
     private SessionsAdapter mListAdapter;

@@ -12,6 +12,7 @@ public interface SignInContract {
 
     /**
      * Interface that defines the methods a View should implement
+     * @see WebDataView
      * */
     interface View extends WebDataView {
 
@@ -23,8 +24,8 @@ public interface SignInContract {
         void showErrorWrongCredentials();
 
         /**
-         * This method should be called when the {@link be.kdg.teame.kandoe.data.retrofit.AccessToken} is invalid.
-         * */
+         * Shows an error dialog if the {@link be.kdg.teame.kandoe.data.retrofit.AccessToken} is invalid.
+         */
         void showErrorInvalidToken();
 
         /**
@@ -42,15 +43,18 @@ public interface SignInContract {
 
     /**
      * Interface that defines the methods that can be fired because of user interactions
+     * @see InjectableUserActionsListener
      * */
     interface UserActionsListener extends InjectableUserActionsListener<SignInContract.View> {
         /**
-         * This method gets called when the user taps the sign-in button. It connects to the server and logs the user in.
+         * This method gets called when the user taps the sign-in button. It should handle the login process.
+         * @param username the username of the user
+         * @param password the password of the user
          * */
         void signIn(String username, String password);
 
         /**
-         * This method gets called when the user taps the sign-up button. It connects to the server and creates a new account for the user.
+         * This method gets called when the user taps the sign-up button. It should handle the registering process.
          * */
         void signUp();
     }

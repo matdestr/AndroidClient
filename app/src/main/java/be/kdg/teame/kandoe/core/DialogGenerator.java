@@ -10,8 +10,7 @@ import android.support.annotation.StringRes;
 import be.kdg.teame.kandoe.R;
 
 /**
- * Generates different kinds of dialogs (e.g. error, progress ...).
- * You can just create a dialog, but there is also the possibility to show some of them directly.
+ * Helper class with static methods that allows you to create error and progress dialogs.
  */
 public class DialogGenerator {
 

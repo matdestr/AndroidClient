@@ -16,6 +16,12 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+/**
+ * This class is responsible for managing and performing the actions that the user can initiate in {@link OrganizationListFragment}.
+ * It implements {@link OrganizationListContract.UserActionsListener} and notifies the view after completing its actions.
+ *
+ * @see OrganizationListContract.UserActionsListener
+ * */
 public class OrganizationListPresenter implements OrganizationListContract.UserActionsListener {
     private OrganizationListContract.View mOrganizationView;
     private final OrganizationService mOrganizationService;

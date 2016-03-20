@@ -29,7 +29,14 @@ import be.kdg.teame.kandoe.profile.ProfileActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-
+/**
+ * This Activity is responsible for showing the dashboard to the user.
+ * It extends {@link BaseDrawerActivity} and implements {@link DashboardContract.View}.
+ * Actions initiated in this view are sent to and handled by the {@link DashboardPresenter}.
+ * @see BaseDrawerActivity
+ * @see DashboardContract.View
+ * @see DashboardPresenter
+ * */
 public class DashboardActivity extends BaseDrawerActivity implements DashboardContract.View {
 
     private BaseFragment mCurrentFragment;

@@ -19,6 +19,14 @@ import be.kdg.teame.kandoe.util.validators.forms.FormField;
 import butterknife.Bind;
 import butterknife.OnClick;
 
+/**
+ * This Activity is responsible for showing the sign in view.
+ * It extends {@link BaseActivity} and implements {@link be.kdg.teame.kandoe.authentication.signin.SignInContract.View}.
+ * Actions initiated in this view are sent to and handled by the {@link SignInPresenter}.
+ * @see BaseActivity
+ * @see be.kdg.teame.kandoe.authentication.signin.SignInContract.View
+ * @see SignInPresenter
+ * */
 public class SignInActivity extends BaseActivity implements SignInContract.View {
     private ProgressDialog progressDialog;
 

@@ -14,6 +14,12 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+/**
+ * This class is responsible for managing and performing the actions that the user can initiate in {@link SignInActivity}.
+ * It implements {@link SignInContract.UserActionsListener} and notifies the view after completing its actions.
+ *
+ * @see SignInContract.UserActionsListener
+ * */
 public class SignInPresenter implements SignInContract.UserActionsListener {
     private SignInContract.View mSignInView;
     private final SignInService signInService;

@@ -28,7 +28,14 @@ import butterknife.ButterKnife;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-
+/**
+ * This Fragment is responsible for showing the dashboard to the user.
+ * It extends {@link BaseFragment} and implements {@link OrganizationListContract.View}.
+ * Actions initiated in this view are sent to and handled by the {@link OrganizationListContract.UserActionsListener}.
+ * @see BaseFragment
+ * @see OrganizationListContract.View
+ * @see OrganizationListPresenter
+ * */
 public class OrganizationListFragment extends BaseFragment implements OrganizationListContract.View {
 
     private OrganizationAdapter mListAdapter;
