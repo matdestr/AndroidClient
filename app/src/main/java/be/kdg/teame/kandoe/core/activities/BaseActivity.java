@@ -1,16 +1,9 @@
 package be.kdg.teame.kandoe.core.activities;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import javax.inject.Inject;
 
@@ -23,6 +16,11 @@ import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import butterknife.ButterKnife;
 
+/**
+ * Contains basic configuration for a view.
+ *
+ * @see be.kdg.teame.kandoe.core.contracts.AuthenticatedContract.View
+ */
 public abstract class BaseActivity extends AppCompatActivity implements AuthenticatedContract.View {
     @Inject
     protected PrefManager prefManager;
@@ -62,6 +60,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Authenti
         startActivity(intent);
     }
 
+    /**
+     * Injects the view for dependency injection.
+     *
+     * @param component the component where the view needs to be registered in order to use dependency injection in the view.
+     */
     protected void injectComponent(AppComponent component) {
         component.inject(this);
     }

@@ -13,8 +13,15 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.FrameLayout;
 
+/**
+ * RevealLayout is designed for revealing a new activity with a reveal animation.
+ * The reveal animation expands from where the user taps on the screen.
+ * The animation uses the {@link BakedBezierInterpolator} as interpolator.
+ *
+ * @see BakedBezierInterpolator
+ */
 @SuppressWarnings("unused")
-public class RevealLayout extends FrameLayout{
+public class RevealLayout extends FrameLayout {
 
     private Path mClipPath;
     private float mClipRadius = 0;

@@ -1,5 +1,8 @@
 package be.kdg.teame.kandoe.util.http;
 
+/**
+ * Contains the most important HTTP status codes.
+ */
 public interface HttpStatus {
 
     // section 2xx

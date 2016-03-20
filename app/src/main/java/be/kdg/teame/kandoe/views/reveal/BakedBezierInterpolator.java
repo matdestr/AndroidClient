@@ -2,7 +2,10 @@ package be.kdg.teame.kandoe.views.reveal;
 
 import android.view.animation.Interpolator;
 
-class BakedBezierInterpolator implements Interpolator {
+/**
+ * A pre-baked bezier-curved interpolator for quantum-paper transitions.
+ */
+public class BakedBezierInterpolator implements Interpolator {
 
     /**
      * Lookup table values.

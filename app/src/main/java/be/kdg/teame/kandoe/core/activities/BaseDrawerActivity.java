@@ -11,6 +11,12 @@ import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.util.preferences.Preferences;
 import butterknife.Bind;
 
+/**
+ * Contains basic configuration for a view which contains a {@link DrawerLayout}.
+ *
+ * @see BaseActivity
+ * @see BaseToolbarActivity
+ */
 public abstract class BaseDrawerActivity extends BaseToolbarActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private boolean mUserLearnedDrawer;

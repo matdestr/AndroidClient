@@ -5,6 +5,9 @@ import java.util.List;
 
 import lombok.Value;
 
+/**
+ * Holds a list containing one or more {@link FieldError}s.
+ */
 public class ErrorResponse {
     private List<FieldError> fieldErrors;
 
@@ -20,6 +23,9 @@ public class ErrorResponse {
         this.fieldErrors = fieldErrors;
     }
 
+    /**
+     * Class can hold an error with a field an the message itself.
+     */
     @Value
     public class FieldError {
         private String message;

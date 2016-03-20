@@ -7,6 +7,9 @@ import android.widget.RelativeLayout;
 import be.kdg.teame.kandoe.R;
 import butterknife.Bind;
 
+/**
+ * Contains basic configuration for a view which contains a transparent {@link Toolbar}.
+ */
 public abstract class BaseTransparentToolbarActivity extends BaseToolbarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

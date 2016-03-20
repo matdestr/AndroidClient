@@ -7,6 +7,11 @@ import android.widget.RelativeLayout;
 import be.kdg.teame.kandoe.R;
 import butterknife.Bind;
 
+/**
+ * Contains basic configuration for a view which contains a {@link Toolbar}.
+ *
+ * @see BaseActivity
+ */
 public abstract class BaseToolbarActivity extends BaseActivity {
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
