@@ -53,10 +53,11 @@ public class AccessToken {
     }
 
     public boolean isValid() {
-        return !(accessToken == null || accessToken.isEmpty() ||
-                tokenType == null || tokenType.isEmpty() ||
-                refreshToken == null || refreshToken.isEmpty() ||
-                expiresIn < 0 || dateAcquired == null);
+        return  !(accessToken == null || accessToken.isEmpty()) &&
+                !(tokenType == null || tokenType.isEmpty()) &&
+                !(refreshToken == null || refreshToken.isEmpty()) &&
+                !(expiresIn < 0 || dateAcquired == null);
+
     }
 
     public boolean isExpired() {

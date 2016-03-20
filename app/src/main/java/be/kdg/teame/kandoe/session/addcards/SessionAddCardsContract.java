@@ -23,7 +23,7 @@ public interface SessionAddCardsContract {
 
         void addCard(int sessionId, CardDetails cardDetails);
 
-        void finishedAddingCards();
+        void finishedAddingCards(int sessionId);
 
         void checkIfUserCanAddCards(int sessionId);
     }

@@ -48,6 +48,9 @@ public interface SessionService {
     @POST(ENDPOINT + "/{sessionId}/all-cards/addall")
     void addCards(@Path("sessionId") int sessionId, @Body List<CardDetails> cardDetails, Callback<Object> callback);
 
+    @POST(ENDPOINT + "/{sessionId}/all-cards/confirm")
+    void confirmAddedCards(@Path("sessionId") int sessionId, Callback<Object> callback);
+
     @POST(ENDPOINT + "/{sessionId}/start")
     void start(@Path("sessionId") int sessionId, Callback<Object> callback);
 

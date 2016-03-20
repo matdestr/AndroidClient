@@ -1,6 +1,7 @@
 package be.kdg.teame.kandoe.dashboard.organizationlist;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.List;
 
@@ -30,38 +31,43 @@ public class OrganizationListPresenter implements OrganizationListContract.UserA
         mOrganizationView.showZeroOrganizationsFoundMessage(false);
         mOrganizationView.setProgressIndicator(true);
 
-        mOrganizationService.getOrganizations(mPrefManager.retrieveUsername(), true, new Callback<List<Organization>>() {
-            @Override
-            public void success(List<Organization> organizations, Response response) {
-                mOrganizationView.setProgressIndicator(false);
+        String username = mPrefManager.retrieveUsername();
+        if (username != null) {
+            mOrganizationService.getOrganizations(username, true, new Callback<List<Organization>>() {
+                @Override
+                public void success(List<Organization> organizations, Response response) {
+                    mOrganizationView.setProgressIndicator(false);
 
-                if (organizations.size() > 0)
-                    mOrganizationView.showOrganizations(organizations);
-                else
-                    mOrganizationView.showZeroOrganizationsFoundMessage(true);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                mOrganizationView.setProgressIndicator(false);
-
-                if (error != null && error.getResponse() != null) {
-                    val response = error.getResponse();
-
-                    switch (response.getStatus()) {
-                        case HttpStatus.BAD_REQUEST:
-                            ErrorResponse.FieldError fieldError = (ErrorResponse.FieldError) error.getBodyAs(ErrorResponse.FieldError.class);
-                            mOrganizationView.showErrorConnectionFailure(fieldError.getMessage());
-                            break;
-                        default:
-                            mOrganizationView.showErrorConnectionFailure("unable to load your organizations, please try again later.");
-
-                    }
-                } else {
-                    mOrganizationView.showErrorConnectionFailure(null);
+                    if (organizations.size() > 0)
+                        mOrganizationView.showOrganizations(organizations);
+                    else
+                        mOrganizationView.showZeroOrganizationsFoundMessage(true);
                 }
-            }
-        });
+
+                @Override
+                public void failure(RetrofitError error) {
+                    mOrganizationView.setProgressIndicator(false);
+
+                    if (error != null && error.getResponse() != null) {
+                        val response = error.getResponse();
+
+                        switch (response.getStatus()) {
+                            case HttpStatus.BAD_REQUEST:
+                                ErrorResponse.FieldError fieldError = (ErrorResponse.FieldError) error.getBodyAs(ErrorResponse.FieldError.class);
+                                mOrganizationView.showErrorConnectionFailure(fieldError.getMessage());
+                                break;
+                            default:
+                                mOrganizationView.showErrorConnectionFailure("Unable to load your organizations, please try again later.");
+
+                        }
+                    } else {
+                        mOrganizationView.showErrorConnectionFailure(null);
+                    }
+                }
+            });
+        } else {
+            Log.w(getClass().getSimpleName(), "Couldn't load organizations because username is null");
+        }
     }
 
     @Override

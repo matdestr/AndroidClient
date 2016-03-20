@@ -1,6 +1,7 @@
 package be.kdg.teame.kandoe.dashboard;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import javax.inject.Inject;
 
@@ -33,27 +34,32 @@ public class DashboardPresenter implements DashboardContract.UserActionsListener
 
     @Override
     public void loadUserdata() {
-        mUserService.getUser(mPrefManager.retrieveUsername(), new Callback<User>() {
-            @Override
-            public void success(User user, Response response) {
-                if (user.getProfilePictureUrl() != null)
-                    user.setProfilePictureUrl(Injector.getApiBaseUrl().concat("/").concat(user.getProfilePictureUrl()));
+        final String username = mPrefManager.retrieveUsername();
+        if (username != null) {
+            mUserService.getUser(username, new Callback<User>() {
+                @Override
+                public void success(User user, Response response) {
+                    if (user.getProfilePictureUrl() != null)
+                        user.setProfilePictureUrl(Injector.getApiBaseUrl().concat("/").concat(user.getProfilePictureUrl()));
 
-                mDashboardView.showUserdata(user);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                if (error != null && error.getResponse() != null) {
-
-                    if (error.getResponse().getStatus() == HttpStatus.UNAUTHORIZED)
-                        mDashboardView.launchUnauthenticatedRedirectActivity();
-                    else
-                        mDashboardView.showErrorConnectionFailure("Unable to retrieve profile information for " + mPrefManager.retrieveUsername());
-
+                    mDashboardView.showUserdata(user);
                 }
-            }
-        });
+
+                @Override
+                public void failure(RetrofitError error) {
+                    if (error != null && error.getResponse() != null) {
+
+                        if (error.getResponse().getStatus() == HttpStatus.UNAUTHORIZED)
+                            mDashboardView.launchUnauthenticatedRedirectActivity();
+                        else
+                            mDashboardView.showErrorConnectionFailure("Unable to retrieve profile information for " + username);
+
+                    }
+                }
+            });
+        } else {
+            Log.w(getClass().getSimpleName(), "Couldn't load user data because username is null");
+        }
     }
 
     @Override

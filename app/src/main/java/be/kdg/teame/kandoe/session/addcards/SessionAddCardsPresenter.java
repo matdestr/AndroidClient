@@ -90,8 +90,19 @@ public class SessionAddCardsPresenter implements SessionAddCardsContract.UserAct
     }
 
     @Override
-    public void finishedAddingCards() {
-        mAddCardsView.showWaitingForOtherParticipants();
+    public void finishedAddingCards(int sessionId) {
+        mSessionService.confirmAddedCards(sessionId, new Callback<Object>() {
+            @Override
+            public void success(Object o, Response response) {
+                Log.d(SessionAddCardsPresenter.class.getSimpleName(), "");
+                mAddCardsView.showWaitingForOtherParticipants();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d(SessionAddCardsPresenter.class.getSimpleName(), "");
+            }
+        });
     }
 
     @Override

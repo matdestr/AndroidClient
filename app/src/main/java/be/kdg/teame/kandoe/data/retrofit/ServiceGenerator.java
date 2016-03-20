@@ -1,5 +1,7 @@
 package be.kdg.teame.kandoe.data.retrofit;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -134,6 +136,8 @@ public class ServiceGenerator {
         RestAdapter adapter = builder
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
+
+        Log.d(ServiceGenerator.class.getSimpleName(), "Created Service for " + serviceClass.getSimpleName() + " with existing token? " + (accessToken.getAccessToken() != null));
 
         return adapter.create(serviceClass);
     }

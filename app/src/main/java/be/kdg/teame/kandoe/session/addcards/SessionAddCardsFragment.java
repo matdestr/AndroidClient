@@ -199,7 +199,7 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
 
     @OnClick(R.id.fab_continue)
     public void onFabContinueClick() {
-        mAddCardsPresenter.finishedAddingCards();
+        mAddCardsPresenter.finishedAddingCards(mSessionId);
     }
 
     //Needed for the AddCardDialog
