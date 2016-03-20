@@ -12,6 +12,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.core.AuthenticationHelper;
+import be.kdg.teame.kandoe.data.retrofit.services.CardDetailsService;
 import be.kdg.teame.kandoe.data.retrofit.services.SessionService;
 import be.kdg.teame.kandoe.models.cards.CardDetails;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
@@ -23,7 +24,6 @@ import retrofit.mime.TypedByteArray;
 public class SessionAddCardsPresenter implements SessionAddCardsContract.UserActionsListener{
 
     private SessionAddCardsContract.View mAddCardsView;
-
     private SessionService mSessionService;
     private PrefManager mPrefManager;
 
@@ -70,21 +70,56 @@ public class SessionAddCardsPresenter implements SessionAddCardsContract.UserAct
     }
 
     @Override
-    public void addCards(int sessionId) {
+    public void addCard(final int sessionId, CardDetails details) {
         mAddCardsView.setProgressIndicator(true);
 
-        mSessionService.addCards(sessionId, new ArrayList<CardDetails>(), new Callback<Object>() {
+        mSessionService.addCards(sessionId, details, new Callback<Object>() {
             @Override
             public void success(Object o, Response response) {
                 mAddCardsView.setProgressIndicator(false);
-                Log.i("adding cards", "successful");
-                mAddCardsView.showWaitingForOtherParticipants();
+                loadCards(sessionId);
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e("adding cards", "failed");
+                mAddCardsView.setProgressIndicator(false);
+                String errorMessage = new String(((TypedByteArray) error.getResponse().getBody()).getBytes());
+                mAddCardsView.showErrorConnectionFailure(convertJsonToString(errorMessage));
             }
         });
+    }
+
+    @Override
+    public void finishedAddingCards() {
+        mAddCardsView.showWaitingForOtherParticipants();
+    }
+
+    @Override
+    public void checkIfUserCanAddCards(final int sessionId) {
+        mSessionService.canUserStillAddCards(sessionId, new Callback<Object>() {
+            @Override
+            public void success(Object o, Response response) {
+                loadCards(sessionId);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (error.getKind() == RetrofitError.Kind.NETWORK)
+                    mAddCardsView.showErrorConnectionFailure(null);
+
+                mAddCardsView.showWaitingForOtherParticipants();
+            }
+        });
+    }
+
+    private String convertJsonToString(String json){
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            Log.d(getClass().getSimpleName(), jsonObject.getString("message"));
+            return jsonObject.getString("message");
+        } catch (JSONException e) {
+            Log.d("Session-join", "JSONException: ".concat(e.getMessage()), e);
+            return null;
+        }
     }
 }

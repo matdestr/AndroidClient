@@ -2,6 +2,8 @@ package be.kdg.teame.kandoe.session.addcards;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -40,7 +42,7 @@ import butterknife.OnClick;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class SessionAddCardsFragment extends BaseFragment implements SessionAddCardsContract.View {
+public class SessionAddCardsFragment extends BaseFragment implements SessionAddCardsContract.View, DialogInterface.OnDismissListener {
 
     @Bind(R.id.refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -62,6 +64,8 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
     @Inject
     SessionAddCardsContract.UserActionsListener mAddCardsPresenter;
 
+    private CardDetails mCardDetails;
+
     private static final int GRID_SPAN_COUNT = 2;
     private CardAdapter mCardAdapter;
 
@@ -81,6 +85,10 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAddCardsPresenter.setView(this);
+        mSessionId = getArguments().getInt(SessionActivity.SESSION_ID);
+        mAddCardsPresenter.checkIfUserCanAddCards(mSessionId);
+
+        mCardDetails = new CardDetails();
     }
 
     @Override
@@ -98,7 +106,9 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_session_add_card:
-                Log.i("test", "test");
+                AddCardDialog dialog = new AddCardDialog(getActivity(), mCardDetails);
+                dialog.setOnDismissListener(this);
+                dialog.show();
                 break;
         }
 
@@ -136,12 +146,6 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
         mProgressDialog = DialogGenerator.createProgressDialog(getContext(), R.string.session_adding_cards);
 
         return root;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAddCardsPresenter.loadCards(mSessionId);
     }
 
     @Override
@@ -195,7 +199,21 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
 
     @OnClick(R.id.fab_continue)
     public void onFabContinueClick() {
-        mAddCardsPresenter.addCards(mSessionId);
+        mAddCardsPresenter.finishedAddingCards();
+    }
+
+    //Needed for the AddCardDialog
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //todo upload image
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        if (mCardDetails.getText() != null){
+            mCardDetails.setImageUrl(null);
+            mAddCardsPresenter.addCard(mSessionId, mCardDetails);
+        }
     }
 
     private static class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {

@@ -4,13 +4,15 @@
     android:id="@+id/session_card_container"
     android:layout_width="match_parent"
     android:layout_height="176dp"
-    android:padding="@dimen/padding_card_details_grid_item">
+    android:layout_margin="@dimen/padding_card_details_grid_item"
+    >
 
     <ImageView
         android:id="@+id/session_card_item_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:src="@drawable/default_user" />
+        tools:src="@drawable/default_user"
+        android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/session_card_item_text"

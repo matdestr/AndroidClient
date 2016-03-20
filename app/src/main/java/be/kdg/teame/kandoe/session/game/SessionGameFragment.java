@@ -134,22 +134,6 @@ public class SessionGameFragment extends BaseFragment implements SessionGameCont
     }
 
     @Override
-    public void seedInitialDataChildFragments(List<CardPosition> cardPositions) {
-
-
-/*        Bundle args = new Bundle();
-        args.putString(CARD_POSITIONS, json);
-
-        mSessionGamePickerFragment.setArguments(args);
-        mSessionGameRankingFragment.setArguments(args);*/
-    }
-
-    @Override
-    public void updateDataChildFragments(List<CardPosition> cardPositions) {
-        mSessionGameRankingFragment.updateData(cardPositions);
-    }
-
-    @Override
     public void showErrorConnectionFailure(String errorMessage) {
         DialogGenerator.showErrorDialog(getContext(), errorMessage);
     }

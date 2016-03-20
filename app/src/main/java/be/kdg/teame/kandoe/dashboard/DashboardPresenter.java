@@ -51,8 +51,6 @@ public class DashboardPresenter implements DashboardContract.UserActionsListener
                     else
                         mDashboardView.showErrorConnectionFailure("Unable to retrieve profile information for " + mPrefManager.retrieveUsername());
 
-                } else {
-                    mDashboardView.showErrorConnectionFailure(null);
                 }
             }
         });
