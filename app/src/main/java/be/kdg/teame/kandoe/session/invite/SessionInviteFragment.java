@@ -30,6 +30,16 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+
+/**
+ * This Fragment is responsible for showing the invitation form to the user.
+ * It implements {@link SessionInviteContract.View} and {@link XmlClickable}.
+ * Actions initiated in this view are sent to and handled by the {@link SessionInvitePresenter}.
+ *
+ * @see XmlClickable
+ * @see SessionInviteContract.View
+ * @see SessionInvitePresenter
+ */
 public class SessionInviteFragment extends BaseFragment implements SessionInviteContract.View, XmlClickable {
 
     @Inject

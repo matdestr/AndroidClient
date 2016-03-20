@@ -20,6 +20,12 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.mime.TypedByteArray;
 
+/**
+ * This class is responsible for managing and performing the actions that the user can initiate in {@link SessionInviteFragment}.
+ * It implements {@link SessionInviteContract.UserActionsListener} and notifies the view after completing its actions.
+ *
+ * @see SessionInviteContract.UserActionsListener
+ * */
 public class SessionInvitePresenter implements SessionInviteContract.UserActionsListener {
     private final PrefManager mPrefManager;
     private final SessionService mSessionService;
