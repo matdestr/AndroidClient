@@ -1,4 +1,4 @@
-git apackage be.kdg.teame.kandoe.data.retrofit.services;
+package be.kdg.teame.kandoe.data.retrofit.services;
 
 import java.util.List;
 
