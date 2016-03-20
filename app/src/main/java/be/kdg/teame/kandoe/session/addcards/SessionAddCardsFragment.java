@@ -89,6 +89,9 @@ public class SessionAddCardsFragment extends BaseFragment implements SessionAddC
         mAddCardsPresenter.checkIfUserCanAddCards(mSessionId);
 
         mCardDetails = new CardDetails();
+
+        changeToolbarTitle(R.string.session_adding_cards_label);
+
     }
 
     @Override

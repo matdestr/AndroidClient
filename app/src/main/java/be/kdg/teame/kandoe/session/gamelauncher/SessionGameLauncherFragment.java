@@ -48,6 +48,9 @@ public class SessionGameLauncherFragment extends BaseFragment implements Session
 
         mSessionId = arguments.getInt(SessionActivity.SESSION_ID);
         mIsOrganizer = arguments.getBoolean(SessionActivity.SESSION_IS_ORGANIZER, false);
+
+        changeToolbarTitle(R.string.session_game_launcher_label);
+
     }
 
     @Nullable

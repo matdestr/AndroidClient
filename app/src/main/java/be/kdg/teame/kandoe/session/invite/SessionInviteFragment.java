@@ -54,6 +54,9 @@ public class SessionInviteFragment extends BaseFragment implements SessionInvite
 
         Bundle args = getArguments();
         mSessionId = args.getInt(SessionActivity.SESSION_ID, -1);
+
+        changeToolbarTitle(R.string.session_invite_label);
+
     }
 
     @Override

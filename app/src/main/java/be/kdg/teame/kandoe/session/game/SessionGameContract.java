@@ -15,11 +15,15 @@ public interface SessionGameContract {
     }
 
     interface UserActionsListener extends InjectableUserActionsListener<View>, AuthenticatedContract.UserActionsListener {
-        void loadCardPositions(int sessionId, boolean initial);
+        void loadCardPositions(int sessionId);
 
         void openCurrentParticipantListener(int sessionId);
 
         void closeCurrentParticipantListener();
+
+        void openCardPositionListener(int sessionId);
+
+        void closeOpenCardPositionListener();
 
         void addDataListener(DataListener listener);
     }

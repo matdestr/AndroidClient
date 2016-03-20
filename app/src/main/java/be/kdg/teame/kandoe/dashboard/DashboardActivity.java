@@ -56,6 +56,11 @@ public class DashboardActivity extends BaseDrawerActivity implements DashboardCo
     protected void onResume() {
         super.onResume();
         mDashboardPresenter.checkUserIsAuthenticated();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         mDashboardPresenter.loadUserdata();
         mDashboardPresenter.openOrganizations();
     }

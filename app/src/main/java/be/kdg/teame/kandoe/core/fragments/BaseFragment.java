@@ -3,11 +3,13 @@ package be.kdg.teame.kandoe.core.fragments;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 
 import be.kdg.teame.kandoe.App;
 import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.DialogGenerator;
+import be.kdg.teame.kandoe.core.activities.BaseActivity;
 import be.kdg.teame.kandoe.core.contracts.AuthenticatedContract;
 import be.kdg.teame.kandoe.di.Injector;
 import be.kdg.teame.kandoe.di.components.AppComponent;
@@ -47,6 +49,18 @@ public abstract class BaseFragment extends Fragment implements AuthenticatedCont
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
         startActivity(intent);
+    }
+
+    public void changeToolbarTitle(@StringRes int labelId) {
+        if (getActivity() instanceof BaseActivity) {
+            BaseActivity baseActivity = (BaseActivity) getActivity();
+
+            if (baseActivity.getSupportActionBar() != null)
+                baseActivity.getSupportActionBar().setTitle(labelId);
+        } else {
+            if (getActivity().getActionBar() != null)
+                getActivity().getActionBar().setTitle(labelId);
+        }
     }
 
     protected void injectComponent(AppComponent component) {

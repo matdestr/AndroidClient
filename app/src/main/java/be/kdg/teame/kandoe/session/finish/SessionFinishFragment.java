@@ -22,6 +22,7 @@ import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.R;
 import be.kdg.teame.kandoe.core.DialogGenerator;
+import be.kdg.teame.kandoe.core.activities.BaseActivity;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.models.cards.CardDetails;
@@ -51,6 +52,8 @@ public class SessionFinishFragment extends BaseFragment implements SessionFinish
 
         Bundle bundle = getArguments();
         mSessionId = bundle.getInt(SessionActivity.SESSION_ID, 0);
+
+        changeToolbarTitle(R.string.session_finish_label);
     }
 
     @Nullable
@@ -63,7 +66,9 @@ public class SessionFinishFragment extends BaseFragment implements SessionFinish
 
         recyclerView.setAdapter(mFinishAdapter);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        GridLayoutManager glm = new GridLayoutManager(getContext(), GRID_SPAN_COUNT);
+
+        recyclerView.setLayoutManager(glm);
 
         mGameFinishContractPresenter.getWinners(mSessionId);
 
@@ -81,8 +86,8 @@ public class SessionFinishFragment extends BaseFragment implements SessionFinish
     }
 
     @Override
-    public void setCards(List<CardDetails> cardDetailses) {
-        mFinishAdapter.replaceData(cardDetailses);
+    public void setCards(List<CardDetails> cards) {
+        mFinishAdapter.replaceData(cards);
     }
 
     private static class FinishAdapter extends RecyclerView.Adapter<FinishAdapter.ViewHolder> {
@@ -98,7 +103,7 @@ public class SessionFinishFragment extends BaseFragment implements SessionFinish
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
-            View sessionView = inflater.inflate(R.layout.item_rank, parent, false);
+            View sessionView = inflater.inflate(R.layout.item_card, parent, false);
 
             return new ViewHolder(sessionView);
         }
@@ -137,13 +142,11 @@ public class SessionFinishFragment extends BaseFragment implements SessionFinish
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            public TextView rank;
             public TextView cardTitle;
             public ImageView cardImage;
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                rank = ButterKnife.findById(itemView, R.id.rank);
                 cardTitle = ButterKnife.findById(itemView, R.id.session_card_item_text);
                 cardImage = ButterKnife.findById(itemView, R.id.session_card_item_image);
             }

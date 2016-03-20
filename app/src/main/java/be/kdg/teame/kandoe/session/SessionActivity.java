@@ -124,8 +124,6 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
             case CREATED:
                 Log.i("session-status", "created");
                 fragment = new SessionInviteFragment();
-                if (getSupportActionBar() != null)
-                    getSupportActionBar().setTitle(R.string.session_invite_label);
                 break;
             case USERS_JOINING:
                 Log.i("session-status", "users joining");
@@ -134,36 +132,26 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
                 args.putString(SESSION_TOPIC_TITLE, mTopicTitle);
                 args.putString(SESSION_ORGANIZATION_TITLE, mOrganizationTitle);
                 args.putInt(SESSION_PARTICIPANT_AMOUNT, mCurrentSession.getParticipantInfo().size());
-                if (getSupportActionBar() != null)
-                    getSupportActionBar().setTitle(R.string.session_users_joining_label);
                 break;
             case ADDING_CARDS:
                 Log.i("session-status", "adding cards");
                 fragment = new SessionAddCardsFragment();
                 args.putBoolean(SESSION_PARTICIPANT_CAN_ADD_CARDS, mCurrentSession.isParticipantsCanAddCards());
-                if (getSupportActionBar() != null)
-                    getSupportActionBar().setTitle(R.string.session_adding_cards_label);
                 break;
             case REVIEWING_CARDS:
                 Log.i("session-status", "reviewing cards");
                 fragment = new SessionReviewCardsFragment();
                 args.putBoolean(SESSION_PARTICIPANT_CAN_ADD_CARDS, mCurrentSession.isCardCommentsAllowed());
-                if (getSupportActionBar() != null)
-                    getSupportActionBar().setTitle(R.string.session_review_cards_label);
                 break;
             case CHOOSING_CARDS:
                 Log.i("session-status", "choosing cards");
                 fragment = new SessionChooseCardsFragment();
-                if (getSupportActionBar() != null)
-                    getSupportActionBar().setTitle(R.string.session_choosing_cards_label);
                 break;
             case READY_TO_START:
                 Log.i("session-status", "ready to start");
                 fragment = new SessionGameLauncherFragment();
                 args.putBoolean(SESSION_IS_ORGANIZER,
                         organizerUsername.equals(prefManager.retrieveUsername()));
-                if (getSupportActionBar() != null)
-                    getSupportActionBar().setTitle(R.string.session_game_launcher_label);
                 break;
             case IN_PROGRESS:
                 Log.i("session-status", "in progress");
@@ -172,15 +160,11 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
                 Log.d(getClass().getSimpleName(), String.valueOf(organizerUsername.equals(prefManager.retrieveUsername())));
                 args.putBoolean(SESSION_IS_ORGANIZER,
                         organizerUsername.equals(prefManager.retrieveUsername()));
-                if (getSupportActionBar() != null)
-                    getSupportActionBar().setTitle(R.string.session_game_label);
                 break;
             case FINISHED:
                 Log.i("session-status", "finished");
                 fragment = new SessionFinishFragment();
                 mSessionPresenter.closeStatusListener();
-                if (getSupportActionBar() != null)
-                    getSupportActionBar().setTitle(R.string.session_finish_label);
                 break;
         }
 
@@ -191,7 +175,7 @@ public class SessionActivity extends BaseToolbarActivity implements SessionContr
     }
 
     @Override
-    public void onSessionStatusChanged(SessionStatus sessionStatus) {
+    public void onSessionStatusChanged(final SessionStatus sessionStatus) {
         Log.d(getClass().getSimpleName(), "Session status changed to " + sessionStatus);
         switchFragment(chooseFragment(sessionStatus));
     }

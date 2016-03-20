@@ -13,8 +13,6 @@ public interface SessionGameRankingContract {
 
         void showData(List<CardPosition> cardPositions);
 
-        void updateData(List<CardPosition> cardPositions);
-
         void setProgressIndicator(boolean b);
     }
 

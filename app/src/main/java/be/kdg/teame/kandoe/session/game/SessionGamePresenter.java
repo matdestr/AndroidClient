@@ -16,6 +16,7 @@ import be.kdg.teame.kandoe.data.websockets.WebSocketsManager;
 import be.kdg.teame.kandoe.data.websockets.stomp.SubscriptionCallback;
 import be.kdg.teame.kandoe.models.cards.CardDetails;
 import be.kdg.teame.kandoe.models.cards.CardPosition;
+import be.kdg.teame.kandoe.session.SessionActivity;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -30,6 +31,8 @@ public class SessionGamePresenter implements SessionGameContract.UserActionsList
     private SessionService mSessionService;
     private PrefManager mPrefManager;
     private SocketService mCurrentParticipantService;
+    private SocketService mCardPositionService;
+
 
 
     @Inject
@@ -65,7 +68,7 @@ public class SessionGamePresenter implements SessionGameContract.UserActionsList
     }
 
     @Override
-    public void loadCardPositions(int sessionId, final boolean initial) {
+    public void loadCardPositions(int sessionId) {
         mSessionService.getCardPositions(sessionId, new Callback<List<CardPosition>>() {
             @Override
             public void success(List<CardPosition> cardPositions, Response response) {
@@ -113,6 +116,32 @@ public class SessionGamePresenter implements SessionGameContract.UserActionsList
     public void closeCurrentParticipantListener() {
         if (mCurrentParticipantService != null)
             mCurrentParticipantService.stop();
+    }
+
+    @Override
+    public void openCardPositionListener(final int sessionId) {
+        mCardPositionService = new SocketService(
+                "/topic/sessions/".concat(String.valueOf(sessionId)).concat("/positions"),
+                "sessions_positions_subscription_id)",
+                new SubscriptionCallback() {
+                    @Override
+                    public void onMessage(Map<String, String> headers, String body) {
+
+                        SessionGamePresenter.this.loadCardPositions(sessionId);
+                        Log.d(SessionGamePresenter.this.getClass().getSimpleName(), "Websocket sent update for cardpositions");
+                    }
+                });
+
+        Thread thread = WebSocketsManager.getThread(mCardPositionService, sessionId);
+
+        if (!thread.isAlive())
+            thread.start();
+    }
+
+    @Override
+    public void closeOpenCardPositionListener() {
+        if (mCardPositionService != null)
+            mCardPositionService.stop();
     }
 
 }

@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,8 +75,9 @@ public class SessionGameFragment extends BaseFragment implements SessionGameCont
         mSessionGamePickerFragment.setFragmentReadyListener(this);
         mSessionGameRankingFragment.setFragmentReadyListener(this);
 
+        mSessionGamePresenter.loadCardPositions(mSessionId);
 
-        mSessionGamePresenter.loadCardPositions(mSessionId, true);
+        changeToolbarTitle(R.string.session_game_label);
     }
 
     @Nullable
@@ -116,6 +118,8 @@ public class SessionGameFragment extends BaseFragment implements SessionGameCont
         // nice to know: get current item viewpager
         // Fragment baseFragment = mPagerAdapter.getItem(mViewPager.getCurrentItem());
         mSessionGamePresenter.openCurrentParticipantListener(mSessionId);
+        mSessionGamePresenter.openCardPositionListener(mSessionId);
+        Log.d(getClass().getSimpleName(), "Listening for cardpositions for session " + mSessionId);
     }
 
     @Override

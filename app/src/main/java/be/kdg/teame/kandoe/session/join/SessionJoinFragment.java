@@ -76,6 +76,7 @@ public class SessionJoinFragment extends BaseFragment implements SessionJoinCont
         mTopic = arguments.getString(SessionActivity.SESSION_TOPIC_TITLE);
         mOrganization = arguments.getString(SessionActivity.SESSION_ORGANIZATION_TITLE);
 
+        changeToolbarTitle(R.string.session_users_joining_label);
     }
 
     @Override

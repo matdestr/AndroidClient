@@ -81,6 +81,8 @@ public class SessionReviewCardsFragment extends BaseFragment implements SessionR
         super.onCreate(savedInstanceState);
         mReviewCardsPresenter.setView(this);
         mSessionId = getArguments().getInt(SessionActivity.SESSION_ID);
+
+        changeToolbarTitle(R.string.session_review_cards_label);
     }
 
     @Nullable
@@ -135,6 +137,7 @@ public class SessionReviewCardsFragment extends BaseFragment implements SessionR
 
     @Override
     public void showWaitingForOtherParticipants() {
+        mRecyclerView.setVisibility(View.GONE);
         mFloatingActionButton.setVisibility(View.GONE);
         mWaitProgressBar.setIndeterminate(true);
         mWaitContainer.setVisibility(View.VISIBLE);

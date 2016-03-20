@@ -12,4 +12,5 @@ public interface FragmentComponent {
     void inject(BaseFragment baseFragment);
 
     void inject(be.kdg.teame.kandoe.dashboard.sessionlist.SessionListFragment sessionListFragment);
+
 }

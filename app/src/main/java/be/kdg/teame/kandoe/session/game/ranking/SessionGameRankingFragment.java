@@ -7,13 +7,13 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,7 +37,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lombok.Getter;
-import lombok.Setter;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -56,8 +55,8 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
 
     private ProgressDialog mProgressDialog;
     private ChildFragmentReadyListener mFragmentReadyListener;
-    private int sessionId;
-    private boolean isOrganizer;
+    private int mSessionId;
+    private boolean mIsOrganizer;
 
     /**
      * Listener for clicks on sessions in the RecyclerView.
@@ -75,9 +74,9 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
         mGameRankingContractPresenter.setView(this);
 
         Bundle args = getArguments();
-        isOrganizer = args.getBoolean(SessionActivity.SESSION_IS_ORGANIZER, false);
-        sessionId = args.getInt(SessionActivity.SESSION_ID);
-        Log.d(getClass().getSimpleName(), "isOrganizer: " + isOrganizer);
+        mIsOrganizer = args.getBoolean(SessionActivity.SESSION_IS_ORGANIZER, false);
+        mSessionId = args.getInt(SessionActivity.SESSION_ID);
+        Log.d(getClass().getSimpleName(), "mIsOrganizer: " + mIsOrganizer);
     }
 
     @Nullable
@@ -92,10 +91,8 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
 
         mProgressDialog = DialogGenerator.createProgressDialog(getContext(), R.string.ending_game);
 
-        if (isOrganizer)
-            mFabFinish.setVisibility(View.VISIBLE);
-        else
-            mFabFinish.setVisibility(View.GONE);
+        if (!mIsOrganizer)
+            ((ViewManager) mFabFinish.getParent()).removeView(mFabFinish);
 
         return root;
     }
@@ -127,9 +124,9 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
 
     @OnClick(R.id.fab_finish)
     void endGame(){
-        if (isOrganizer){
+        if (mIsOrganizer){
             Log.d(getClass().getSimpleName(), "ending game");
-            mGameRankingContractPresenter.endGame(sessionId);
+            mGameRankingContractPresenter.endGame(mSessionId);
         }
     }
 
@@ -137,11 +134,6 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
     public void showData(List<CardPosition> cardPositions) {
         mRankAdapter.replaceData(cardPositions);
         Log.d(getClass().getSimpleName(), "Replaced cardpositions");
-    }
-
-    @Override
-    public void updateData(List<CardPosition> cardPositions) {
-        mRankAdapter.replaceData(cardPositions);
     }
 
     @Override
@@ -182,7 +174,7 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
             CardPosition cardPosition = mCardPositions.get(position);
 
             viewHolder.cardTitle.setText(cardPosition.getCardDetails().getText());
-            viewHolder.rank.setText("" + (position + 1));
+            viewHolder.rank.setText(String.valueOf(position + 1));
             Picasso.with(mContext)
                     .load(cardPosition.getCardDetails().getImageUrl())
                     .placeholder(R.drawable.placeholder_image)
@@ -196,13 +188,13 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
 
         private void setList(List<CardPosition> cardPositions) {
             mCardPositions = checkNotNull(cardPositions);
+
             Collections.sort(mCardPositions, new Comparator<CardPosition>() {
                 @Override
                 public int compare(CardPosition o1, CardPosition o2) {
-                    return o1.getPriority() - o2.getPriority();
+                    return o2.getPriority() - o1.getPriority();
                 }
             });
-            Log.d(getClass().getSimpleName(), "Received, set and sorted" + cardPositions.size() + "cardpositions");
         }
 
         @Override
