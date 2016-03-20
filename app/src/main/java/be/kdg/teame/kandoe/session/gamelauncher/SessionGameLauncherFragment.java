@@ -20,6 +20,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * Presenter for the Game Launcher feature
+ */
+
 public class SessionGameLauncherFragment extends BaseFragment implements SessionGameLauncherContract.View {
 
     @Bind(R.id.session_accept_container)

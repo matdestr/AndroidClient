@@ -1,4 +1,4 @@
-package be.kdg.teame.kandoe.data.retrofit.services;
+git apackage be.kdg.teame.kandoe.data.retrofit.services;
 
 import java.util.List;
 
@@ -16,6 +16,9 @@ import retrofit.http.PUT;
 import retrofit.http.Path;
 import retrofit.http.Query;
 
+/**
+ * Interface for the {@link Session} REST api endpoint
+ */
 public interface SessionService {
     String ENDPOINT = "/api/sessions";
 

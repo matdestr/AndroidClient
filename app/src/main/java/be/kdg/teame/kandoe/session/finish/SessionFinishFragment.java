@@ -32,6 +32,10 @@ import butterknife.ButterKnife;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+/**
+ * View for the Session Finish feature
+ */
+
 public class SessionFinishFragment extends BaseFragment implements SessionFinishContract.View {
     private FinishAdapter mFinishAdapter;
 

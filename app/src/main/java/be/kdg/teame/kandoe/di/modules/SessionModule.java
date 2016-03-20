@@ -5,7 +5,6 @@ import javax.inject.Singleton;
 import be.kdg.teame.kandoe.dashboard.sessionlist.SessionListContract;
 import be.kdg.teame.kandoe.dashboard.sessionlist.SessionListPresenter;
 import be.kdg.teame.kandoe.data.retrofit.ServiceGenerator;
-import be.kdg.teame.kandoe.data.retrofit.services.CardDetailsService;
 import be.kdg.teame.kandoe.data.retrofit.services.SessionService;
 import be.kdg.teame.kandoe.session.SessionContract;
 import be.kdg.teame.kandoe.session.SessionPresenter;
@@ -32,6 +31,11 @@ import be.kdg.teame.kandoe.session.reviewcards.SessionReviewCardsPresenter;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import dagger.Module;
 import dagger.Provides;
+
+/**
+ * Module that provides objects for injections for the Session activities
+ */
+
 
 @Module
 public class SessionModule {

@@ -14,6 +14,11 @@ import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * Module that provides objects for injections for the User activities
+ */
+
+
 @Module
 public class UserModule {
     @Provides

@@ -10,6 +10,11 @@ import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * Module that provides objects for injections for the Organization activities
+ */
+
+
 @Module
 public class OrganizationModule {
     @Provides

@@ -13,6 +13,10 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+/**
+ * Presenter for the Profile Edit feature
+ */
+
 public class ProfileEditPresenter implements ProfileEditContract.UserActionsListener {
 
     private ProfileEditContract.View mProfileEditView;

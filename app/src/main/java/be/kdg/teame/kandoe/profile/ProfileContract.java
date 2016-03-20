@@ -5,6 +5,10 @@ import be.kdg.teame.kandoe.core.contracts.InjectableUserActionsListener;
 import be.kdg.teame.kandoe.core.contracts.WebDataView;
 import be.kdg.teame.kandoe.models.users.User;
 
+/**
+ * Contract for the MVP structure of the Profile feature
+ */
+
 public interface ProfileContract {
 
     interface View extends AuthenticatedContract.View, WebDataView {

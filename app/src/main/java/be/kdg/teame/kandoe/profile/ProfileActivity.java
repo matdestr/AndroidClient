@@ -23,6 +23,10 @@ import be.kdg.teame.kandoe.views.reveal.RevealLayout;
 import butterknife.Bind;
 import butterknife.OnClick;
 
+/**
+ * View (Activity) for the Profile feature
+ */
+
 public class ProfileActivity extends BaseToolbarActivity implements ProfileContract.View {
 
     @Bind(R.id.collapsing_toolbar_layout)

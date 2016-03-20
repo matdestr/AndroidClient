@@ -13,6 +13,10 @@ import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * Module that provides objects for injection for authentication
+ */
+
 @Module
 public class AuthenticationModule {
     @Provides

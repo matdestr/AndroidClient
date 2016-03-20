@@ -14,6 +14,9 @@ import be.kdg.teame.kandoe.models.cards.CardDetails;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * Dialog used in the AddCard feature
+ */
 
 public class AddCardDialog extends Dialog {
     View container;

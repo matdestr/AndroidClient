@@ -14,6 +14,9 @@ import de.roderick.weberknecht.WebSocket;
 import de.roderick.weberknecht.WebSocketEventHandler;
 import de.roderick.weberknecht.WebSocketMessage;
 
+/**
+ * https://stackoverflow.com/questions/24346068/set-up-a-stomp-client-in-android-with-spring-framework-in-server-side
+ */
 public class Stomp {
 
     private static final String TAG = Stomp.class.getSimpleName();

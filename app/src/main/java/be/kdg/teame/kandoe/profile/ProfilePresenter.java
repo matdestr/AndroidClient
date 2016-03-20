@@ -14,6 +14,10 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+/**
+ * Presenter for the Profile feature
+ */
+
 public class ProfilePresenter implements ProfileContract.UserActionsListener {
 
     private ProfileContract.View mProfileView;

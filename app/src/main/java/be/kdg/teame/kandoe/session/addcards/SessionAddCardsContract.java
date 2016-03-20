@@ -7,6 +7,10 @@ import be.kdg.teame.kandoe.core.contracts.InjectableUserActionsListener;
 import be.kdg.teame.kandoe.core.contracts.WebDataView;
 import be.kdg.teame.kandoe.models.cards.CardDetails;
 
+/**
+ * Contract for the SessionAddCards feature
+ */
+
 public interface SessionAddCardsContract {
     interface View extends AuthenticatedContract.View, WebDataView {
         void setRefreshingProgressIndicator(boolean active);

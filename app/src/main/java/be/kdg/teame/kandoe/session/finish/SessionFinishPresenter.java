@@ -14,6 +14,10 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+/**
+ * Presenter for the Session Finish feature
+ */
+
 public class SessionFinishPresenter implements SessionFinishContract.UserActionsListener {
 
     private SessionFinishContract.View mSessionFinishView;

@@ -6,13 +6,11 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.core.AuthenticationHelper;
-import be.kdg.teame.kandoe.data.retrofit.services.CardDetailsService;
 import be.kdg.teame.kandoe.data.retrofit.services.SessionService;
 import be.kdg.teame.kandoe.models.cards.CardDetails;
 import be.kdg.teame.kandoe.util.preferences.PrefManager;
@@ -20,6 +18,10 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.mime.TypedByteArray;
+
+/**
+ * Presenter for the Session Add Cards feature
+ */
 
 public class SessionAddCardsPresenter implements SessionAddCardsContract.UserActionsListener{
 

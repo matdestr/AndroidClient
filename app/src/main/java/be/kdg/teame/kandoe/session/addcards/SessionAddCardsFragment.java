@@ -42,6 +42,10 @@ import butterknife.OnClick;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+/**
+ * Fragment for the SessionAddCards feature
+ */
+
 public class SessionAddCardsFragment extends BaseFragment implements SessionAddCardsContract.View, DialogInterface.OnDismissListener {
 
     @Bind(R.id.refresh_layout)

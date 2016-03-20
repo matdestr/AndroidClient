@@ -5,6 +5,9 @@ import be.kdg.teame.kandoe.core.contracts.InjectableUserActionsListener;
 import be.kdg.teame.kandoe.core.contracts.WebDataView;
 import be.kdg.teame.kandoe.models.users.dto.UpdateUserDTO;
 
+/**
+ * Contract for the MVP structure of the Edit Profile feature
+ */
 public interface ProfileEditContract {
 
     interface View extends AuthenticatedContract.View, WebDataView {
@@ -12,7 +15,6 @@ public interface ProfileEditContract {
     }
 
     interface UserActionsListener extends InjectableUserActionsListener<ProfileEditContract.View>, AuthenticatedContract.UserActionsListener {
-
         void updateUser(int userId, UpdateUserDTO updateUserDTO);
     }
 }

@@ -28,6 +28,10 @@ import be.kdg.teame.kandoe.util.validators.forms.FormField;
 import butterknife.Bind;
 import butterknife.OnClick;
 
+/**
+ * Activity for the profile edit
+ */
+
 public class ProfileEditActivity extends BaseTransparentToolbarActivity implements ProfileEditContract.View {
     public static final String USER = "USER";
 

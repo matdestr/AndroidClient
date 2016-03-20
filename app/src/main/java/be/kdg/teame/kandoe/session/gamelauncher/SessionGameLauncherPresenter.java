@@ -11,6 +11,10 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+/**
+ * Presenter for the Game launcher feature
+ */
+
 public class SessionGameLauncherPresenter implements SessionGameLauncherContract.UserActionsListener {
 
     private SessionGameLauncherContract.View mSessionGameLauncherView;

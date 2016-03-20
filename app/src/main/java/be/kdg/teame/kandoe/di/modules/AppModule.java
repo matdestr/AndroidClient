@@ -17,6 +17,10 @@ import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * Module that provides objects for injections from the application
+ */
+
 @Module
 public class AppModule {
     private Application mApp;

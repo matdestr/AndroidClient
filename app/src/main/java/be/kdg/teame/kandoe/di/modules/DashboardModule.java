@@ -7,6 +7,11 @@ import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import dagger.Module;
 import dagger.Provides;
 
+/**
+ * Module that provides objects for injections for the Dashboard activity
+ */
+
+
 @Module
 public class DashboardModule {
     @Provides

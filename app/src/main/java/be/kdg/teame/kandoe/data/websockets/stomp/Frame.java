@@ -8,6 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Frame used in the STOMP protocol
+ * https://stackoverflow.com/questions/24346068/set-up-a-stomp-client-in-android-with-spring-framework-in-server-side
+ */
+
 public class Frame {
 //  private final static String CONTENT_LENGTH = "content-length";
 
