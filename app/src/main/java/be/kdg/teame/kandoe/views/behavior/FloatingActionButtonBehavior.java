@@ -10,6 +10,8 @@ import android.view.View;
 /**
  * This class implements custom behavior for a {@link FloatingActionButton}.
  * When scrolling down, the {@link FloatingActionButton} disappears.
+ *
+ * @see <a href="http://androidessence.com/hide-the-floatingactionbutton-when-scrolling-a-recyclerview/">Android Essence</a>
  * */
 public class FloatingActionButtonBehavior extends FloatingActionButton.Behavior {
 

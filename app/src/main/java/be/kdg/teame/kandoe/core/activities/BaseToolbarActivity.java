@@ -8,7 +8,7 @@ import be.kdg.teame.kandoe.R;
 import butterknife.Bind;
 
 /**
- * Contains basic configuration for a view which contains a {@link Toolbar}.
+ * Contains basic configuration for an activity view which contains a {@link Toolbar}.
  *
  * @see BaseActivity
  */

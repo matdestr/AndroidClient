@@ -4,6 +4,8 @@ import android.view.animation.Interpolator;
 
 /**
  * A pre-baked bezier-curved interpolator for quantum-paper transitions.
+ *
+ * @see <a href="https://github.com/kyze8439690/RevealLayout/blob/master/app/src/main/java/me/yugy/github/reveallayout/BakedBezierInterpolator.java">GitHub</a>
  */
 public class BakedBezierInterpolator implements Interpolator {
 

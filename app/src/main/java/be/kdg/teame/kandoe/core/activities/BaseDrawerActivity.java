@@ -12,7 +12,7 @@ import be.kdg.teame.kandoe.util.preferences.Preferences;
 import butterknife.Bind;
 
 /**
- * Contains basic configuration for a view which contains a {@link DrawerLayout}.
+ * Contains basic configuration for an activity view which contains a {@link DrawerLayout}.
  *
  * @see BaseActivity
  * @see BaseToolbarActivity

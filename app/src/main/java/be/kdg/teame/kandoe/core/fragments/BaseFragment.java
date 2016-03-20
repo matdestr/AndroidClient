@@ -14,6 +14,9 @@ import be.kdg.teame.kandoe.core.contracts.AuthenticatedContract;
 import be.kdg.teame.kandoe.di.Injector;
 import be.kdg.teame.kandoe.di.components.AppComponent;
 
+/**
+ * Contains basic configuration for fragment view.
+ */
 public abstract class BaseFragment extends Fragment implements AuthenticatedContract.View {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

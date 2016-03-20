@@ -5,20 +5,18 @@ import android.util.Log;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Manages threads for web sockets. It handles incoming requests for threads and
+ * generates a new {@link Thread} if there isn't already one registered before.
+ * Otherwise the registered {@link Thread} will be returned.
+ * A unique {@link Thread} is formed by using a {@link SocketService} and an identifier of a generic type.
+ *
+ * @see SocketService
+ */
 public class WebSocketsManager {
     private static Set<Thread> threads = new HashSet<>();
 
     private WebSocketsManager() {
-
-    }
-
-    private static String generateUniqueThreadName(SocketService service) {
-        final String prefix = "Thread_";
-
-        return prefix
-                .concat(service.getClass().getSimpleName().replaceAll(" ", "_"))
-                .concat("_")
-                .concat(service.getSubscriptionId().replaceAll(" ", "_"));
     }
 
     private static <T> String generateUniqueThreadName(SocketService service, T identifier) {
@@ -37,7 +35,7 @@ public class WebSocketsManager {
      * Registers the thread in the {@link WebSocketsManager} if the thread not exists.
      * If the thread exists it will return the existing thread.
      *
-     * @return the existing thread
+     * @return a new thread or an existing thread
      */
     public static <T> Thread getThread(SocketService service, T identifier) {
         String name = generateUniqueThreadName(service, identifier);
@@ -58,28 +56,5 @@ public class WebSocketsManager {
         }
 
         return thread;
-    }
-
-
-    /**
-     * Registers the thread in the {@link WebSocketsManager} if the thread not exists.
-     * If the thread exists it will return the existing thread.
-     *
-     * @return the existing thread
-     */
-    public static Thread getThread(SocketService service) {
-        String name = generateUniqueThreadName(service);
-
-        for (Thread existingThread : threads)
-            if (name.equals(existingThread.getName()))
-                return existingThread;
-
-
-        Thread thread = new Thread(service, name);
-
-        threads.add(thread);
-
-        return thread;
-
     }
 }

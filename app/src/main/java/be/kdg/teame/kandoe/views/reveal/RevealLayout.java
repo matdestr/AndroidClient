@@ -19,6 +19,7 @@ import android.widget.FrameLayout;
  * The animation uses the {@link BakedBezierInterpolator} as interpolator.
  *
  * @see BakedBezierInterpolator
+ * @see <a href="https://github.com/kyze8439690/RevealLayout/blob/master/app/src/main/java/me/yugy/github/reveallayout/RevealLayout.java">GitHub</a>
  */
 @SuppressWarnings("unused")
 public class RevealLayout extends FrameLayout {

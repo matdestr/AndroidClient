@@ -17,7 +17,7 @@ import be.kdg.teame.kandoe.util.preferences.PrefManager;
 import butterknife.ButterKnife;
 
 /**
- * Contains basic configuration for a view.
+ * Contains basic configuration for an activity view.
  *
  * @see be.kdg.teame.kandoe.core.contracts.AuthenticatedContract.View
  */
