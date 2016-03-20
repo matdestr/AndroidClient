@@ -13,7 +13,6 @@
             android:padding="@dimen/material_content_space"
             tools:listitem="@layout/item_rank" />
 
-    <!-- TODO change ic_action_accept to ic_action_finish -->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_finish"
         android:layout_width="wrap_content"
@@ -22,7 +21,7 @@
         android:layout_marginBottom="@dimen/material_margin_default"
         android:layout_marginEnd="@dimen/material_margin_default"
         android:layout_marginRight="@dimen/material_margin_default"
-        android:src="@drawable/ic_action_accept"
+        android:src="@drawable/ic_action_finish"
         app:layout_anchor="@id/recycler_view"
         app:layout_anchorGravity="bottom|right|end"
         app:layout_behavior="be.kdg.teame.kandoe.views.behavior.FloatingActionButtonBehavior" />
