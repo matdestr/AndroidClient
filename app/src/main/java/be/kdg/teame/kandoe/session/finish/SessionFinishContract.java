@@ -8,8 +8,11 @@ import be.kdg.teame.kandoe.core.contracts.WebDataView;
 import be.kdg.teame.kandoe.models.cards.CardDetails;
 
 /**
+<<<<<<< Updated upstream
  * Interface that defines a contract between {@link SessionFinishFragment} and {@link SessionFinishPresenter}.
  * This allows the view and the presenter to communicate with each other.
+=======
+>>>>>>> Stashed changes
  * Contract for the MVP structure of the Session Finish feature
  */
 
