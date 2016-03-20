@@ -14,9 +14,11 @@ public interface SessionGameRankingContract {
         void showData(List<CardPosition> cardPositions);
 
         void updateData(List<CardPosition> cardPositions);
+
+        void setProgressIndicator(boolean b);
     }
 
     interface UserActionsListener extends InjectableUserActionsListener<View>, AuthenticatedContract.UserActionsListener, DataListener {
-
+        void endGame(int sessionId);
     }
 }

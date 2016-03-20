@@ -23,7 +23,9 @@
         android:layout_marginRight="@dimen/material_margin_default"
         android:src="@drawable/ic_action_finish"
         app:layout_anchor="@id/recycler_view"
-        app:layout_anchorGravity="bottom|right|end"
-        app:layout_behavior="be.kdg.teame.kandoe.views.behavior.FloatingActionButtonBehavior" />
+        app:layout_anchorGravity="bottom|right|end">
+        <!--app:layout_behavior="be.kdg.teame.kandoe.views.behavior.FloatingActionButtonBehavior" />-->
+    </android.support.design.widget.FloatingActionButton>
+
 
 </android.support.design.widget.CoordinatorLayout>

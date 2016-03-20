@@ -13,6 +13,8 @@ import be.kdg.teame.kandoe.session.addcards.SessionAddCardsContract;
 import be.kdg.teame.kandoe.session.addcards.SessionAddCardsPresenter;
 import be.kdg.teame.kandoe.session.choosecards.SessionChooseCardsContract;
 import be.kdg.teame.kandoe.session.choosecards.SessionChooseCardsPresenter;
+import be.kdg.teame.kandoe.session.finish.SessionFinishContract;
+import be.kdg.teame.kandoe.session.finish.SessionFinishPresenter;
 import be.kdg.teame.kandoe.session.game.SessionGameContract;
 import be.kdg.teame.kandoe.session.game.SessionGamePresenter;
 import be.kdg.teame.kandoe.session.game.picker.SessionGamePickerContract;
@@ -85,8 +87,13 @@ public class SessionModule {
     }
 
     @Provides
-    public SessionGameRankingContract.UserActionsListener provideSessionGameRankingPresenter(PrefManager prefManager) {
-        return new SessionGameRankingPresenter(prefManager);
+    public SessionGameRankingContract.UserActionsListener provideSessionGameRankingPresenter(SessionService sessionService, PrefManager prefManager) {
+        return new SessionGameRankingPresenter(sessionService, prefManager);
+    }
+
+    @Provides
+    public SessionFinishContract.UserActionsListener provideSessionFinishPresenter(SessionService sessionService, PrefManager prefManager){
+        return new SessionFinishPresenter(sessionService, prefManager);
     }
 
     @Provides

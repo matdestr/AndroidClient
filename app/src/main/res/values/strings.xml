@@ -77,4 +77,13 @@
     <string name="form_add_card_text">Enter a description for your card</string>
     <string name="form_add_review_text">Enter a comment for this card</string>
     <string name="action_accept">accept</string>
+    <string name="ending_game">ending game...</string>
+    <string name="session_invite_label">Invite users</string>
+    <string name="session_users_joining_label">Join session</string>
+    <string name="session_adding_cards_label">Add cards</string>
+    <string name="session_review_cards_label">Review cards</string>
+    <string name="session_choosing_cards_label">Choose cards</string>
+    <string name="session_game_launcher_label">Game launcher</string>
+    <string name="session_game_label">Game</string>
+    <string name="session_finish_label">Winning cards</string>
 </resources>

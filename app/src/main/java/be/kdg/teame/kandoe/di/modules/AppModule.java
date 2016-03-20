@@ -25,7 +25,6 @@ public class AppModule {
         this.mApp = application;
     }
 
-  // todo check if needed
     @Singleton
     @Provides
     public Context provideApplicationContext(){

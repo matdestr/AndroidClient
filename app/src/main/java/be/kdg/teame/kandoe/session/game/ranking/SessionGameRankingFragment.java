@@ -1,9 +1,12 @@
 package be.kdg.teame.kandoe.session.game.ranking;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +27,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import be.kdg.teame.kandoe.R;
+import be.kdg.teame.kandoe.core.DialogGenerator;
 import be.kdg.teame.kandoe.core.fragments.BaseFragment;
 import be.kdg.teame.kandoe.di.components.AppComponent;
 import be.kdg.teame.kandoe.models.cards.CardPosition;
@@ -31,6 +35,7 @@ import be.kdg.teame.kandoe.session.SessionActivity;
 import be.kdg.teame.kandoe.session.game.ChildFragmentReadyListener;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -49,7 +54,9 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
     @Inject
     SessionGameRankingContract.UserActionsListener mGameRankingContractPresenter;
 
+    private ProgressDialog mProgressDialog;
     private ChildFragmentReadyListener mFragmentReadyListener;
+    private int sessionId;
     private boolean isOrganizer;
 
     /**
@@ -68,7 +75,9 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
         mGameRankingContractPresenter.setView(this);
 
         Bundle args = getArguments();
-        isOrganizer = args.getBoolean(SessionActivity.SESSION_ID, false);
+        isOrganizer = args.getBoolean(SessionActivity.SESSION_IS_ORGANIZER, false);
+        sessionId = args.getInt(SessionActivity.SESSION_ID);
+        Log.d(getClass().getSimpleName(), "isOrganizer: " + isOrganizer);
     }
 
     @Nullable
@@ -81,8 +90,9 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
         recyclerView.setAdapter(mRankAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        //todo fix this
-        if (!isOrganizer)
+        mProgressDialog = DialogGenerator.createProgressDialog(getContext(), R.string.ending_game);
+
+        if (isOrganizer)
             mFabFinish.setVisibility(View.VISIBLE);
         else
             mFabFinish.setVisibility(View.GONE);
@@ -104,7 +114,23 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
 
     @Override
     public void showErrorConnectionFailure(String errorMessage) {
+        if (getView() == null) return;
 
+        Snackbar snackbar = Snackbar.make(getView(), errorMessage, Snackbar.LENGTH_LONG);
+
+        View sbView = snackbar.getView();
+        TextView textView = ButterKnife.findById(sbView, android.support.design.R.id.snackbar_text);
+        textView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextLight));
+
+        snackbar.show();
+    }
+
+    @OnClick(R.id.fab_finish)
+    void endGame(){
+        if (isOrganizer){
+            Log.d(getClass().getSimpleName(), "ending game");
+            mGameRankingContractPresenter.endGame(sessionId);
+        }
     }
 
     @Override
@@ -116,6 +142,14 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
     @Override
     public void updateData(List<CardPosition> cardPositions) {
         mRankAdapter.replaceData(cardPositions);
+    }
+
+    @Override
+    public void setProgressIndicator(boolean active) {
+        if (active)
+            mProgressDialog.show();
+        else
+            mProgressDialog.dismiss();
     }
 
 
@@ -146,8 +180,6 @@ public class SessionGameRankingFragment extends BaseFragment implements SessionG
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, int position) {
             CardPosition cardPosition = mCardPositions.get(position);
-
-            //viewHolder.cardTitle.getBackground().setAlpha(95);
 
             viewHolder.cardTitle.setText(cardPosition.getCardDetails().getText());
             viewHolder.rank.setText("" + (position + 1));

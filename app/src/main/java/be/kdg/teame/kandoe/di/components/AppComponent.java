@@ -21,6 +21,8 @@ import be.kdg.teame.kandoe.profile.edit.ProfileEditActivity;
 import be.kdg.teame.kandoe.session.SessionActivity;
 import be.kdg.teame.kandoe.session.addcards.SessionAddCardsFragment;
 import be.kdg.teame.kandoe.session.choosecards.SessionChooseCardsFragment;
+import be.kdg.teame.kandoe.session.finish.SessionFinishContract;
+import be.kdg.teame.kandoe.session.finish.SessionFinishFragment;
 import be.kdg.teame.kandoe.session.game.SessionGameFragment;
 import be.kdg.teame.kandoe.session.game.picker.SessionGamePickerFragment;
 import be.kdg.teame.kandoe.session.game.ranking.SessionGameRankingFragment;
@@ -84,6 +86,8 @@ public interface AppComponent {
     void inject(SessionGamePickerFragment sessionGamePickerFragment);
 
     void inject(SessionGameRankingFragment sessionGameRankingFragment);
+
+    void inject(SessionFinishFragment sessionFinishFragment);
 
     void inject(SessionInviteFragment sessionInviteFragment);
 }

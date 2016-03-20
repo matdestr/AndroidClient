@@ -79,4 +79,6 @@ public interface SessionService {
     @POST(ENDPOINT + "/{sessionId}/invite/confirm")
     void confirmInvitation(@Path("sessionId") int sessionId, Callback<Object> callback);
 
+    @GET(ENDPOINT  + "/{sessionId}/winning-cards")
+    void getWinners(@Path("sessionId") int sessionId, Callback<List<CardDetails>> callback);
 }
